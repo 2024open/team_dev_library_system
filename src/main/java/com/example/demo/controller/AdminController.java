@@ -12,4 +12,10 @@ public class AdminController {
 		return "";
 	}
 
+	@GetMapping("/admin/home")
+	public String home() {
+//		処理は後で書く
+		return "";
+	}
+
 }
