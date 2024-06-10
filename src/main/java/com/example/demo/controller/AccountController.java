@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class AccountController {
 
+
 	@Autowired
 	HttpSession session;
 
@@ -25,7 +26,47 @@ public class AccountController {
 	@Autowired
 	AccountRepository accountRepository;
 
-	
+	  //ログイン実行
+    @PostMapping("/login")
+    public String login(
+            @RequestParam("email")String email,
+            @RequestParam("password")String password,
+            Model model){
+        //エラー処理
+        List<String> errorList = new ArrayList<>();
+        //文字数のチェック
+        if(email.length() >= 101) {
+            errorList.add("メールアドレスは100字以内で入力してください");
+        }
+        if(email.length()==0){
+            errorList.add("メールアドレスを入力してください");
+        }
+        if(password.length() >= 31) {
+            errorList.add("パスワードは30字以内で入力してaaaaください");
+        }
+        if(password.length() == 0) {
+            errorList.add("パスワードを入力してください");
+        }
+        if(!errorList.isEmpty()) {
+            model.addAttribute("errorLists",errorList);
+            return "login";
+        }
+
+        List<Account> accountList = accountrepository.findByEmailAndPassword(email,password);
+        if (accountList == null || accountList.size() == 0) {
+            // 存在しなかった場合
+            model.addAttribute("errorLists", "メールアドレスとパスワードが一致しませんでした");
+            return "login";
+        }
+        Account account = accountList.get(0);
+        //セッション管理されたアカウント情報に名前をセット
+        session.setAttribute("userName", account.getUserName());
+        session.setAttribute("userId", account.getUserId());
+
+        //[/items]へリダイレクト
+        return "redirect:/lendItems";
+    }
+
 
 	//　会員登録画面表示
 	@GetMapping("/users/new")
@@ -98,3 +139,23 @@ public class AccountController {
 		return "redirect:/login";
 	}
 }
+
+
+
+    //ログイン画面表示
+    @GetMapping({"","/login","/logout"})
+    public String index(
+            @RequestParam(name = "error",defaultValue="")String error,
+            Model model){
+        //セッション情報を全てクリア
+        session.invalidate();
+        //エラーパラメータのチェック
+        if(error.equals("notloggedIn")){
+            model.addAttribute("message","ログインしてください");
+        }
+        return "login";
+    }
+
+  
+}
+
