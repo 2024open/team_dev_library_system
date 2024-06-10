@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>管理者ログイン</title>
+</head>
+
+<body>
+	<h1>管理者ログイン</h1>
+	<br>
+
+	<form action="/su/login" method="post">
+		
+		図書館<select name="library">
+			<option value="1">名古屋</option>
+			<option value="2">栄</option>
+			<option value="3">金山</option>
+		</select><br>
+		
+		管理者<select name="privilege">
+			<option value="0">システム管理者</option>
+			<option value="1">司書</option>
+		</select><br>
+		
+		<input type="email" name="email" th:value="${email}" placeholder="メールアドレス"><br>
+		
+		<input type="password" name="password" th:value="${password}" placeholder="パスワード"><br>
+		<button>ログイン</button>
+	</form>
+
+	<p th:each="error:${errorList}">
+		<span th:text="${error}" style="color: red"></span>
+	</p>
+
+</body>
+
+</html>

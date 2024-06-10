@@ -1,5 +1,39 @@
 <!DOCTYPE html>
 <html>
+<head>
+<meta charset="UTF-8">
+<title>お知らせ画面だYo!!</title>
+</head>
+<body>
+	<!--TODO選択できるだけ-->
+	<select name="example">
+    	<option>名古屋</option>
+    	<option>栄</option>
+    	<option>金山</option>
+    </select>
+    <h1>図書館</h1>
+    <br><a href="/login">ログイン</a>
+    <!--メニューの囲い-->
+    <div style="padding: 10px; margin-bottom: 10px; border: 1px solid #333333;">
+		<h1>メニュー</h1>
+    </div>
+    <!--メニュー内部の囲い-->
+    <div style="padding: 10px; margin-bottom: 10px; border: 1px solid #333333;">
+		<!--TODOお知らせだけ動く他は404-->
+		<br><a href="/lemdItem">・ホーム</a>
+		<br><a href="/notice">・お知らせ</a>
+		<br><a href="/lending">・現在借りている物</a>
+		<br><a href="/reservation">・予約一覧</a>
+		<br><a href="/lendingHistory">・貸出履歴</a>
+    </div>
+    <h1>お知らせ</h1>
+    <div style="padding: 10px; margin-bottom: 10px; border: 1px solid #333333;">
+		<tr th:each="notice:${notices}">
+			<td th:text="${notice.noticeDate"></td>
+			<td th:text="${notice.title}"></td>
+		</tr>
+    </div>
+</body>
 
 <head>
 	<meta charset="UTF-8">
