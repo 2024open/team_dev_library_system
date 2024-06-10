@@ -35,19 +35,16 @@ public class Account {
 	public Account() {
 	}
 
-<<<<<<< HEAD
-	public Account(String userName, String nickname, String email, String password, Integer privilege, Boolean ban,
-			Boolean deleted) {
+//	会員登録用コンストラクタ
+	public Account( String userName, String nickname, String email, String password) {
+
 		this.userName = userName;
 		this.nickname = nickname;
 		this.email = email;
 		this.password = password;
-		this.privilege = privilege;
-		this.ban = ban;
-		this.deleted = deleted;
 	}
 	
-//	ゲッターセッター
+	// ゲッター、セッター
 	public Integer getUserId() {
 		return userId;
 	}
@@ -64,21 +61,12 @@ public class Account {
 		this.userName = userName;
 	}
 
-	public String getNickname() {		
+	public String getNickname() {
 		return nickname;
 	}
 
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
-	}
-
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getPassword() {
@@ -88,15 +76,28 @@ public class Account {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
-=======
-	public Account(String userName, String nickname, String email, String password) {
-		this.userName = userName;
-		this.nickname = nickname;
-		this.email = email;
-		this.password = password;
+
+	public Integer getPrivilege() {
+		return privilege;
 	}
 
->>>>>>> branch 'master' of git@github.com:2024open/team_dev_library_system.git
+	public void setPrivilege(Integer privilege) {
+		this.privilege = privilege;
+	}
+
+	public Boolean getBan() {
+		return ban;
+	}
+
+	public void setBan(Boolean ban) {
+		this.ban = ban;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
 }
