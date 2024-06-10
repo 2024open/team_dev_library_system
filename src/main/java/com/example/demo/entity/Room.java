@@ -9,26 +9,20 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "library")
+@Table(name = "room")
 @Data
-public class Library {
+public class Room {
+
 	@Id
-	@Column(name = "library_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer libraryId;
+	@Column(name = "room_id")
+	public String roomId;
 
-	@Column(name = "library_name")
-	private String libraryName;
+	@Column(name = "room_name")
+	public String roomName;
 
-	@Column(name = "libarary_address")
-	private String libraryAddress;
+	public Boolean deleted;
 
-	@Column(name = "library_tel")
-	private String libraryTel;
-
-	private Boolean deleted;
-
-	public Library() {
+	public Room() {
 	}
-
 }
