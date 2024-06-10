@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class SuperUserController {
-	
-	@GetMapping("/")
+
+	@GetMapping({ "/", "/home" })
 	public String index() {
 		return "testFile";
 	}
