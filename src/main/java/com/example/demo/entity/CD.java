@@ -1,7 +1,5 @@
 package com.example.demo.entity;
 
-import java.util.Date;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,28 +9,27 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "notice")
+@Table(name = "cd")
 @Data
-public class Notice {
+public class CD {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "notice_id")
-	private Integer noticeId;
-
-	@Column(name = "library_id")
-	private Integer libraryId;
-
-	@Column(name = "user_id")
-	private Integer userId;
+	@Column(name = "cd_id")
+	private Integer cdId;
 
 	private String title;
 
-	private String content;
+	private String author;
 
-	@Column(name = "notice_date")
-	private Date noticeDate;
+	private String publisher;
 
-	public Notice() {
+	@Column(name = "genre_id")
+	private Integer genreId;
+
+	private Boolean deleted;
+
+	public CD() {
 	}
+
 }

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.tyhmeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>貸出物一覧 / 管理者</title>
+</head>
+<body>
+	<form action="/librarian/lenditems" method="get">
+		<select name="categoryId">
+			<option th:each="category : ${categoryList}" th:value="${category.categoryId}">[[${category.categoryName}]]</option>
+		</select>
+		
+		<button>検索</button>
+	</form>
+	
+	<th:block th:if="${LendJoinAny}">
+		<table border="1">
+			<tr>
+				<th>ID</th>
+				<th>カテゴリ</th>
+				<th>タイトル</th>
+				<th>状態</th>
+			</tr>
+			<tr th:each="LendItem : ${LendJoinAny}">
+				<td>[[${LendItem.lendItemId}]]</td>
+				<td>[[${LendItem.genreName}]]</td>
+				<td>[[${LendItem.title}]]</td>
+				<td>[[${LendItem.statusName}]]</td>
+			</tr>
+			
+		</table>
+		
+	</th:block>
+</body>
+</html>

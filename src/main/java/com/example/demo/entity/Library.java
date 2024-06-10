@@ -33,4 +33,7 @@ public class Library {
 //		return libraryId;
 //	}
 
+	public Library() {
+	}
+
 }

@@ -11,28 +11,33 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "notice")
+@Table(name = "lending_item")
 @Data
-public class Notice {
+public class LendingItem {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "notice_id")
-	private Integer noticeId;
+	@Column(name = "lending_item_id")
+	private Integer lendingItemId;
 
-	@Column(name = "library_id")
-	private Integer libraryId;
+	@Column(name = "lend_item_id")
+	private Integer lendItemId;
 
 	@Column(name = "user_id")
 	private Integer userId;
 
-	private String title;
+	@Column(name = "return_date")
+	private Date returnDate;
 
-	private String content;
+	@Column(name = "borrowd_date")
+	private Date borrowedDate;
 
-	@Column(name = "notice_date")
-	private Date noticeDate;
+	@Column(name = "status_id")
+	private Integer statusId;
 
-	public Notice() {
+	private Boolean deleted;
+
+	public LendingItem() {
 	}
+
 }

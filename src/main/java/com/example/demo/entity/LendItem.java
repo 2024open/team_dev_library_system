@@ -39,4 +39,7 @@ public class LendItem {
 	private Integer anyId;
 
 	private Boolean deleted;
+
+	public LendItem() {
+	}
 }
