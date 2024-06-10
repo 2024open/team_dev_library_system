@@ -8,15 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-
-import com.example.demo.entity.AllUserLendList;
-import com.example.demo.repository.ALLUserLendListRepoitory;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Account;
+import com.example.demo.entity.AllUserLendList;
+import com.example.demo.repository.ALLUserLendListRepoitory;
 import com.example.demo.repository.AccountRepository;
 
 import jakarta.servlet.http.HttpSession;
@@ -56,7 +53,7 @@ public class SuperUserController {
   }
   
 	//	管理者ログイン画面表示
-	@GetMapping({"/su/login", "su/logout" })
+	@GetMapping({"/su/login", "/su/logout" })
 	public String index(
 			@RequestParam(name = "error", defaultValue = "") String error,
 			Model model) {
@@ -75,15 +72,15 @@ public class SuperUserController {
 	//ログイン実行
 	@PostMapping("/su/login")
 	public String login(			
-			@RequestParam("library") String library,
+			@RequestParam("privilege") int privilege,
 			@RequestParam("email") String email,
 			@RequestParam("password") String password,
 			Model model) {
 
-		List<Account> accountList = accountRepository.findByEmailAndPassword(email, password);
+		List<Account> accountList = accountRepository.findByEmailAndPasswordAndPrivilege(email, password, privilege);
 		
 //		TODO
-//		エラーチェック
+//		権限エラーチェック
 		List<String> errorList = new ArrayList<>();
 		if (email.length() == 0) {
 			errorList.add("メールアドレスを入力してください");
