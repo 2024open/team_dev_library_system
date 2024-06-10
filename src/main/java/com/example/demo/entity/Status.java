@@ -12,7 +12,6 @@ import lombok.Data;
 @Table(name = "status")
 @Data
 public class Status {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "status_id")
