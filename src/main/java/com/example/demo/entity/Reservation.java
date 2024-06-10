@@ -11,28 +11,25 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "notice")
+@Table(name = "reservation")
 @Data
-public class Notice {
+public class Reservation {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "notice_id")
-	private Integer noticeId;
+	@Column(name = "reservation_id")
+	private Integer reservationId;
 
-	@Column(name = "library_id")
-	private Integer libraryId;
+	@Column(name = "lend_item_id")
+	private Integer LendItemId;
 
 	@Column(name = "user_id")
 	private Integer userId;
 
-	private String title;
+	@Column(name = "reservation_date")
+	private Date rervationDate;
 
-	private String content;
-
-	@Column(name = "notice_date")
-	private Date noticeDate;
-
-	public Notice() {
+	public Reservation() {
 	}
+
 }
