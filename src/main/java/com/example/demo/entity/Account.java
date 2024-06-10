@@ -35,6 +35,7 @@ public class Account {
 	public Account() {
 	}
 
+<<<<<<< HEAD
 	public Account(String userName, String nickname, String email, String password, Integer privilege, Boolean ban,
 			Boolean deleted) {
 		this.userName = userName;
@@ -89,4 +90,13 @@ public class Account {
 	}
 	
 	
+=======
+	public Account(String userName, String nickname, String email, String password) {
+		this.userName = userName;
+		this.nickname = nickname;
+		this.email = email;
+		this.password = password;
+	}
+
+>>>>>>> branch 'master' of git@github.com:2024open/team_dev_library_system.git
 }

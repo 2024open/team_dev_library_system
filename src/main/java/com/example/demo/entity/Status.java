@@ -21,4 +21,7 @@ public class Status {
 	private String statusName;
 
 	private Boolean deleted;
+
+	public Status() {
+	}
 }
