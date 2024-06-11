@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +34,8 @@ import com.example.demo.service.LibrarianService;
 public class LibrarianController {
 
 	@Autowired
-	LibrarianService librarianService;
-
+	HttpSession session;
+	
 	@Autowired
 	CategoryRepository categoryRepository;
 
@@ -50,6 +49,7 @@ public class LibrarianController {
 	SuperUser superUser;
 
 	@Autowired
+
 	AccountRepository accountRepository;
 
 	@Autowired
@@ -64,12 +64,12 @@ public class LibrarianController {
 	@Autowired
 	AdminLendListRepoitory adminLendListRepository;
 
-	// お知らせ一覧表示
+  
+  // お知らせ一覧表示
 	@GetMapping("/librarian/notice")
 	public String notice(Model model) {
 
 		List<Notice> noticeList = noticeRepository.findAll();
-
 		model.addAttribute("notices", noticeList);
 		return "noticeAdmin";
 	}
@@ -184,7 +184,7 @@ public class LibrarianController {
 		return "librarianLendItems";
 	}
 
-	//貸出処理画面
+//貸出処理画面
 	@GetMapping("/librarian/lendProcess")
 	public String lendProcess(
 			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
@@ -209,6 +209,13 @@ public class LibrarianController {
 		return "librarianLendProcess";
 	}
 
+	// お知らせ新規登録画面の表示
+	@GetMapping("/notice/add")
+	public String create() {
+		return "addNotice";
+	}
+
+
 	//貸出処理
 	//TODO
 	@PostMapping("/librarian/lendProcess")
@@ -217,7 +224,7 @@ public class LibrarianController {
 			@RequestParam(name = "libraryId", defaultValue = "1") Integer libraryId,
 			@RequestParam(name = "title", defaultValue = "") String title,
 			@RequestParam(name = "email", defaultValue = "") String email,
-			Model model) {
+  Model model) {
 		//email見つかるか
 		List<Account> tmpList = accountRepository.findByEmail(email);
 		Account lenderAccount = new Account();
@@ -258,7 +265,7 @@ public class LibrarianController {
 		return "redirect:/librarian/lendProcess";
 	}
 
-	//貸出物更新画面
+//貸出物更新画面
 	@GetMapping("/librarian/lenditems/{id}/edit")
 	public String edit(
 			@PathVariable("id") String lendItemIdStr,
@@ -288,4 +295,61 @@ public class LibrarianController {
 		return "redirect:/librarian/lenditems/{id}/edit";
 	}
 
+	// 新規登録処理
+	@PostMapping("/notice/add")
+	public String store(
+			@RequestParam(value = "title", defaultValue = "") String title,
+			@RequestParam(value = "content", defaultValue = "") String content,
+			Model model) {
+		
+		Integer userId =superUser.getLibraryId();
+		Integer libraryId =superUser.getUserId();
+		
+
+		// Noticeオブジェクトの生成
+		Notice notice = new Notice(libraryId, userId, title, content);
+		// noticeテーブルへの反映（INSERT）
+		
+		noticeRepository.save(notice);
+		return "redirect:/librarian/notice";
+	}
+
+	// お知らせ更新画面表示
+	@GetMapping("/notice/{noticeId}/edit")
+	public String edit(
+      @PathVariable("noticeId") Integer noticeId,
+			Model model) {
+
+		// itemsテーブルをID（主キー）で検索
+		Notice notice = noticeRepository.findById(noticeId).get();
+		model.addAttribute("notice", notice);
+		return "editNotice";
+	}
+
+	// お知らせ更新処理
+	@PostMapping("/notice/{noticeId}/edit")
+	public String update(
+			@PathVariable("noticeId") Integer noticeId,
+			@RequestParam(value = "title", defaultValue = "") String title,
+			@RequestParam(value = "content", defaultValue = "") String content,
+			Model model) {
+    
+    Integer userId =superUser.getLibraryId();
+		Integer libraryId =superUser.getUserId();
+		Notice notice = new Notice(noticeId,libraryId, userId, title, content);
+	
+		noticeRepository.save(notice);
+		
+		return "redirect:/librarian/notice";
+  }
+
+	// お知らせ削除処理
+	@PostMapping("/items/{noticeId}/delete")
+	public String delete(@PathVariable("noticeId") Integer noticeId, Model model) {
+
+		noticeRepository.deleteById(noticeId);
+
+		return "redirect:/librarian/notice";
+	}
 }
+

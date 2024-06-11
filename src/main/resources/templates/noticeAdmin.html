@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>お知らせ一覧</title>
+</head>
+
+<body>
+	<a href="/notice/add">新規投稿</a>
+	
+	<h1>お知らせ一覧</h1>
+
+	
+
+	<table border="1">
+		<tr>
+			<th>お知らせID</th>
+			<th>タイトル</th>
+			<th>内容</th>
+			<th>更新</th>
+			<th>削除</th>
+		</tr>
+		<tr th:each="notice:${notices}">
+			<td th:text="${notice.noticeId}"></td>
+			<td th:text="${notice.title}"></td>
+			<td th:text="${notice.content}"></td>
+			<td>
+				<form th:action="@{/notice/{noticeId}/edit(noticeId=${notice.noticeId})}" method="get">
+					<button>更新</button>
+				</form>
+			</td>
+			<td>
+				<form th:action="@{/notice/{noticeId}/delete(noticeId=${notice.noticeId})}" method="post">
+					<button>削除</button>
+				</form>
+			</td>
+		</tr>
+	</table>
+
+</body>
+
+</html>
