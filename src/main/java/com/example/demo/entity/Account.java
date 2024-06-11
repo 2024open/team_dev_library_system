@@ -36,12 +36,16 @@ public class Account {
 	}
 
 //	会員登録用コンストラクタ
-	public Account( String userName, String nickname, String email, String password) {
+	public Account( String userName, String nickname, String email, String password,Integer privilege, Boolean ban,Boolean deleted) {
 
 		this.userName = userName;
 		this.nickname = nickname;
 		this.email = email;
 		this.password = password;
+		this.privilege = privilege;
+		this.ban = ban;
+		this.deleted = deleted;
+		
 	}
 	
 	// ゲッター、セッター

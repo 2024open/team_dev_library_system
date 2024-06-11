@@ -1,15 +1,20 @@
 <!DOCTYPE html>
-<html xmlns:th = "http://www.tyhmeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>貸出物一覧 / 管理者</title>
+<title>貸出物一覧 / 司書</title>
 </head>
 <body>
+	<header th:replace ="adminHeader"></header>
+	<sidebar th:replace="librarianSidebar"></sidebar>
+	<div th:replace="libraryPullDown"></div>
+	
 	<form action="/librarian/lenditems" method="get">
 		<select name="categoryId">
 			<option th:each="category : ${categoryList}" th:value="${category.categoryId}">[[${category.categoryName}]]</option>
 		</select>
 		
+		<input type="hidden" name = "libraryId" th:value="${libraryId}">
 		<button>検索</button>
 	</form>
 	
@@ -20,16 +25,36 @@
 				<th>カテゴリ</th>
 				<th>タイトル</th>
 				<th>状態</th>
+				<th>編集</th>
 			</tr>
 			<tr th:each="LendItem : ${LendJoinAny}">
 				<td>[[${LendItem.lendItemId}]]</td>
 				<td>[[${LendItem.genreName}]]</td>
 				<td>[[${LendItem.title}]]</td>
 				<td>[[${LendItem.statusName}]]</td>
+				<td>
+					<form th:action="@{/librarian/lenditems/{id}/edit(id = ${LendItem.lendItemId})}" method="get">
+						<input type="hidden" name = "libraryId" th:value="${libraryId}">
+						<button>編集</button>
+					</form>
+				</td>
 			</tr>
-			
-		</table>
-		
+		</table>	
+	</th:block>
+	
+	<th:block th:if="${LendJoinRoom}">
+		<table border="1">
+			<tr>
+				<th>ID</th>
+				<th>会議室名</th>
+				<th>状態</th>
+			</tr>
+			<tr th:each="LendRoom : ${LendJoinRoom}">
+				<td>[[${LendRoom.lendItemId}]]</td>
+				<td>[[${LendRoom.roomName}]]</td>
+				<td>[[${LendRoom.statusName}]]</td>
+			</tr>
+		</table>	
 	</th:block>
 </body>
 </html>

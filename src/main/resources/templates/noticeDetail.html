@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>お知らせ画面だYo!!</title>
+<title>Insert title here</title>
 <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -29,34 +29,16 @@
 		<br><a href="/reservation">・予約一覧</a>
 		<br><a href="/lendingHistory">・貸出履歴</a>
 	</div>
-    <div class="align_center">
-    <h1>お知らせ</h1>
-    <div class="border">
-	<tr th:each="notice:${noticeList}">		<!--日付-->								<!--タイトル-->
-		<a href="/notice/{id}"><td th:text="${notice.noticeDate}"></td><td th:text="${notice.title}"></td></a><br>
+	<div class="align_center">
+	<div class="border">
+	<tr th:each="notice:${notice}">
+		<td th:text="${notice.noticeDate"></td>
+		<td th:text="${notice.title}"></td>
 	</tr>
-    </div>
-    </div>
+		<div class="border">
+			<td th:text="${notice.content}"></td>
+		</div>
+	</div>
+	</div>
 </body>
-
-<head>
-	<meta charset="UTF-8">
-	<title>名古屋図書館</title>
-</head>
-
-<body>
-	<h1>名古屋図書館</h1>
-	<header th:replace="header"></header>
-	<table>
-		<tr>
-		<th>日付</th>
-		<th>内容</th>
-		</tr>
-		<tr>
-			<td></td>
-			<td></td>
-		</tr>
-	</table>
-</body>
-
 </html>
