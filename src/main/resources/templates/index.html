@@ -53,7 +53,7 @@
 			<th>貸出可否</th>
 		<tr th:each="lendItem:${lendItemList}">
 			<td th:text="${genreMap[lendItem.genreId]}"></td>
-			<td><a th:href="@{/lendItem/{id}(id=${lendItem.lendItemId})}">
+			<td><a th:href="@{/lendItems/{id}(id=${lendItem.lendItemId})}">
 					<p th:text="${lendItem.title}"></p>
 				</a></td>
 			<td th:text="${lendItem.author}"></td>

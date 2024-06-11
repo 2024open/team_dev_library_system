@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Data;
 
 @Entity
@@ -27,9 +28,15 @@ public class Reservation {
 	private Integer userId;
 
 	@Column(name = "reservation_date")
-	private Date rervationDate;
+	@Transient private Date rervationDate;
 
 	public Reservation() {
+	}
+
+	public Reservation(Integer lendItemId, Integer userId) {
+		super();
+		LendItemId = lendItemId;
+		this.userId = userId;
 	}
 
 }
