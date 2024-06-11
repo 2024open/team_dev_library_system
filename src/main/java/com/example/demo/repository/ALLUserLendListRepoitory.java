@@ -9,14 +9,14 @@ import com.example.demo.entity.AllUserLendList;
 
 public interface ALLUserLendListRepoitory extends JpaRepository<AllUserLendList, Integer> {
 	
-	//ALL
-	static String sqlALLUserLendJoin = "SELECT lend_item.lend_item_id,lend_item.library_id, book.genre_id, book.title, book.author, lend_item.status_id "
-			+ "FROM lend_item "
-			+ "INNER JOIN book "
-			+ "ON lend_item.any_id = book.book_id  "
-			+ "WHERE lend_item.library_id=1;";
-	@Query(value = sqlALLUserLendJoin, nativeQuery = true)
-	List<AllUserLendList> sqlALLUserLendJoin();
+//	//ALL
+//	static String sqlALLUserLendJoin = "SELECT lend_item.lend_item_id,lend_item.library_id, book.genre_id, book.title, book.author, lend_item.status_id "
+//			+ "FROM lend_item "
+//			+ "INNER JOIN book "
+//			+ "ON lend_item.any_id = book.book_id  "
+//			+ "WHERE lend_item.library_id=1;";
+//	@Query(value = sqlALLUserLendJoin, nativeQuery = true)
+//	List<AllUserLendList> sqlALLUserLendJoin();
 	
 	//本
 	static String sqlALLUserBookLendJoinBook = "SELECT lend_item.lend_item_id,lend_item.library_id, book.genre_id, book.title, book.author, lend_item.status_id "
@@ -24,7 +24,7 @@ public interface ALLUserLendListRepoitory extends JpaRepository<AllUserLendList,
 			+ "INNER JOIN book "
 			+ "ON lend_item.any_id = book.book_id "
 			+ "WHERE lend_item.category_id=1 AND lend_item.library_id=1;";
-
+	
 	@Query(value = sqlALLUserBookLendJoinBook, nativeQuery = true)
 	List<AllUserLendList> sqlALLUserBookLendJoin();
 	

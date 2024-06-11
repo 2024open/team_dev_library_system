@@ -19,11 +19,11 @@ import jakarta.servlet.http.HttpSession;
 public class AccountController {
 
 	@Autowired
-	HttpSession session;
-
-	@Autowired
 	AccountRepository accountRepository;
 	
+	@Autowired
+	HttpSession session;
+
 	   //ログイン画面表示
     @GetMapping({"","/login","/logout"})
     public String index(
@@ -75,7 +75,7 @@ public class AccountController {
         session.setAttribute("userId", account.getUserId());
 
         //[/items]へリダイレクト
-        return "redirect:/lendItems";
+        return "redirect:/lendItem";
     }
 
 
