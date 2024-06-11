@@ -20,7 +20,7 @@ public class Library {
 	@Column(name = "library_name")
 	private String libraryName;
 
-	@Column(name = "libarary_address")
+	@Column(name = "library_address")
 	private String libraryAddress;
 
 	@Column(name = "library_tel")
@@ -29,9 +29,9 @@ public class Library {
 	private Boolean deleted;
 
 	////TODO ここじゃないかも
-//	public Integer getId() {
-//		return libraryId;
-//	}
+	//	public Integer getId() {
+	//		return libraryId;
+	//	}
 
 	public Library() {
 	}

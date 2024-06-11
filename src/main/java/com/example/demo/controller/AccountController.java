@@ -81,14 +81,13 @@ public class AccountController {
 
 	//　会員登録画面表示
 	@GetMapping("/users/new")
-	public String customer() {
+	public String newUser() {
 		return "newAccount";
 	}
 
 	//	会員登録処理
 	@PostMapping("/users/new")
-	public String store(
-			@RequestParam(value = "userName", defaultValue = "") String userName,
+	public String add(@RequestParam(value = "userName", defaultValue = "") String userName,
 			@RequestParam(value = "nickname", defaultValue = "") String nickname,
 			@RequestParam(value = "email", defaultValue = "") String email,
 			@RequestParam(value = "password", defaultValue = "") String password,
@@ -140,14 +139,19 @@ public class AccountController {
 			model.addAttribute("password", password);
 			return "newAccount";
 		}
-
+		
+//		ユーザーの初期設定
+		Integer privilege= 2 ;
+		Boolean ban =false;
+		Boolean deleted = false;
+		
 		// Accountオブジェクトの生成
-		Account account = new Account(userName, nickname, email, password);
+		Account account = new Account(userName, nickname, email, password, privilege, ban, deleted);
 
 		// accountテーブルへの反映（INSERT）
 		accountRepository.save(account);
 
-		return "redirect:/login";
+		return "redirect:/home";
 	}
 
 
