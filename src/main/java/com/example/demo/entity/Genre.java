@@ -24,4 +24,7 @@ public class Genre {
 	private Integer categoryId;
 
 	private Boolean deleted;
+
+	public Genre() {
+	}
 }

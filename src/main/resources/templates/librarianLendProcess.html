@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>貸出処理 返却処理</title>
+</head>
+<body>
+	<header th:replace ="adminHeader"></header>
+	<sidebar th:replace="librarianSidebar"></sidebar>
+	
+	<h1>貸出処理</h1>
+	
+	<form action="/librarian/lendProcess" method="get">
+		<input type="number" name="lendItemId">
+		<button>検索</button>
+	</form>
+	
+	<th:block th:if="${lendItem}">
+		<form action="/librarian/lendProcess" method="post">
+			<table border="1">
+				<tr>
+					<th>貸出物ID</th>
+					<td>[[${lendItem.lendItemId}]]</td>
+				</tr>
+				<tr>
+					<th>貸出物名</th>
+					<td>[[${title}]]</td>
+				</tr>
+				<tr>
+					<th>状態</th>
+					<td>[[${lendItem.statusName}]]</td>
+				</tr>
+				<tr>
+					<th>email</th>
+					<td>
+						<input type="text" name="email">
+					</td>
+				</tr>
+			</table>
+			
+			<input type="hidden" name="lendItemId" th:value="${lendItem.lendItemId}">
+			<input type="hidden" name="libraryId" th:value="${library.libraryId}">
+			<input type="hidden" name="title" th:value="${title}">
+			<button>処理</button>
+		</form>
+	</th:block>
+</body>
+</html>
