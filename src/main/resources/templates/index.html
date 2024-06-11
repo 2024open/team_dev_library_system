@@ -7,47 +7,57 @@
 </head>
 
 <body>
-	<h1>名古屋図書館</h1>
 	<header th:replace="header"></header>
+
+	<script>
+		$(function () {
+			$("#submit_item").change(function () {
+				$("#submit_form").submit();
+			});
+		});
+	</script>
+
 	<form action="/" method="get">
-		<select name="category">
+		<select name="category" onchange="submit(this.form)">
 			<option value="">カテゴリ</option>
 			<option class="category" value="1">本</option>
 			<option class="category" value="2">CD</option>
 			<option class="category" value="3">DVD</option>
 			<option class="category" value="4">紙芝居</option>
-			<option class="category" value="5">貸会議室</option>
+<!--			<option class="category" value="5">貸会議室</option>-->
 		</select>
-		<input type="text">
-		<button>検索</button><br>
-<!--		<select>-->
-<!--			<option value="">図書館</option>-->
-<!--			<option value="">名古屋</option>-->
-<!--			<option value="">栄</option>-->
-<!--			<option value="">金山</option>-->
-<!--		</select>-->
+<!--		<input type="text">-->
+<!--		<button>検索</button><br>-->
+		<!--		<select>-->
+		<!--			<option value="">図書館</option>-->
+		<!--			<option value="">名古屋</option>-->
+		<!--			<option value="">栄</option>-->
+		<!--			<option value="">金山</option>-->
+		<!--		</select>-->
 
-<!--		<select>-->
-<!--			<option value="">ジャンル</option>-->
-<!--		</select>-->
+		<!--		<select>-->
+		<!--			<option value="">ジャンル</option>-->
+		<!--		</select>-->
 
-<!--		<select>-->
-<!--			<option value="">貸出可否</option>-->
-<!--		</select>-->
+		<!--		<select>-->
+		<!--			<option value="">貸出可否</option>-->
+		<!--		</select>-->
 	</form>
 
 
-	<table>
+	<table border="1">
 		<tr>
 			<th>ジャンル</th>
 			<th>タイトル</th>
 			<th>著者</th>
 			<th>貸出可否</th>
 		<tr th:each="lendItem:${lendItemList}">
-			<td th:text="${lendItem.genreId}"></td>
-			<td th:text="${lendItem.title}"></td>
+			<td th:text="${genreMap[lendItem.genreId]}"></td>
+			<td><a th:href="@{/lendItem/{id}(id=${lendItem.lendItemId})}">
+					<p th:text="${lendItem.title}"></p>
+				</a></td>
 			<td th:text="${lendItem.author}"></td>
-			<td th:text="${lendItem.statusId}"></td>
+			<td th:text="${statusMap[lendItem.statusId]}"></td>
 		</tr>
 	</table>
 </body>

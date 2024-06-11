@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Account;
-import com.example.demo.entity.AllUserLendList;
-import com.example.demo.repository.ALLUserLendListRepoitory;
+
 import com.example.demo.repository.AccountRepository;
 
 import jakarta.servlet.http.HttpSession;
@@ -21,39 +19,15 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class SuperUserController {
 
-	@Autowired
-	ALLUserLendListRepoitory allUserLendListrepository;
-  
-  @Autowired
-	HttpSession session;
 
 	@Autowired
 	AccountRepository accountRepository;
+	
+	@Autowired
+	HttpSession session;
 
-  @GetMapping({ "/", "/home" })
-	public String index(
-			@RequestParam(value = "category", defaultValue = "") Integer category,
-			Model model) {
-		List<AllUserLendList> lendItemList = null;
-
-		if (category == null) {
-			lendItemList = allUserLendListrepository.sqlALLUserLendJoin();
-		} else if (category == 1) {
-			lendItemList = allUserLendListrepository.sqlALLUserBookLendJoin();
-		} else if (category == 2) {
-			lendItemList = allUserLendListrepository.sqlALLUserCDLendJoin();
-		} else if (category == 3) {
-			lendItemList = allUserLendListrepository.sqlALLUserDVDLendJoin();
-		} else if (category == 4) {
-			lendItemList = allUserLendListrepository.sqlALLUserKamishibaiLendJoin();
-		}
-		model.addAttribute("lendItemList", lendItemList);
-
-		return "index";
-  }
-  
 	//	管理者ログイン画面表示
-	@GetMapping({"/su/login", "/su/logout" })
+	@GetMapping({ "/su/login", "/su/logout" })
 	public String index(
 			@RequestParam(name = "error", defaultValue = "") String error,
 			Model model) {
@@ -64,23 +38,22 @@ public class SuperUserController {
 			model.addAttribute("message", "ログインしてください");
 		}
 
-		return "superUserLogin";
+		return "suLogin";
 	}
 
 	// 管理者ログイン処理
-
-	//ログイン実行
-	@PostMapping("/su/login")
-	public String login(			
+@PostMapping("/su/login")
+public String login(
 			@RequestParam("privilege") int privilege,
 			@RequestParam("email") String email,
 			@RequestParam("password") String password,
 			Model model) {
 
 		List<Account> accountList = accountRepository.findByEmailAndPasswordAndPrivilege(email, password, privilege);
+
 		
-//		TODO
-//		権限エラーチェック
+
+//		エラーチェック
 		List<String> errorList = new ArrayList<>();
 		if (email.length() == 0) {
 			errorList.add("メールアドレスを入力してください");
@@ -96,16 +69,18 @@ public class SuperUserController {
 			errorList.add("メールアドレスとパスワードが一致しませんでした");
 		}
 
-//		エラー時にログイン画面に戻る
+		//		エラー時にログイン画面に戻る
 		if (errorList.size() > 0) {
 			model.addAttribute("errorList", errorList);
 			model.addAttribute("email", email);
-			return "superUserLogin";
+			return "suLogin";
 		}
+
 		
-		//TODO
-//		セッション管理されたスーパーユーザー情報に図書館と権限をセット
-		
+		// セッション管理されたアカウント情報に名前をセット
+			superUser.setLibraryName(libraryName);
+
+				// 「貸出物管理画面」へのリダイレクト
 		return "redirect:/admin/lenditems";
 	}
 }
