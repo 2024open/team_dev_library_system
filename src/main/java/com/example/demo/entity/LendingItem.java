@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Data;
 
 @Entity
@@ -26,15 +27,18 @@ public class LendingItem {
 	@Column(name = "user_id")
 	private Integer userId;
 
+	@Transient
 	@Column(name = "return_date")
 	private Date returnDate;
 
+	@Transient
 	@Column(name = "borrowd_date")
 	private Date borrowedDate;
 
 	@Column(name = "status_id")
 	private Integer statusId;
 
+	@Transient
 	private Boolean deleted;
 
 	public LendingItem() {
