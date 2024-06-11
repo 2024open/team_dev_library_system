@@ -22,7 +22,7 @@ public interface AdminLendListRepoitory extends JpaRepository<AdminLendList, Int
 			+ "JOIN status "
 			+ "ON lend_item.status_id = status.status_id "
 			+ "JOIN (cd JOIN genre ON cd.genre_id = genre.genre_id) "
-			+ "ON lend_item.category_id = 1 AND any_id = cd_id "
+			+ "ON lend_item.category_id = 2 AND any_id = cd_id "
 			+ "WHERE library_id = :libraryId "
 			+ "ORDER BY lend_item_id;";
 	static String sqlAdminLendJoinDVD = "SELECT lend_item_id, title, genre_name, status_name "
@@ -30,7 +30,7 @@ public interface AdminLendListRepoitory extends JpaRepository<AdminLendList, Int
 			+ "JOIN status "
 			+ "ON lend_item.status_id = status.status_id "
 			+ "JOIN (dvd JOIN genre ON dvd.genre_id = genre.genre_id) "
-			+ "ON lend_item.category_id = 1 AND any_id = dvd_id "
+			+ "ON lend_item.category_id = 3 AND any_id = dvd_id "
 			+ "WHERE library_id = :libraryId "
 			+ "ORDER BY lend_item_id;";
 	static String sqlAdminLendJoinKamishibai = "SELECT lend_item_id, title, genre_name, status_name "
@@ -38,7 +38,7 @@ public interface AdminLendListRepoitory extends JpaRepository<AdminLendList, Int
 			+ "JOIN status "
 			+ "ON lend_item.status_id = status.status_id "
 			+ "JOIN (kamishibai JOIN genre ON kamishibai.genre_id = genre.genre_id) "
-			+ "ON lend_item.category_id = 1 AND any_id = kamishibai_id "
+			+ "ON lend_item.category_id = 4 AND any_id = kamishibai_id "
 			+ "WHERE library_id = :libraryId "
 			+ "ORDER BY lend_item_id;";
 
