@@ -19,6 +19,10 @@ import jakarta.servlet.http.HttpSession;
 public class AccountController {
 
 	@Autowired
+	HttpSession session;
+
+
+	@Autowired
 	AccountRepository accountRepository;
 	
 	@Autowired
@@ -82,21 +86,21 @@ public class AccountController {
         return "redirect:/lendItem";
     }
 
-
 	//　会員登録画面表示
 	@GetMapping("/users/new")
-	public String newUser() {
+	public String customer() {
 		return "newAccount";
 	}
 
 	//	会員登録処理
 	@PostMapping("/users/new")
-	public String add(@RequestParam(value = "userName", defaultValue = "") String userName,
+	public String store(
+			@RequestParam(value = "userName", defaultValue = "") String userName,
 			@RequestParam(value = "nickname", defaultValue = "") String nickname,
 			@RequestParam(value = "email", defaultValue = "") String email,
 			@RequestParam(value = "password", defaultValue = "") String password,
 			@RequestParam(value = "password_confirm", defaultValue = "") String password_confirm,
-
+		
 			Model model) {
 
 		// エラーチェック
@@ -104,21 +108,21 @@ public class AccountController {
 		if (userName.length() == 0) {
 			errorList.add("名前は必須です");
 		} else if (userName.length() > 30) {
-			errorList.add("名前は50字以内で入力してください");
+			errorList.add("名前は50字以下で入力してください");
 		}
 
 		if (nickname.length() == 0) {
 			errorList.add("ニックネームは必須です");
 		} else if (nickname.length() > 60) {
-			errorList.add("ニックネームは50字以内で入力してください");
+			errorList.add("ニックネームは50字以下で入力してください");
 		}
 
 		if (email.length() == 0) {
 			errorList.add("メールアドレスは必須です");
 		} else if (email.length() > 50) {
-			errorList.add("メールアドレスは100字以内で入力してください");
+			errorList.add("メールアドレスは100字以下で入力してください");
 
-		} else if (accountRepository.findByEmail(email).size() != 0) {
+		} else if   (accountRepository.findByEmail(email).isEmpty()) {
 			errorList.add("登録済みのメールアドレスです");
 		}
 		if (password.length() == 0) {
@@ -126,7 +130,7 @@ public class AccountController {
 		} else if (password.length() < 6) {
 			errorList.add("パスワードは6文字以上で入力してください");
 		} else if (password.length() > 20) {
-			errorList.add("パスワードは30字以内で入力してください");
+			errorList.add("パスワードは30字以下で入力してください");
 		}
 
 		if (!password.equals(password_confirm)) {
@@ -148,7 +152,7 @@ public class AccountController {
 		Integer privilege= 2 ;
 		Boolean ban =false;
 		Boolean deleted = false;
-		
+
 		// Accountオブジェクトの生成
 		Account account = new Account(userName, nickname, email, password, privilege, ban, deleted);
 
@@ -157,6 +161,4 @@ public class AccountController {
 
 		return "redirect:/home";
 	}
-
-
 }

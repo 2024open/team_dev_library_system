@@ -11,20 +11,31 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Account;
+import com.example.demo.entity.Library;
+import com.example.demo.model.SuperUser;
+import com.example.demo.repository.AccountRepository;
+import com.example.demo.repository.LibraryRepository;
+
 
 import com.example.demo.repository.AccountRepository;
+
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class SuperUserController {
 
+	@Autowired
+	HttpSession session;
 
 	@Autowired
 	AccountRepository accountRepository;
 	
 	@Autowired
-	HttpSession session;
+	LibraryRepository libraryRepository;
+
+	@Autowired
+	SuperUser superUser;
 
 	//	管理者ログイン画面表示
 	@GetMapping({ "/su/login", "/su/logout" })
@@ -42,16 +53,19 @@ public class SuperUserController {
 	}
 
 	// 管理者ログイン処理
-@PostMapping("/su/login")
-public String login(
+
+	
+	
+	//ログイン実行
+	@PostMapping("/su/login")
+	public String login(
+			@RequestParam("libraryName") int libraryId,
 			@RequestParam("privilege") int privilege,
 			@RequestParam("email") String email,
 			@RequestParam("password") String password,
 			Model model) {
 
 		List<Account> accountList = accountRepository.findByEmailAndPasswordAndPrivilege(email, password, privilege);
-
-		
 
 //		エラーチェック
 		List<String> errorList = new ArrayList<>();
@@ -63,9 +77,9 @@ public String login(
 			errorList.add("パスワードを入力してください");
 		}
 
-		Boolean nullParamater = (email.length() != 0) && (password.length() != 0);
+		Boolean nullParameter = (email.length() != 0) && (password.length() != 0);
 
-		if (nullParamater && (accountList == null || accountList.size() == 0)) {
+		if (nullParameter && (accountList == null || accountList.size() == 0)) {
 			errorList.add("メールアドレスとパスワードが一致しませんでした");
 		}
 
@@ -76,11 +90,19 @@ public String login(
 			return "suLogin";
 		}
 
+		// セッション管理されたSuperUserモデルに図書館ID、図書館名、ユーザーID、権限をセット
+		Library library = libraryRepository.findByLibraryId(libraryId);
+		superUser.setLibraryId(libraryId);
+		superUser.setLibraryName(library.getLibraryName());
 		
-		// セッション管理されたアカウント情報に名前をセット
-			superUser.setLibraryName(libraryName);
+		Account account = accountRepository.findByEmail(email);
+		superUser.setUserId(account.getUserId());
+		superUser.setPrivilege(account.getPrivilege());
+		
+		
 
-				// 「貸出物管理画面」へのリダイレクト
+		// 「貸出物管理画面」へのリダイレクト
 		return "redirect:/admin/lenditems";
 	}
+	
 }
