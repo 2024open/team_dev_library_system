@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -162,7 +163,7 @@ public class LibrarianController {
 			lendingItem.setLendItemId(updateItem.getLendItemId());
 			lendingItem.setUserId(lenderAccount.getUserId());
 			lendingItem.setStatusId(updateItem.getStatusId());
-			//			lendingItem.setBorrowedDate();
+			lendingItem.setBorrowedDate(java.sql.Date.valueOf(LocalDate.now()));
 			lendingItemRepository.save(lendingItem);
 
 			model.addAttribute("lendItem", updateItem);
