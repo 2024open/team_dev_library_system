@@ -26,12 +26,12 @@
 			<td th:text="${notice.title}"></td>
 			<td th:text="${notice.content}"></td>
 			<td>
-				<form th:action="@{/notice/{noticeId}/edit(noticeId=${notice.noticeId})}" method="get">
+				<form th:action="@{/librarian/notice/{noticeId}/edit(noticeId=${notice.noticeId})}" method="get">
 					<button>更新</button>
 				</form>
 			</td>
 			<td>
-				<form th:action="@{/notice/{noticeId}/delete(noticeId=${notice.noticeId})}" method="post">
+				<form th:action="@{/librarian/notice/{noticeId}/delete(noticeId=${notice.noticeId})}" method="post">
 					<button>削除</button>
 				</form>
 			</td>
