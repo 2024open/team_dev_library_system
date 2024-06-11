@@ -121,6 +121,7 @@ public class LibrarianController {
 	}
 
 	//貸出処理
+	//TODO
 	@PostMapping("/librarian/lendProcess")
 	public String lendProcessExecute(
 			@RequestParam(name = "lendItemId", defaultValue = "") Integer lendItemId,
