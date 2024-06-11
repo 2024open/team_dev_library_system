@@ -22,4 +22,7 @@ public class AllUserLendList {
 	
 	@Column(name = "status_id")
 	private Integer statusId;
+	
+	@Column(name = "library_id")
+	private Integer libraryId;
 }

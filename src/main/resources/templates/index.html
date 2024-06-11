@@ -9,6 +9,15 @@
 <body>
 	<h1>名古屋図書館</h1>
 	<header th:replace="header"></header>
+	
+		<script>
+		$(function () {
+			$("#submit_item").change(function () {
+				$("#submit_form").submit();
+			});
+		});
+	</script>
+	
 	<form action="/" method="get">
 		<select name="category">
 			<option value="">カテゴリ</option>
@@ -37,17 +46,17 @@
 	</form>
 
 
-	<table>
+	<table border="1">
 		<tr>
 			<th>ジャンル</th>
 			<th>タイトル</th>
 			<th>著者</th>
 			<th>貸出可否</th>
 		<tr th:each="lendItem:${lendItemList}">
-			<td th:text="${lendItem.genreId}"></td>
+			<td th:text="${genreMap[lendItem.genreId]}"></td>
 			<td th:text="${lendItem.title}"></td>
 			<td th:text="${lendItem.author}"></td>
-			<td th:text="${lendItem.statusId}"></td>
+			<td th:text="${statusMap[lendItem.statusId]}"></td>
 		</tr>
 	</table>
 </body>
