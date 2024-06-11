@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Data;
 
 @Entity
@@ -27,7 +28,7 @@ public class LendItem {
 	private Integer categoryId;
 
 	@Column(name = "create_date")
-	private LocalDateTime createDate;
+	@Transient private LocalDateTime createDate;
 
 	@Column(name = "update_date")
 	private LocalDateTime updateDate;
@@ -38,8 +39,19 @@ public class LendItem {
 	@Column(name = "any_id")
 	private Integer anyId;
 
-	private Boolean deleted;
+	@Transient private Boolean deleted;
 
 	public LendItem() {
+	}
+
+	public LendItem(Integer lendItemId, Integer libraryid, Integer categoryId, LocalDateTime updateDate,
+			Integer statusId, Integer anyId) {
+		super();
+		LendItemId = lendItemId;
+		this.libraryid = libraryid;
+		this.categoryId = categoryId;
+		this.updateDate = updateDate;
+		this.statusId = statusId;
+		this.anyId = anyId;
 	}
 }

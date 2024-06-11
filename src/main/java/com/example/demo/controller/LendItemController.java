@@ -8,11 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.AllUserLendList;
 import com.example.demo.entity.Genre;
+import com.example.demo.entity.LendItemDetail;
 import com.example.demo.entity.Status;
+import com.example.demo.repository.ALLUserLendDetailRepoitory;
 import com.example.demo.repository.ALLUserLendListRepoitory;
 import com.example.demo.repository.AccountRepository;
 import com.example.demo.repository.GenreRepository;
@@ -31,6 +34,9 @@ public class LendItemController {
 	
 	@Autowired
 	StatusRepository statusRepository;
+	
+	@Autowired
+	ALLUserLendDetailRepoitory alluserLendDetailRepoitory;
 
 	//貸出物一覧表示
 	@GetMapping({ "/lendItems" })
@@ -80,4 +86,14 @@ public class LendItemController {
 		return "index";
 	}
 	
+	
+	@GetMapping({ "/lendItems/{id}" })
+	public String detail(
+			@PathVariable("id") Integer id,
+			Model model) {
+		
+		LendItemDetail lendItemDetail = alluserLendDetailRepoitory.sqlALLUserBookLendJoinDetail(id).get(0);
+		model.addAttribute("lendItemDetail", lendItemDetail);
+		return "lendItemDetail";
+	}
 }
