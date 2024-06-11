@@ -32,4 +32,9 @@ public class Notice {
 
 	@Column(name = "notice_date")
 	private Date noticeDate;
+	
+	//TODO ここじゃないかも
+	public Integer getlibraryId() {
+		return libraryId;
+	}
 }

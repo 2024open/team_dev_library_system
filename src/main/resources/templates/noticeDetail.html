@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>お知らせ画面だYo!!</title>
+<title>Insert title here</title>
 </head>
 <body>
 	<!--TODO選択できるだけ-->
@@ -26,12 +26,14 @@
 		<br><a href="/reservation">・予約一覧</a>
 		<br><a href="/lendingHistory">・貸出履歴</a>
     </div>
-    <h1>お知らせ</h1>
     <div style="padding: 10px; margin-bottom: 10px; border: 1px solid #333333;">
 		<tr th:each="notice:${notice}">
 			<td th:text="${notice.noticeDate"></td>
 			<td th:text="${notice.title}"></td>
 		</tr>
+		<div style="padding: 10px; margin-bottom: 10px; border: 1px solid #333333;">
+			<td th:text="${notice.content}"></td>
+		</div>
     </div>
 </body>
 </html>

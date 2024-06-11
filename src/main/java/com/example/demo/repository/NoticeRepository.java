@@ -10,4 +10,6 @@ public interface NoticeRepository extends JpaRepository<Notice,Integer>{
 
 	public List<Notice> findByNoticeIdAndLibraryId(Integer noticeId,Integer libraryid);
 
+	public List<Notice> findByNoticeId(Integer noticeId);
+
 }

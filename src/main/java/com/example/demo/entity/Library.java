@@ -28,9 +28,4 @@ public class Library {
 
 	private Boolean deleted;
 
-	////TODO ここじゃないかも
-//	public Integer getId() {
-//		return libraryId;
-//	}
-
 }
