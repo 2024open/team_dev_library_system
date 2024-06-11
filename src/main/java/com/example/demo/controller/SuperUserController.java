@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Account;
 import com.example.demo.entity.AllUserLendList;
+import com.example.demo.model.SuperUser;
 import com.example.demo.entity.Genre;
 import com.example.demo.entity.Status;
 import com.example.demo.repository.ALLUserLendListRepoitory;
@@ -36,10 +37,15 @@ public class SuperUserController {
 	AccountRepository accountRepository;
 	
 	@Autowired
+
+	SuperUser superUser;
+
+
 	GenreRepository genreRepository;
 	
 	@Autowired
 	StatusRepository statusRepository;
+
 
 	//貸出物一覧表示
 	@GetMapping({ "/", "/home" })
@@ -101,14 +107,12 @@ public class SuperUserController {
 			model.addAttribute("message", "ログインしてください");
 		}
 
-		return "superUserLogin";
+		return "suLogin";
 	}
 
 	// 管理者ログイン処理
-
-	//ログイン実行
-	@PostMapping("/su/login")
-	public String login(
+@PostMapping("/su/login")
+public String login(
 			@RequestParam("privilege") int privilege,
 			@RequestParam("email") String email,
 			@RequestParam("password") String password,
@@ -116,8 +120,9 @@ public class SuperUserController {
 
 		List<Account> accountList = accountRepository.findByEmailAndPasswordAndPrivilege(email, password, privilege);
 
-		//		TODO
-		//		権限エラーチェック
+		
+
+//		エラーチェック
 		List<String> errorList = new ArrayList<>();
 		if (email.length() == 0) {
 			errorList.add("メールアドレスを入力してください");
@@ -137,12 +142,14 @@ public class SuperUserController {
 		if (errorList.size() > 0) {
 			model.addAttribute("errorList", errorList);
 			model.addAttribute("email", email);
-			return "superUserLogin";
+			return "suLogin";
 		}
 
-		//TODO
-		//		セッション管理されたスーパーユーザー情報に図書館と権限をセット
+		
+		// セッション管理されたアカウント情報に名前をセット
+			superUser.setLibraryName(libraryName);
 
+				// 「貸出物管理画面」へのリダイレクト
 		return "redirect:/admin/lenditems";
 	}
 }
