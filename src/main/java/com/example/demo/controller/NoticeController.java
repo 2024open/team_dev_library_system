@@ -22,20 +22,21 @@ public class NoticeController {
     public String index(
             @RequestParam(value = "noticeId", defaultValue = "") Integer noticeId,
             Model model) {
-        //お知らせ一覧を取得しているつもり
-        List<Notice> noticeList = noticeRepository.findByNoticeId(noticeId);
-
+        //お知らせ一覧を取得
+    	//TODO LibraryId取りたい
+        List<Notice> noticeList = noticeRepository.findByUserIdAndLibraryId(null,1);
         model.addAttribute("noticeList", noticeList);
         return "notice";
     }
-    
+
     //お知らせ詳細表示
     @GetMapping("/notice/{id}")
     public String detail(
-    		@PathVariable("id")Integer id,
-    		Model model) {
-    	Notice notice = noticeRepository.findById(id).get();
-    	model.addAttribute("notice",notice);
-    	return "noticeDetail";
+            @PathVariable("id") Integer id,
+            Model model) {
+        //NoticeテーブルをID(主キー)で検索
+        Notice notice = noticeRepository.findById(id).orElse(null);
+        model.addAttribute("notice", notice);
+        return "noticeDetail";
     }
 }
