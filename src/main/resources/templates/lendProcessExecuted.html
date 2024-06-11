@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<header th:replace ="adminHeader"></header>
+	<sidebar th:replace="librarianSidebar"></sidebar>
+	
+	<h1>貸出完了</h1>
+	
+	<table border="1">
+		<tr>
+			<th>貸出物ID</th>
+			<td>[[${lendItem.lendItemId}]]</td>
+		</tr>
+		<tr>
+			<th>貸出物名</th>
+			<td>[[${title}]]</td>
+		</tr>
+		<tr>
+			<th>状態</th>
+			<th>[[${lendItem.statusId}]]</th>
+		</tr>
+		
+	</table>
+
+</body>
+</html>
