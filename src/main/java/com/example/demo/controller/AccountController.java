@@ -73,6 +73,10 @@ public class AccountController {
         //セッション管理されたアカウント情報に名前をセット
         session.setAttribute("userName", account.getUserName());
         session.setAttribute("userId", account.getUserId());
+        //TODO 貸出物一覧に変更
+        return "redirect:/notice";
+        ////[/lendItems]へリダイレクト
+        //return "redirect:/lendItems";
 
         //[/items]へリダイレクト
         return "redirect:/lendItem";
