@@ -8,6 +8,7 @@ import com.example.demo.entity.Notice;
 
 public interface NoticeRepository extends JpaRepository<Notice,Integer>{
 
-	public List<Notice> findByNoticeIdAndLibraryId(Integer noticeId,Integer libraryid);
-
+	public List<Notice> findByNoticeIdAndLibraryId(Integer noticeId,Integer libraryId);
+	
+	public List<Notice> findByUserIdAndLibraryId(Integer userId,Integer libraryId);
 }

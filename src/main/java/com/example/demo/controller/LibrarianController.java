@@ -18,6 +18,20 @@ import jakarta.servlet.http.HttpSession;
 
 
 
+import com.example.demo.entity.Account;
+import com.example.demo.entity.AdminLendList;
+import com.example.demo.entity.AdminLendRoom;
+import com.example.demo.entity.LendItem;
+import com.example.demo.entity.LendingItem;
+import com.example.demo.repository.AccountRepository;
+import com.example.demo.repository.AdminLendListRepoitory;
+import com.example.demo.repository.AdminLendRoomRepository;
+import com.example.demo.repository.CategoryRepository;
+import com.example.demo.repository.LendItemRepository;
+import com.example.demo.repository.LendingItemRepository;
+import com.example.demo.service.Common;
+import com.example.demo.service.LibrarianService;
+
 @Controller
 public class LibrarianController {
 
@@ -27,18 +41,29 @@ public class LibrarianController {
 	@Autowired
 	SuperUser superUser;
 	
+  @Autowired
+	AccountRepository accountRepository;
+
+	@Autowired
+	LendItemRepository lendItemRepository;
+
 	@Autowired
 	NoticeRepository noticeRepository;
 
-	// お知らせ一覧表示
+	@Autowired
+	LendingItemRepository lendingItemRepository;
+
+	@Autowired
+	AdminLendListRepoitory adminLendListRepository;
+  
+  // お知らせ一覧表示
 	@GetMapping("/librarian/notice")
 	public String notice(Model model) {
 
 		List<Notice> noticeList = noticeRepository.findAll();
 		
 		model.addAttribute("notices", noticeList);
-
-		return "noticeAdmin";
+    return "noticeAdmin";
 	}
 
 	// お知らせ新規登録画面の表示
@@ -68,7 +93,8 @@ public class LibrarianController {
 
 	// お知らせ更新画面表示
 	@GetMapping("/notice/{noticeId}/edit")
-	public String edit(@PathVariable("noticeId") Integer noticeId,
+	public String edit(
+      @PathVariable("noticeId") Integer noticeId,
 			Model model) {
 
 		// itemsテーブルをID（主キー）で検索
@@ -84,15 +110,24 @@ public class LibrarianController {
 			@RequestParam(value = "title", defaultValue = "") String title,
 			@RequestParam(value = "content", defaultValue = "") String content,
 			Model model) {
-
-		Integer userId =superUser.getLibraryId();
+    
+    Integer userId =superUser.getLibraryId();
 		Integer libraryId =superUser.getUserId();
 		Notice notice = new Notice(noticeId,libraryId, userId, title, content);
 	
 		noticeRepository.save(notice);
 		
 		return "redirect:/librarian/notice";
-	}
+  }
+
+	//TODO
+	//貸出物更新処理
+	@PostMapping("/librarian/lenditems/{id}/edit")
+	public String update(
+			@PathVariable("id") String lendItemIdStr,
+			Model model) {
+		return "redirect:/librarian/lenditems/{id}/edit";
+   }
 
 	// お知らせ削除処理
 	@PostMapping("/items/{noticeId}/delete")
