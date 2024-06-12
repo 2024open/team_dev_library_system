@@ -33,12 +33,6 @@ public class SuperUserController {
 	@Autowired
 	SuperUser superUser;
 
-	@Autowired
-	Library library;
-
-	@Autowired
-	Account account;
-
 	//	管理者ログイン画面表示
 	@GetMapping({ "/su/login", "/su/logout" })
 	public String index(
@@ -91,7 +85,7 @@ public class SuperUserController {
 		}
 
 		//		 セッション管理されたSuperUserモデルに図書館ID、図書館名、ユーザーID、権限をセット
-		List<Library> libraries = libraryRepository.findByLibraryId(libraryId);
+		List <Library> libraries = libraryRepository.findByLibraryId(libraryId);
 		Library library = libraries.get(0);
 		superUser.setLibraryId(libraryId);
 		superUser.setLibraryName(library.getLibraryName());
