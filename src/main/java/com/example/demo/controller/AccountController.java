@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Account;
+import com.example.demo.entity.Library;
 import com.example.demo.model.SuperUser;
 import com.example.demo.repository.AccountRepository;
+import com.example.demo.repository.LibraryRepository;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -24,6 +26,9 @@ public class AccountController {
 
 	@Autowired
 	AccountRepository accountRepository;
+	
+	@Autowired
+	LibraryRepository libraryRepository;
 
 	@Autowired
 	SuperUser superUser;
@@ -45,6 +50,7 @@ public class AccountController {
 	//ログイン実行
 	@PostMapping("/login")
 	public String login(
+			@RequestParam("libraryName") int libraryId,
 			@RequestParam("email") String email,
 			@RequestParam("password") String password,
 			Model model) {
@@ -75,10 +81,20 @@ public class AccountController {
 			return "login";
 		}
 		Account account = accountList.get(0);
-		//セッション管理されたアカウント情報に名前をセット
-		session.setAttribute("userName", account.getUserName());
-		session.setAttribute("userId", account.getUserId());
-
+//		セッション管理されたアカウント情報に名前をセット
+//		session.setAttribute("userId", account.getUserId());
+//		session.setAttribute("userName", account.getUserName());
+//		session.setAttribute("nickname", account.getNickname());
+//		session.setAttribute("email", account.getEmail());
+//		session.setAttribute("password", account.getPassword());
+		
+//		//セッション管理されたSuperUserモデルに図書館ID、図書館名、ユーザーID、権限をセット
+		List<Library> libraries = libraryRepository.findByLibraryId(libraryId);
+		Library library = libraries.get(0);
+		superUser.setLibraryId(libraryId);
+		superUser.setLibraryName(library.getLibraryName());
+		superUser.setUserId(account.getUserId());
+		superUser.setPrivilege(account.getPrivilege());
 		return "redirect:/lendItems";
 	}
 

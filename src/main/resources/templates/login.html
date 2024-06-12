@@ -6,31 +6,30 @@
 <link rel="stylesheet" type="text/css" href="/css/Measures.css">
 </head>
 <body>
-<!--TODO選択できるだけ-->
-	<select name="example">
-        <option>名古屋</option>
-        <option>栄</option>
-        <option>金山</option>
-    </select>
-    <!--中央ぞろえのcss-->
-    <div class="center">
-    	<h1>図書館</h1>
-    	<main>
-        	<h2>ログイン</h2>
-        	<!--ボーダー君囲んでるよ-->
-        	<div class="logBorder">
-       		<form action="/login" method="post">
-            	<input type="text" name="email" placeholder="メールアドレス">
-            	<br><input type="password" name="password" placeholder="パスワード">
-            	<br><button>ログイン</button>
-            	<div th:each="errorList : ${errorLists}">
-                	<span th:text="${errorList}" style="color: red"></span>
-            	</div>
-        	</form>
-        	</div>
-        	<br><a href="/users/new">会員登録はこちら</a>
-        	<br><a href="/">戻る</a>
-    	</main>
-   	</div>
+	<form action="/login" method="post">
+		図書館<select name="libraryName">
+			<option value="1">名古屋</option>
+			<option value="2">栄</option>
+			<option value="3">金山</option>
+		</select><br>
+    	<!--中央ぞろえのcss-->
+    	<div class="center">
+    		<h1>図書館</h1>
+    		<main>
+        		<h2>ログイン</h2>
+        		<!--ボーダー君囲んでるよ-->
+        		<div class="logBorder">
+            		<input type="text" name="email" placeholder="メールアドレス">
+            		<br><input type="password" name="password" placeholder="パスワード">
+            		<br><button>ログイン</button>
+            		<div th:each="errorList : ${errorLists}">
+                		<span th:text="${errorList}" style="color: red"></span>
+            		</div>
+    </form>
+        		</div>
+        		<br><a href="/users/new">会員登録はこちら</a>
+        		<br><a href="/">戻る</a>
+    		</main>
+   		</div>
 </body>
 </html>
