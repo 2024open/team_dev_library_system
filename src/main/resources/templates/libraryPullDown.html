@@ -3,8 +3,8 @@
 <!--		<form th:action="@{${url}}" method="get">-->
 		<form action="/librarian/lenditems" method="get">
 			<select name="libraryId">
-<!--				TODO-->
-				<option value="1"></option>
+				
+				<option th:value="${libraryId}"></option>
 				<option th:each="library : ${libraryList}" th:value="${library.libraryId}" >
 					[[${library.libraryName}]]
 				</option>

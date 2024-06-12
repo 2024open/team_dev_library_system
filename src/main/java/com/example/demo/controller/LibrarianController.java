@@ -65,7 +65,7 @@ public class LibrarianController {
 	AdminLendListRepoitory adminLendListRepository;
 
 	//貸出物一覧表示
-	@GetMapping("/librarian/lenditems")
+	@GetMapping({ "/librarian/lenditems", "/librarian" })
 	public String lendItem(
 			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
 			@RequestParam(name = "categoryId", defaultValue = "1") String categoryIdStr,
@@ -171,6 +171,7 @@ public class LibrarianController {
 			String errorMsg = "メールアドレスが間違っています";
 			model.addAttribute("errorMsg", errorMsg);
 			librarianService.forLendProcessIdSearch(lendItemId, model);
+			librarianService.forCategoryPullDown(model);
 			librarianService.forLibraryId(model, libraryId);
 			return "librarianLendProcess";
 		}
@@ -246,7 +247,7 @@ public class LibrarianController {
 	//貸出物更新処理
 	@PostMapping("/librarian/lenditems/{id}/edit")
 	public String lendItemUpdate(
-			@PathVariable("id") String lendItemIdStr,
+			@PathVariable("id") Integer lendItemId,
 			Model model) {
 		return "redirect:/librarian/lenditems/{id}/edit";
 	}
