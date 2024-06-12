@@ -19,7 +19,7 @@ public class LendItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "lend_item_id")
-	private Integer LendItemId;
+	private Integer lendItemId;
 
 	@Column(name = "library_id")
 	private Integer libraryid;
@@ -43,17 +43,26 @@ public class LendItem {
 	@Transient
 	private Boolean deleted;
 
+	
+	
 	public LendItem() {
 	}
-
+	
 	public LendItem(Integer lendItemId, Integer libraryid, Integer categoryId, LocalDateTime updateDate,
 			Integer statusId, Integer anyId) {
 		super();
-		LendItemId = lendItemId;
+		this.lendItemId = lendItemId;
 		this.libraryid = libraryid;
 		this.categoryId = categoryId;
 		this.updateDate = updateDate;
 		this.statusId = statusId;
 		this.anyId = anyId;
 	}
+
+
+
+
+
+	
+
 }

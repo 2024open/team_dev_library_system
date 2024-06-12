@@ -28,7 +28,7 @@ public class Reservation {
 	private Integer userId;
 
 	@Column(name = "reservation_date")
-	@Transient private Date rervationDate;
+	@Transient private Date reservationDate;
 
 	public Reservation() {
 	}

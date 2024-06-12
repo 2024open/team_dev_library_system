@@ -78,8 +78,7 @@ public class AccountController {
 		//セッション管理されたアカウント情報に名前をセット
 		session.setAttribute("userName", account.getUserName());
 		session.setAttribute("userId", account.getUserId());
-//		return "redirect:/notice";
-    
+
 		return "redirect:/lendItems";
 	}
 
