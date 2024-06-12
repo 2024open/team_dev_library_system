@@ -60,9 +60,9 @@ public class Notice {
 		this.noticeDate = LocalDateTime.now();// 現在日時
 	}
 	
-	public String getNoticeDate() {
-		return noticeDate.format(FMT); // LocalDateTime→String変換
-	}
+//	public String getNoticeDate() {
+//		return noticeDate.format(FMT); // LocalDateTime→String変換
+//	}
 	
 	public String getContent() {
 		return content.replaceAll("\n", "<br>"); // 改行文字列→<br>置換
