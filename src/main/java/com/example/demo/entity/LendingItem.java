@@ -1,6 +1,6 @@
 package com.example.demo.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,13 +27,11 @@ public class LendingItem {
 	@Column(name = "user_id")
 	private Integer userId;
 
-	@Transient
 	@Column(name = "return_date")
-	private Date returnDate;
+	private LocalDate returnDate;
 
-	@Transient
-	@Column(name = "borrowd_date")
-	private Date borrowedDate;
+	@Column(name = "borrowed_date")
+	private LocalDate borrowedDate;
 
 	@Column(name = "status_id")
 	private Integer statusId;
