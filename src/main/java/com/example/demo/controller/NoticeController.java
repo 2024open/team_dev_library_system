@@ -28,7 +28,6 @@ public class NoticeController {
         model.addAttribute("noticeList", noticeList);
         return "notice";
     }
-
     //お知らせ詳細表示
     @GetMapping("/notice/{id}")
     public String detail(
@@ -39,5 +38,4 @@ public class NoticeController {
         model.addAttribute("notice", notice);
         return "noticeDetail";
     }
-    
 }

@@ -1,0 +1,19 @@
+/*中央揃え*/
+.center{
+	text-align: center;
+}
+/*枠線(枠線内を左揃え)*/
+.border{
+	display:inline-block;
+	text-align: left;
+	border: solid 2px;
+}
+/*ログイン用*/
+.logBorder{
+	display:inline-block;
+	border: solid 2px;
+}
+/*枠線内の枠線*/
+.detailBorder{
+	border: solid 2px;
+}
