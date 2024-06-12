@@ -28,7 +28,8 @@ public class LendItem {
 	private Integer categoryId;
 
 	@Column(name = "create_date")
-	@Transient private LocalDateTime createDate;
+	@Transient
+	private LocalDateTime createDate;
 
 	@Column(name = "update_date")
 	private LocalDateTime updateDate;
@@ -39,7 +40,8 @@ public class LendItem {
 	@Column(name = "any_id")
 	private Integer anyId;
 
-	@Transient private Boolean deleted;
+	@Transient
+	private Boolean deleted;
 
 	
 	

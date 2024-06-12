@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import com.example.demo.entity.Category;
 import com.example.demo.entity.Genre;
 import com.example.demo.entity.LendItem;
 import com.example.demo.entity.LendItemJoinStatus;
+import com.example.demo.entity.LendItemJoinStatusJoinAny;
 import com.example.demo.entity.Library;
 import com.example.demo.entity.Status;
 import com.example.demo.repository.BookRepository;
@@ -19,6 +21,7 @@ import com.example.demo.repository.CategoryRepository;
 import com.example.demo.repository.DVDRepository;
 import com.example.demo.repository.GenreRepository;
 import com.example.demo.repository.KamishibaiRepository;
+import com.example.demo.repository.LendItemJoinStatusJoinAnyRepository;
 import com.example.demo.repository.LendItemJoinStatusRepository;
 import com.example.demo.repository.LibraryRepository;
 import com.example.demo.repository.RoomRepository;
@@ -56,6 +59,9 @@ public class LibrarianService {
 
 	@Autowired
 	LendItemJoinStatusRepository lendItemJoinStatusRepository;
+
+	@Autowired
+	LendItemJoinStatusJoinAnyRepository lendItemJoinStatusJoinAnyRepository;
 
 	public void forLibraryPullDown(Model model) {
 		List<Library> libraryList = libraryRepository.findAll();
@@ -96,8 +102,8 @@ public class LibrarianService {
 	}
 
 	//貸出処理検索用
-	public void forLendProcessSearch(Integer lendItemId, Model model) {
-		List<LendItemJoinStatus> tmpList = lendItemJoinStatusRepository.sqlLendProcess(lendItemId);
+	public void forLendProcessIdSearch(Integer lendItemId, Model model) {
+		List<LendItemJoinStatus> tmpList = lendItemJoinStatusRepository.sqlLendProcessId(lendItemId);
 		if (tmpList.size() == 0) {
 			//検索結果なし
 		} else {
@@ -125,4 +131,29 @@ public class LibrarianService {
 		}
 	}
 
+	//貸出処理検索用キーワード
+	public void forLendProcessKeyword(Integer categoryId, String keyword, Model model) {
+		keyword = "%" + keyword + "%";
+		List<LendItemJoinStatusJoinAny> lendItemList = new ArrayList<LendItemJoinStatusJoinAny>();
+
+		switch (categoryId) {
+		case 1:
+			lendItemList = lendItemJoinStatusJoinAnyRepository
+					.sqlLendProcessBookKeyword(keyword);
+			break;
+		case 2:
+			lendItemList = lendItemJoinStatusJoinAnyRepository
+					.sqlLendProcessCDKeyword(keyword);
+			break;
+		case 3:
+			lendItemList = lendItemJoinStatusJoinAnyRepository
+					.sqlLendProcessDVDKeyword(keyword);
+			break;
+		case 4:
+			lendItemList = lendItemJoinStatusJoinAnyRepository
+					.sqlLendProcessKamishibaiKeyword(keyword);
+			break;
+		}
+		model.addAttribute("lendItemList", lendItemList);
+	}
 }

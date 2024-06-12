@@ -51,14 +51,14 @@ public class AccountController {
 		//エラー処理
 		List<String> errorList = new ArrayList<>();
 		//文字数のチェック
-		if (email.length() >= 101) {
+		if (email.length() > 100) {
 			errorList.add("メールアドレスは100字以内で入力してください");
 		}
 		if (email.length() == 0) {
 			errorList.add("メールアドレスを入力してください");
 		}
-		if (password.length() >= 31) {
-			errorList.add("パスワードは30字以内で入力してaaaaください");
+		if (password.length() > 30) {
+			errorList.add("パスワードは30字以内で入力してください");
 		}
 		if (password.length() == 0) {
 			errorList.add("パスワードを入力してください");
@@ -78,12 +78,7 @@ public class AccountController {
 		//セッション管理されたアカウント情報に名前をセット
 		session.setAttribute("userName", account.getUserName());
 		session.setAttribute("userId", account.getUserId());
-		//TODO 貸出物一覧に変更
-		//		return "redirect:/notice";
-		////[/lendItems]へリダイレクト
-		//return "redirect:/lendItems";
 
-		//[/items]へリダイレクト
 		return "redirect:/lendItems";
 	}
 
@@ -101,26 +96,25 @@ public class AccountController {
 			@RequestParam(value = "email", defaultValue = "") String email,
 			@RequestParam(value = "password", defaultValue = "") String password,
 			@RequestParam(value = "password_confirm", defaultValue = "") String password_confirm,
-
 			Model model) {
 
 		// エラーチェック
 		List<String> errorList = new ArrayList<>();
 		if (userName.length() == 0) {
 			errorList.add("名前は必須です");
-		} else if (userName.length() > 30) {
+		} else if (userName.length() > 50) {
 			errorList.add("名前は50字以下で入力してください");
 		}
 
 		if (nickname.length() == 0) {
 			errorList.add("ニックネームは必須です");
-		} else if (nickname.length() > 60) {
+		} else if (nickname.length() > 50) {
 			errorList.add("ニックネームは50字以下で入力してください");
 		}
 
 		if (email.length() == 0) {
 			errorList.add("メールアドレスは必須です");
-		} else if (email.length() > 50) {
+		} else if (email.length() > 100) {
 			errorList.add("メールアドレスは100字以下で入力してください");
 
 		} else if (accountRepository.findByEmail(email).isEmpty()) {
@@ -130,7 +124,7 @@ public class AccountController {
 			errorList.add("パスワードは必須です");
 		} else if (password.length() < 6) {
 			errorList.add("パスワードは6文字以上で入力してください");
-		} else if (password.length() > 20) {
+		} else if (password.length() > 30) {
 			errorList.add("パスワードは30字以下で入力してください");
 		}
 

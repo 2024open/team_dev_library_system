@@ -85,8 +85,10 @@ public class SuperUserController {
 			return "suLogin";
 		}
 
+
 		//セッション管理されたSuperUserモデルに図書館ID、図書館名、ユーザーID、権限をセット
 		List<Library> libraries = libraryRepository.findByLibraryId(libraryId);
+
 		Library library = libraries.get(0);
 		superUser.setLibraryId(libraryId);
 		superUser.setLibraryName(library.getLibraryName());
@@ -96,8 +98,10 @@ public class SuperUserController {
 		superUser.setUserId(account.getUserId());
 		superUser.setPrivilege(account.getPrivilege());
 
+
 		// 「貸出物管理画面」へのリダイレクト
 		return "redirect:/admin/lenditems";
+
 	}
 
 }

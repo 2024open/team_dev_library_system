@@ -3,60 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <title>お知らせ画面だYo!!</title>
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" type="text/css" href="/css/Measures.css">
 </head>
 <body>
-	<!--TODO選択できるだけ-->
-	<select name="example">
-    	<option>名古屋</option>
-    	<option>栄</option>
-    	<option>金山</option>
-    </select>
-    <div class="align_center">
-    <h1>図書館</h1>
-    </div>
-    <div class="border">
-    	<br><a href="/login">ログイン</a>
-    </div>
-    <div class="border">
-		<h1>メニュー</h1>
+<!--	TODO選択できるだけ-->
+<!--	<select name="example">-->
+<!--    	<option>名古屋</option>-->
+<!--    	<option>栄</option>-->
+<!--    	<option>金山</option>-->
+<!--    </select>-->
+	<head>
+		<meta charset="UTF-8">
+		<title>名古屋図書館</title>
+	</head>
+
+	<body>
+		<h1>名古屋図書館</h1>
+		<header th:replace="header"></header>
+	<!--中央ぞろえのcss-->
+    <div class="center">
+    	<h1>お知らせ</h1>
+    	<!--ボーダー君囲んでるよ-->
+       	<div class="border">
+			<tr th:each="notice:${noticeList}">
+			<!--"${#temporals.format(～～～,'yyyy/MM/dd')}"　日付を(2024/01/01)の形にする-->
+			<td th:text="${#temporals.format(notice.noticeDate,'yyyy/MM/dd')}"></td>
+			<a th:href="@{/notice/{id}(id=${notice.noticeId})}">
+				<td th:text="${notice.title}"></td><br>
+			</a>
+		</div>
 	</div>
-	<div class="border">
-		<!--TODOお知らせだけ動く他は404-->
-		<br><a href="/lemdItem">・ホーム</a>
-		<br><a href="/notice">・お知らせ</a>
-		<br><a href="/lending">・現在借りている物</a>
-		<br><a href="/reservation">・予約一覧</a>
-		<br><a href="/lendingHistory">・貸出履歴</a>
-	</div>
-    <div class="align_center">
-    <h1>お知らせ</h1>
-    <div class="border">
-	<tr th:each="notice:${noticeList}">		<!--日付-->								<!--タイトル-->
-		<a href="/notice/{id}"><td th:text="${notice.noticeDate}"></td><td th:text="${notice.title}"></td></a><br>
-	</tr>
-    </div>
-    </div>
 </body>
-
-<head>
-	<meta charset="UTF-8">
-	<title>名古屋図書館</title>
-</head>
-
-<body>
-	<h1>名古屋図書館</h1>
-	<header th:replace="header"></header>
-	<table>
-		<tr>
-		<th>日付</th>
-		<th>内容</th>
-		</tr>
-		<tr>
-			<td></td>
-			<td></td>
-		</tr>
-	</table>
 </body>
-
 </html>
