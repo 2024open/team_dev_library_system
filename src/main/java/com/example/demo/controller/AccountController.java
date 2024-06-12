@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Account;
+import com.example.demo.model.SuperUser;
 import com.example.demo.repository.AccountRepository;
 
 import jakarta.servlet.http.HttpSession;
@@ -23,6 +24,9 @@ public class AccountController {
 
 	@Autowired
 	AccountRepository accountRepository;
+
+	@Autowired
+	SuperUser superUser;
 
 	//ログイン画面表示
 	@GetMapping({ "", "/login", "/logout" })
@@ -75,7 +79,7 @@ public class AccountController {
 		session.setAttribute("userName", account.getUserName());
 		session.setAttribute("userId", account.getUserId());
 		//TODO 貸出物一覧に変更
-		return "redirect:/notice";
+		//		return "redirect:/notice";
 		////[/lendItems]へリダイレクト
 		//return "redirect:/lendItems";
 
