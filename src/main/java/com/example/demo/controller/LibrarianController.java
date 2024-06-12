@@ -229,8 +229,8 @@ public class LibrarianController {
 			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
 			Model model) {
 
-		if (!(Common.isParceInt(lendItemIdStr) &&
-				Common.isParceInt(libraryIdStr))) {
+		if (!Common.isParceInt(lendItemIdStr) ||
+				!Common.isParceInt(libraryIdStr)) {
 			return "redirect:/librarian/lenditems";
 		}
 		Integer lendItemId = Integer.parseInt(lendItemIdStr);

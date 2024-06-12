@@ -8,12 +8,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.example.demo.entity.Book;
+import com.example.demo.entity.CD;
 import com.example.demo.entity.Category;
+import com.example.demo.entity.DVD;
 import com.example.demo.entity.Genre;
+import com.example.demo.entity.Kamishibai;
 import com.example.demo.entity.LendItem;
 import com.example.demo.entity.LendItemJoinStatus;
 import com.example.demo.entity.LendItemJoinStatusJoinAny;
 import com.example.demo.entity.Library;
+import com.example.demo.entity.Room;
 import com.example.demo.entity.Status;
 import com.example.demo.repository.BookRepository;
 import com.example.demo.repository.CDRepository;
@@ -92,6 +96,22 @@ public class LibrarianService {
 		case 1:
 			Book book = bookRepository.findById(lendItem.getAnyId()).get();
 			model.addAttribute("lendAnyItem", book);
+			break;
+		case 2:
+			CD cd = cdRepository.findById(lendItem.getAnyId()).get();
+			model.addAttribute("lendAnyItem", cd);
+			break;
+		case 3:
+			DVD dvd = dvdRepository.findById(lendItem.getAnyId()).get();
+			model.addAttribute("lendAnyItem", dvd);
+			break;
+		case 4:
+			Kamishibai kamishibai = kamishibaiRepository.findById(lendItem.getAnyId()).get();
+			model.addAttribute("lendAnyItem", kamishibai);
+			break;
+		case 5:
+			Room room = roomRepository.findById(lendItem.getAnyId()).get();
+			model.addAttribute("lendAnyItem", room);
 			break;
 		}
 
