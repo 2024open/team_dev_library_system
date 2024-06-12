@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.AllUserLendList;
+import com.example.demo.entity.Category;
 import com.example.demo.entity.Genre;
 import com.example.demo.entity.LendItemDetail;
 import com.example.demo.entity.Status;
 import com.example.demo.repository.ALLUserLendDetailRepoitory;
 import com.example.demo.repository.ALLUserLendListRepoitory;
 import com.example.demo.repository.AccountRepository;
+import com.example.demo.repository.CategoryRepository;
 import com.example.demo.repository.GenreRepository;
 import com.example.demo.repository.StatusRepository;
 
@@ -37,6 +39,9 @@ public class LendItemController {
 	
 	@Autowired
 	ALLUserLendDetailRepoitory alluserLendDetailRepoitory;
+	
+	@Autowired
+	CategoryRepository categoryRepository;
 
 	//貸出物一覧表示
 	@GetMapping({ "/lendItems" })
@@ -91,6 +96,44 @@ public class LendItemController {
 	public String detail(
 			@PathVariable("id") Integer id,
 			Model model) {
+		
+		Map<Integer, String> genreMap = new HashMap<>();
+
+		List<Genre> genreMapList = genreRepository.findAll();
+
+		//Mapで格納
+		for (Genre genre : genreMapList) {
+
+			genreMap.put(genre.getGenreId(), genre.getGenreName());
+
+		}
+		
+		Map<Integer, String> categoryMap = new HashMap<>();
+
+		List<Category> categoryMapList = categoryRepository.findAll();
+
+		//Mapで格納
+		for (Category category : categoryMapList) {
+
+			categoryMap.put(category.getCategoryId(), category.getCategoryName());
+
+		}
+		
+		Map<Integer, String> statusMap = new HashMap<>();
+
+		List<Status> statusMapList = statusRepository.findAll();
+
+		//Mapで格納
+		for (Status status : statusMapList) {
+
+			statusMap.put(status.getStatusId(), status.getStatusName());
+
+		}
+
+		
+		model.addAttribute("categoryMap", categoryMap);
+		model.addAttribute("genreMap", genreMap);
+		model.addAttribute("statusMap", statusMap);
 		
 		LendItemDetail lendItemDetail = alluserLendDetailRepoitory.sqlALLUserBookLendJoinDetail(id).get(0);
 		model.addAttribute("lendItemDetail", lendItemDetail);

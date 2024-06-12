@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>名古屋図書館</title>
+</head>
+
+<body>
+	<header th:replace="header"></header>
+	<table border="1">
+		<tr>
+			<th>カテゴリー</th>
+			<th>タイトル</th>
+			<th>予約日</th>
+		<tr th:each="reserList:${reservation}">
+			<td th:text="${reserList.categoryId}"></td>
+			<td th:text="${reserList.title}"></td>
+			<td th:text="${#temporals.format(reserList.reservationDate, 'yyyy年MM月dd日')}"></td>
+		</tr>
+	</table>
+</body>
+
+</html>

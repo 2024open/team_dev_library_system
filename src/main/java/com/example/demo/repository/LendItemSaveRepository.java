@@ -6,7 +6,8 @@ import com.example.demo.entity.LendItem;
 
 
 
-public interface LendItemRepository extends JpaRepository<LendItem, Integer> {
+public interface LendItemSaveRepository extends JpaRepository<LendItem, Integer> {
+	LendItem findByLendItemId(Integer i);
 
 
 }
