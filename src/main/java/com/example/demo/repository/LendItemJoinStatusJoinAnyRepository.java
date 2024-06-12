@@ -8,6 +8,8 @@ import org.springframework.data.repository.query.Param;
 
 import com.example.demo.entity.LendItemJoinStatusJoinAny;
 
+//貸出処理 貸出物キーワード検索
+//lend_item status any貸出物
 public interface LendItemJoinStatusJoinAnyRepository
 		extends JpaRepository<LendItemJoinStatusJoinAny, Integer> {
 	static String sqlLendProcessBookKeyword = "SELECT lend_item.* , status.status_name, title "

@@ -53,6 +53,12 @@
 				<td>[[${LendRoom.lendItemId}]]</td>
 				<td>[[${LendRoom.roomName}]]</td>
 				<td>[[${LendRoom.statusName}]]</td>
+				<td>
+					<form th:action="@{/librarian/lenditems/{id}/edit(id = ${LendRoom.lendItemId})}" method="get">
+						<input type="hidden" name = "libraryId" th:value="${libraryId}">
+						<button>編集</button>
+					</form>
+				</td>
 			</tr>
 		</table>	
 	</th:block>

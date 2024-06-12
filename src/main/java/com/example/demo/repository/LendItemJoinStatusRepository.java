@@ -10,7 +10,8 @@ import com.example.demo.entity.LendItemJoinStatus;
 
 //貸出処理 ID検索用
 //lend_item status
-//
+//貸出物それぞれのテーブルと結合不可なためtitleとroomnameは個別で引っ張る
+//caseなら行けるのか？
 public interface LendItemJoinStatusRepository extends JpaRepository<LendItemJoinStatus, Integer> {
 	public static String sqlLendProcessId = "SELECT lend_item.* , status.status_name "
 			+ "FROM lend_item JOIN status ON lend_item.status_id = status.status_id "
