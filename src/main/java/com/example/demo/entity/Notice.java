@@ -33,7 +33,7 @@ public class Notice {
 	
 	// 日付の文字列フォーマット
 		private final static DateTimeFormatter FMT = 
-			DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+			DateTimeFormatter.ofPattern("yyyy/MM/dd");
 		
 	@Column(name = "notice_date")
 	private LocalDateTime noticeDate;

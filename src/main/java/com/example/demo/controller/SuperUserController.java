@@ -101,8 +101,10 @@ public class SuperUserController {
 		superUser.setUserId(account.getUserId());
 		superUser.setPrivilege(account.getPrivilege());
 
+
 		// 「貸出物管理画面」へのリダイレクト
 		return "redirect:/admin/lenditems";
+
 	}
 
 }

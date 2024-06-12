@@ -28,5 +28,9 @@
 		</table>
 		<button>更新</button>
 	</form>
+	<!--			エラー表示-->
+		<p th:each="error:${errorList}">
+			<span th:text="${error}" style="color: red"></span>
+		</p>
 </body>
 </html>
