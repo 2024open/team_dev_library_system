@@ -255,7 +255,7 @@ public class LibrarianController {
 			@PathVariable("noticeId") Integer noticeId,
 			Model model) {
 
-		// itemsテーブルをID（主キー）で検索
+		// noticeテーブルをID（主キー）で検索
 		Notice notice = noticeRepository.findById(noticeId).get();
 		model.addAttribute("notice", notice);
 		return "editNotice";
