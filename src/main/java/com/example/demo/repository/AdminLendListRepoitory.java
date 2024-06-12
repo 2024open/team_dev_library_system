@@ -8,6 +8,8 @@ import org.springframework.data.repository.query.Param;
 
 import com.example.demo.entity.AdminLendList;
 
+//管理者の貸出物一覧画面表示用
+//lend_item status any(貸出物の種類) genre
 public interface AdminLendListRepoitory extends JpaRepository<AdminLendList, Integer> {
 	static String sqlAdminLendJoinBook = "SELECT lend_item_id, title, genre_name, status_name "
 			+ "FROM lend_item "
