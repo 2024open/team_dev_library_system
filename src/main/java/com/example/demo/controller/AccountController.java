@@ -84,7 +84,7 @@ public class AccountController {
 		//return "redirect:/lendItems";
 
 		//[/items]へリダイレクト
-		return "redirect:/lendItem";
+		return "redirect:/lendItems";
 	}
 
 	//　会員登録画面表示

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>貸出中一覧</h1>
+	
+	<table border="1">
+		<tr>
+			<th>貸出日</th>
+		</tr>
+		
+		<tr th:each="lendingItem : ${lendingItemList}">
+			<td>[[${lendingItem.borrowedDate}]]</td>
+		</tr>
+	</table>
+
+</body>
+</html>
