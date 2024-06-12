@@ -114,23 +114,41 @@ public class LibrarianController {
 	@GetMapping("/librarian/lendProcess")
 	public String lendProcess(
 			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
-			@RequestParam(name = "lendItemId", defaultValue = "") String lendItemIdStr,
+			@RequestParam(name = "lendItemId", defaultValue = "-1") String lendItemIdStr,
+			@RequestParam(name = "categoryId", defaultValue = "-1") String categoryIdStr,
+			@RequestParam(name = "keyword", defaultValue = "") String keyword,
 			Model model) {
 		//libraryIdが不正
 		if (libraryIdStr.isEmpty() || !Common.isParceInt(libraryIdStr)) {
 			return "redirect:/librarian/lendItems";
 		}
 		//lendItemIdが不正
-		if (libraryIdStr.isEmpty() || !Common.isParceInt(lendItemIdStr)) {
+		if (!Common.isParceInt(lendItemIdStr) && !lendItemIdStr.isEmpty()) {
 			Integer libraryId = Integer.parseInt(libraryIdStr);
+			String errorMsg = "不正な値:lendItemId";
+			model.addAttribute("errorMsg", errorMsg);
+			librarianService.forLibraryId(model, libraryId);
+			return "librarianLendProcess";
+		}
+		//categoryIdが不正
+		if (!Common.isParceInt(categoryIdStr) && !categoryIdStr.isEmpty()) {
+			Integer libraryId = Integer.parseInt(libraryIdStr);
+			String errorMsg = "不正な値:categoryId";
+			model.addAttribute("errorMsg", errorMsg);
 			librarianService.forLibraryId(model, libraryId);
 			return "librarianLendProcess";
 		}
 
 		Integer libraryId = Integer.parseInt(libraryIdStr);
-		Integer lendItemId = Integer.parseInt(lendItemIdStr);
 
-		librarianService.forLendProcessSearch(lendItemId, model);
+		if (!lendItemIdStr.isEmpty() && Integer.parseInt(lendItemIdStr) >= 0) {
+			Integer lendItemId = Integer.parseInt(lendItemIdStr);
+			librarianService.forLendProcessIdSearch(lendItemId, model);
+		} else if (!categoryIdStr.isEmpty()) {
+			Integer categoryId = Integer.parseInt(categoryIdStr);
+			librarianService.forLendProcessKeyword(categoryId, keyword, model);
+		}
+		librarianService.forCategoryPullDown(model);
 		librarianService.forLibraryId(model, libraryId);
 		return "librarianLendProcess";
 	}
@@ -152,7 +170,7 @@ public class LibrarianController {
 		} else {
 			String errorMsg = "メールアドレスが間違っています";
 			model.addAttribute("errorMsg", errorMsg);
-			librarianService.forLendProcessSearch(lendItemId, model);
+			librarianService.forLendProcessIdSearch(lendItemId, model);
 			librarianService.forLibraryId(model, libraryId);
 			return "librarianLendProcess";
 		}
