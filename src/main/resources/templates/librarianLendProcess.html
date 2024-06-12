@@ -9,6 +9,7 @@
 	<sidebar th:replace="librarianSidebar"></sidebar>
 	
 	<h1>貸出処理</h1>
+	<p th:if="${errorMsg}">[[${errorMsg}]]</p>
 	
 	<form action="/librarian/lendProcess" method="get">
 		<input type="number" name="lendItemId">
