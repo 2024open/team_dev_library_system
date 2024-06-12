@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>お知らせ画面だYo!!</title>
+<link rel="stylesheet" type="text/css" href="/css/Measures.css">
 </head>
 <body>
 <!--	TODO選択できるだけ-->
@@ -19,26 +20,19 @@
 	<body>
 		<h1>名古屋図書館</h1>
 		<header th:replace="header"></header>
-		<table>
-			<tr>
-			<th>日付</th>
-			<th>内容</th>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-			</tr>
-		</table>
-    <h1>お知らせ</h1>
-<!--       <td><a th:href="@{/lendItems/{id}(id=${lendItem.lendItemId})}">-->
-<!--                    <p th:text="${lendItem.title}"></p>-->
-<!--                </a></td>-->
-	<tr th:each="notice:${noticeList}">
-	<td th:text="${#temporals.format(notice.noticeDate,'yyyy/MM/dd')}"></td>
-	<a th:href="@{/notice/{id}(id=${notice.noticeId})}">
-		<td th:text="${notice.title}"></td><br>
-	</a>
-	
+	<!--中央ぞろえのcss-->
+    <div class="center">
+    	<h1>お知らせ</h1>
+    	<!--ボーダー君囲んでるよ-->
+       	<div class="border">
+			<tr th:each="notice:${noticeList}">
+			<!--"${#temporals.format(～～～,'yyyy/MM/dd')}"　日付を(2024/01/01)の形にする-->
+			<td th:text="${#temporals.format(notice.noticeDate,'yyyy/MM/dd')}"></td>
+			<a th:href="@{/notice/{id}(id=${notice.noticeId})}">
+				<td th:text="${notice.title}"></td><br>
+			</a>
+		</div>
+	</div>
 </body>
-
+</body>
 </html>

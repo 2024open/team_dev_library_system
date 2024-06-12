@@ -2,7 +2,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>お知らせ詳細画面だYo!!</title>
+<link rel="stylesheet" type="text/css" href="/css/Measures.css">
 </head>
 <body>
 <!--	TODO選択できるだけ-->
@@ -19,23 +20,23 @@
 	<body>
 		<h1>名古屋図書館</h1>
 		<header th:replace="header"></header>
-		<table>
-			<tr>
-			<th>日付</th>
-			<th>内容</th>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-			</tr>
-		</table>
-	<tr>
-		<!--"${#temporals.format(～～～,'yyyy/MM/dd')}"　日付を(2024/01/01)の形にする-->
-		<th>日付：</th>
-		<td th:text="${#temporals.format(notice.noticeDate,'yyyy/MM/dd')}"></td><br>
-		<th>タイトル：</th>
-		<td th:text="${notice.title}"></td>
-	</tr>
-		<p th:text="${notice.content}"></p>
-</body>
+	<!--中央ぞろえのcss-->
+    <div class="center">
+		<h1>お知らせ詳細</h1>
+		<tr>
+			<!--"${#temporals.format(～～～,'yyyy/MM/dd')}"　日付を(2024/01/01)の形にする-->
+			<!--ボーダー君囲んでるよ-->
+        	<div class="border">
+				<th>日付：</th>
+				<td th:text="${#temporals.format(notice.noticeDate,'yyyy/MM/dd')}"></td><br>
+				<th>タイトル：</th>
+				<td th:text="${notice.title}"></td>
+		</tr>
+				<div class="detailBorder">
+					<p th:text="${notice.content}"></p>
+				</div>
+    		</div>
+				<br><a href="/notice">戻る</a>
+    </div>
+	</body>
 </html>
