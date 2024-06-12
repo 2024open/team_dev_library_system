@@ -139,8 +139,8 @@ public class LibrarianController {
 	//TODO
 	@PostMapping("/librarian/lendProcess")
 	public String lendProcessExecute(
-			@RequestParam(name = "lendItemId", defaultValue = "") Integer lendItemId,
 			@RequestParam(name = "libraryId", defaultValue = "1") Integer libraryId,
+			@RequestParam(name = "lendItemId", defaultValue = "") Integer lendItemId,
 			@RequestParam(name = "title", defaultValue = "") String title,
 			@RequestParam(name = "email", defaultValue = "") String email,
 			Model model) {
@@ -150,20 +150,26 @@ public class LibrarianController {
 		if (tmpList.size() == 1) {
 			lenderAccount = tmpList.get(0);
 		} else {
+			String errorMsg = "メールアドレスが間違っています";
+			model.addAttribute("errorMsg", errorMsg);
+			librarianService.forLendProcessSearch(lendItemId, model);
+			librarianService.forLibraryId(model, libraryId);
 			return "librarianLendProcess";
 		}
-		LendItem updateItem = lendItemRepository.findById(lendItemId).get();
 
+		LendItem updateItem = lendItemRepository.findById(lendItemId).get();
 		if (updateItem.getStatusId() == 1) {
-			//貸出処理
+			//貸出物テーブルのステータス変更
 			updateItem.setStatusId(2);
 			updateItem = lendItemRepository.save(updateItem);
 
+			//貸出中テーブルに追加
 			LendingItem lendingItem = new LendingItem();
 			lendingItem.setLendItemId(updateItem.getLendItemId());
 			lendingItem.setUserId(lenderAccount.getUserId());
 			lendingItem.setStatusId(updateItem.getStatusId());
-			lendingItem.setBorrowedDate(java.sql.Date.valueOf(LocalDate.now()));
+			lendingItem.setBorrowedDate(LocalDate.now());
+			lendingItem.setReturnDate(null); //返却日はnull
 			lendingItemRepository.save(lendingItem);
 
 			model.addAttribute("lendItem", updateItem);
@@ -171,17 +177,30 @@ public class LibrarianController {
 			librarianService.forLibraryId(model, libraryId);
 			return "lendProcessExecuted";
 		} else if (updateItem.getStatusId() == 2) {
-			//返却処理
+			//貸出物テーブルのステータス変更
 			updateItem.setStatusId(1);
 			updateItem = lendItemRepository.save(updateItem);
+
+			//貸出中テーブルの更新
+			List<LendingItem> returnItemList = lendingItemRepository.findByLendItemId(lendItemId);
+			LendingItem returnItem = returnItemList.get(0);
+			returnItem.setReturnDate(LocalDate.now());
+			returnItem.setStatusId(1);
+			lendingItemRepository.save(returnItem);
 
 			model.addAttribute("lendItem", updateItem);
 			model.addAttribute("title", title);
 			librarianService.forLibraryId(model, libraryId);
 			return "lendProcessExecuted";
-		}
+		} else {
+			String errorMsg = "貸出不可";
 
-		return "redirect:/librarian/lendProcess";
+			model.addAttribute("errorMsg", errorMsg);
+			model.addAttribute("lendItem", updateItem);
+			model.addAttribute("title", title);
+			librarianService.forLibraryId(model, libraryId);
+			return "lendProcessExecuted";
+		}
 	}
 
 	//貸出物更新画面
@@ -255,7 +274,7 @@ public class LibrarianController {
 			@PathVariable("noticeId") Integer noticeId,
 			Model model) {
 
-		// itemsテーブルをID（主キー）で検索
+		// noticeテーブルをID（主キー）で検索
 		Notice notice = noticeRepository.findById(noticeId).get();
 		model.addAttribute("notice", notice);
 		return "editNotice";
