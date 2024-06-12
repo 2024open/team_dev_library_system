@@ -35,8 +35,9 @@ public class NoticeController {
             @PathVariable("id") Integer id,
             Model model) {
         //NoticeテーブルをID(主キー)で検索
-        Notice notice = noticeRepository.findById(id).orElse(null);
+        Notice notice = noticeRepository.findById(id).get();
         model.addAttribute("notice", notice);
         return "noticeDetail";
     }
+    
 }

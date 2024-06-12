@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Account;
+import com.example.demo.entity.Library;
 import com.example.demo.model.SuperUser;
 import com.example.demo.repository.AccountRepository;
 import com.example.demo.repository.LibraryRepository;
@@ -31,6 +32,12 @@ public class SuperUserController {
 
 	@Autowired
 	SuperUser superUser;
+
+	@Autowired
+	Library library;
+
+	@Autowired
+	Account account;
 
 	//	管理者ログイン画面表示
 	@GetMapping({ "/su/login", "/su/logout" })
@@ -83,19 +90,21 @@ public class SuperUserController {
 			return "suLogin";
 		}
 
-		// セッション管理されたSuperUserモデルに図書館ID、図書館名、ユーザーID、権限をセット
-		//TODO 一度Listで受け取ってからget()で多分エラー取れます
-		//		Library library = libraryRepository.findByLibraryId(libraryId);
-		//		superUser.setLibraryId(libraryId);
-		//		superUser.setLibraryName(library.getLibraryName());
-		//		
-		//		Account account = accountRepository.findByEmail(email);
-		//		superUser.setUserId(account.getUserId());
-		//		superUser.setPrivilege(account.getPrivilege());
-		//		
+		//		 セッション管理されたSuperUserモデルに図書館ID、図書館名、ユーザーID、権限をセット
+		List<Library> libraries = libraryRepository.findByLibraryId(libraryId);
+		Library library = libraries.get(0);
+		superUser.setLibraryId(libraryId);
+		superUser.setLibraryName(library.getLibraryName());
+
+		List<Account> accounts = accountRepository.findByEmail(email);
+		Account account = accounts.get(0);
+		superUser.setUserId(account.getUserId());
+		superUser.setPrivilege(account.getPrivilege());
+
 
 		// 「貸出物管理画面」へのリダイレクト
 		return "redirect:/admin/lenditems";
+
 	}
 
 }
