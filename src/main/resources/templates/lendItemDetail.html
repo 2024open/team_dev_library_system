@@ -9,7 +9,7 @@
 <body>
 	<header th:replace="header"></header>
 	<p th:text="${msg}" style="color: red;"></p>
-	<table border="1" 　th:each="Detail:${lendItemDetail}">
+	<table border="1" th:each="Detail:${lendItemDetail}">
 		<tr>
 			<th>タイトル</th>
 			<td th:text="${Detail.title}"></td>
