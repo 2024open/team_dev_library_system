@@ -86,6 +86,20 @@ public class ReservationController {
 			model.addAttribute("reservation", reservationKamishibai);
 		}
 
+		
+		Map<Integer, String> categoryMap = new HashMap<>();
+
+		List<Category> categoryMapList = categoryRepository.findAll();
+
+		//Mapで格納
+		for (Category categoryList : categoryMapList) {
+
+			categoryMap.put(categoryList.getCategoryId(), categoryList.getCategoryName());
+
+		}
+		
+		model.addAttribute("categoryMap", categoryMap);
+		
 
 		return "reservationList";
 	}
@@ -166,6 +180,7 @@ public class ReservationController {
 				model.addAttribute("categoryMap", categoryMap);
 				model.addAttribute("genreMap", genreMap);
 				model.addAttribute("statusMap", statusMap);
+				
 				String msg = "予約上限です";
 				model.addAttribute("msg", msg);
 				model.addAttribute("lendItemDetail", lendItemDetail);
