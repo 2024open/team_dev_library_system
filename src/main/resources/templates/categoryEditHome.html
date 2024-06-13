@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>カテゴリ / 管理者</title>
+</head>
+<body>
+	<header th:replace ="adminHeader"></header>
+	<sidebar th:replace="librarianSidebar"></sidebar>
+	
+	<h1>カテゴリー一覧</h1>
+	<th:block th:if="${categoryList}">
+		<div th:each="category : ${categoryList}">
+			<a th:href="@{/librarian/categories/{id}(id = ${category.categoryId})}" >
+				[[${category.categoryId}]].[[${category.categoryName}]]
+			</a>
+		</div>
+	</th:block>
+	
+	<a href="/librarian/categories/add">
+		カテゴリー追加
+	</a>
+	
+</body>
+</html>
