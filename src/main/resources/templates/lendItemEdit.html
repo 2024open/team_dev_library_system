@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<htm xmlns:th="http://www.thymeleaf.org"l>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>貸出物詳細</title>
@@ -8,51 +8,193 @@
 	<header th:replace ="adminHeader"></header>
 	<sidebar th:replace="librarianSidebar"></sidebar>
 	
-	<th:block th:if="${lendItem.categoryId} != 5">
-		<form method="post">	
-			<table border="1">
+<!--	Bookの編集-->
+	<th:block th:if="${lendItem.categoryId} == 1">
+		<form method="post">
+			<table border="1" th:each="lendAnyItem : ${lendAnyItemList}">
 				<tr>
 					<th>タイトル</th>
-					<td>
-						<input type="text" name="title" th:value="${lendAnyItem.title}">
-					</td>
+					<td>[[${lendAnyItem.title}]]</td>
 				</tr>
 				<tr>
 					<th>著者</th>
-					<td>
-						<input type="text" name="author" th:value="${lendAnyItem.author}">
-					</td>
+					<td>[[${lendAnyItem.author}]]</td>
 				</tr>
 				<tr>
 					<th>出版社</th>
-					<td>
-						<input type="text" name="publisher" th:value="${lendAnyItem.publisher}">
-					</td>
+					<td>[[${lendAnyItem.publisher}]]</td>
 				</tr>
 				<tr>
 					<th>ジャンル</th>
-					<td>
-						<select>							
-							<option th:value="${lendAnyItem.genreId}">[[${lendAnyItem.genreId}]]</option>
-							<option th:each="genre : ${genreList}" th:value="${genre.genreId}">[[${genre.genreName}]]</option>
-						</select>
-					</td>
+					<td>[[${lendAnyItem.genreName}]]</td>
 				</tr>
 				<tr>
 					<th>状態</th>
 					<td>
-						<select>
-							<option th:value="${lendItem.statusId}">[[${lendItem.statusId}]]</option>
-							<option th:each="status : ${statusList}" th:value="${status.statusId}">[[${status.statusName}]]</option>
+						<select name="statusId">
+							<option th:value="${lendItem.statusId}">[[${lendItem.statusId}]] : 変更なし</option>
+							<option th:each="status : ${statusList}" th:value="${status.statusId}">[[${status.statusId}]]: [[${status.statusName}]]</option>
 						</select>
 					</td>
 				</tr>
+				
+				<th>種類</th>
+					<td>
+						<select name="anyId">
+							<option th:each="book :${bookList}" th:value="${book.bookId}">[[${book.bookId}]]: [[${book.title}]]</option>
+						</select>
+					</td>
+			</table>
+			
+			<button>更新</button>
+		</form>
+	</th:block>
+
+<!--	CDの編集-->
+	<th:block th:if="${lendItem.categoryId} == 2">
+		<form method="post">
+			<table border="1" th:each="lendAnyItem : ${lendAnyItemList}">
+				<tr>
+					<th>タイトル</th>
+					<td>[[${lendAnyItem.title}]]</td>
+				</tr>
+				<tr>
+					<th>アーティスト</th>
+					<td>[[${lendAnyItem.author}]]</td>
+				</tr>
+				<tr>
+					<th>レーベル</th>
+					<td>[[${lendAnyItem.publisher}]]</td>
+				</tr>
+				<tr>
+					<th>ジャンル</th>
+					<td>[[${lendAnyItem.genreName}]]</td>
+				</tr>
+				<tr>
+					<th>状態</th>
+					<td>
+						<select name="statusId">
+							<option th:value="${lendItem.statusId}">
+								[[${lendItem.statusId}]] : 変更なし
+							</option>
+							<option th:each="status : ${statusList}" th:value="${status.statusId}">
+								[[${status.statusId}]]: [[${status.statusName}]]
+							</option>
+						</select>
+					</td>
+				</tr>
+				
+				<th>種類</th>
+					<td>
+						<select name="anyId">
+							<option th:each="cd :${cdList}" th:value="${cd.cdId}">
+								[[${cd.cdId}]]: [[${cd.title}]]
+							</option>
+						</select>
+					</td>
+			</table>
+			
+			<button>更新</button>
+		</form>
+	</th:block>
+
+<!--	DVDの編集-->
+	<th:block th:if="${lendItem.categoryId} == 3">
+		<form method="post">
+			<table border="1" th:each="lendAnyItem : ${lendAnyItemList}">
+				<tr>
+					<th>タイトル</th>
+					<td>[[${lendAnyItem.title}]]</td>
+				</tr>
+				<tr>
+					<th>監督</th>
+					<td>[[${lendAnyItem.author}]]</td>
+				</tr>
+				<tr>
+					<th>販売元</th>
+					<td>[[${lendAnyItem.publisher}]]</td>
+				</tr>
+				<tr>
+					<th>ジャンル</th>
+					<td>[[${lendAnyItem.genreName}]]</td>
+				</tr>
+				<tr>
+					<th>状態</th>
+					<td>
+						<select name="statusId">
+							<option th:value="${lendItem.statusId}">
+								[[${lendItem.statusId}]] : 変更なし
+							</option>
+							<option th:each="status : ${statusList}" th:value="${status.statusId}">
+								[[${status.statusId}]]: [[${status.statusName}]]
+							</option>
+						</select>
+					</td>
+				</tr>
+				
+				<th>種類</th>
+					<td>
+						<select name="anyId">
+							<option th:each="dvd :${dvdList}" th:value="${dvd.dvdId}">
+								[[${dvd.dvdId}]]: [[${dvd.title}]]
+							</option>
+						</select>
+					</td>
+			</table>
+			
+			<button>更新</button>
+		</form>
+	</th:block>
+
+<!--	紙芝居の編集-->
+	<th:block th:if="${lendItem.categoryId} == 4">
+		<form method="post">
+			<table border="1" th:each="lendAnyItem : ${lendAnyItemList}">
+				<tr>
+					<th>タイトル</th>
+					<td>[[${lendAnyItem.title}]]</td>
+				</tr>
+				<tr>
+					<th>作者</th>
+					<td>[[${lendAnyItem.author}]]</td>
+				</tr>
+				<tr>
+					<th>販売元</th>
+					<td>[[${lendAnyItem.publisher}]]</td>
+				</tr>
+				<tr>
+					<th>ジャンル</th>
+					<td>[[${lendAnyItem.genreName}]]</td>
+				</tr>
+				<tr>
+					<th>状態</th>
+					<td>
+						<select name="statusId">
+							<option th:value="${lendItem.statusId}">
+								[[${lendItem.statusId}]] : 変更なし
+							</option>
+							<option th:each="status : ${statusList}" th:value="${status.statusId}">
+								[[${status.statusId}]]: [[${status.statusName}]]
+							</option>
+						</select>
+					</td>
+				</tr>
+				
+				<th>種類</th>
+					<td>
+						<select name="anyId">
+							<option th:each="kamishibai :${kamishibaiList}" th:value="${kamishibai.kamishibaiId}">
+								[[${kamishibai.kamishibaiId}]]: [[${kamishibai.title}]]
+							</option>
+						</select>
+					</td>
 			</table>
 			
 			<button>更新</button>
 		</form>
 	</th:block>
 	
+<!--	会議室の編集-->
 	<th:block th:if="${lendItem.categoryId} == 5">
 		<form 
 		method="post" 

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.example.demo.entity.AnyJoinGenre;
 import com.example.demo.entity.Book;
 import com.example.demo.entity.CD;
 import com.example.demo.entity.Category;
@@ -19,6 +20,7 @@ import com.example.demo.entity.LendItemJoinStatusJoinAny;
 import com.example.demo.entity.Library;
 import com.example.demo.entity.Room;
 import com.example.demo.entity.Status;
+import com.example.demo.repository.AnyJoinGenreRepository;
 import com.example.demo.repository.BookRepository;
 import com.example.demo.repository.CDRepository;
 import com.example.demo.repository.CategoryRepository;
@@ -62,17 +64,20 @@ public class LibrarianService {
 	RoomRepository roomRepository;
 
 	@Autowired
+	AnyJoinGenreRepository anyJoinGenreRepository;
+
+	@Autowired
 	LendItemJoinStatusRepository lendItemJoinStatusRepository;
 
 	@Autowired
 	LendItemJoinStatusJoinAnyRepository lendItemJoinStatusJoinAnyRepository;
 
-	public void forLibraryPullDown(Model model) {
+	public void forLibraryList(Model model) {
 		List<Library> libraryList = libraryRepository.findAll();
 		model.addAttribute("libraryList", libraryList);
 	}
 
-	public void forCategoryPullDown(Model model) {
+	public void forCategoryList(Model model) {
 		List<Category> categoryList = categoryRepository.findAll();
 		model.addAttribute("categoryList", categoryList);
 	}
@@ -90,24 +95,39 @@ public class LibrarianService {
 		model.addAttribute("library", library);
 	}
 
+	public void forCategoryId(Model model, Integer categoryId) {
+		Category category = categoryRepository.findById(categoryId).get();
+		model.addAttribute("categoryId", categoryId);
+		model.addAttribute("category", category);
+	}
+
 	//貸出物更新用
 	public void forLendItemEdit(LendItem lendItem, Model model) {
 		switch (lendItem.getCategoryId()) {
 		case 1:
-			Book book = bookRepository.findById(lendItem.getAnyId()).get();
-			model.addAttribute("lendAnyItem", book);
+			List<Book> bookList = bookRepository.findAll();
+			model.addAttribute("bookList", bookList);
+			List<AnyJoinGenre> bookJoinGenre = anyJoinGenreRepository.sqlBookJoinGenreById(lendItem.getAnyId());
+			model.addAttribute("lendAnyItemList", bookJoinGenre);
 			break;
 		case 2:
-			CD cd = cdRepository.findById(lendItem.getAnyId()).get();
-			model.addAttribute("lendAnyItem", cd);
+			List<CD> cdList = cdRepository.findAll();
+			model.addAttribute("cdList", cdList);
+			List<AnyJoinGenre> cdJoinGenre = anyJoinGenreRepository.sqlCDJoinGenreById(lendItem.getAnyId());
+			model.addAttribute("lendAnyItemList", cdJoinGenre);
 			break;
 		case 3:
-			DVD dvd = dvdRepository.findById(lendItem.getAnyId()).get();
-			model.addAttribute("lendAnyItem", dvd);
+			List<DVD> dvdList = dvdRepository.findAll();
+			model.addAttribute("dvdList", dvdList);
+			List<AnyJoinGenre> dvdJoinGenre = anyJoinGenreRepository.sqlDVDJoinGenreById(lendItem.getAnyId());
+			model.addAttribute("lendAnyItemList", dvdJoinGenre);
 			break;
 		case 4:
-			Kamishibai kamishibai = kamishibaiRepository.findById(lendItem.getAnyId()).get();
-			model.addAttribute("lendAnyItem", kamishibai);
+			List<Kamishibai> kamishibaiList = kamishibaiRepository.findAll();
+			model.addAttribute("kamishibaiList", kamishibaiList);
+			List<AnyJoinGenre> kamishibaiJoinGenre = anyJoinGenreRepository
+					.sqlKamishibaiJoinGenreById(lendItem.getAnyId());
+			model.addAttribute("lendAnyItemList", kamishibaiJoinGenre);
 			break;
 		case 5:
 			Room room = roomRepository.findById(lendItem.getAnyId()).get();

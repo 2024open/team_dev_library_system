@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>カテゴリ / [[${category.categoryName}]]</title>
+</head>
+<body>
+	<header th:replace ="adminHeader"></header>
+	<sidebar th:replace="librarianSidebar"></sidebar>
+	
+	<a th:href="@{/librarian/categories/{id}/rename(id = ${categoryId}, libraryId = ${libraryId})}">
+		カテゴリー名の変更
+	</a>
+	<br>
+	<br>
+	<a th:href="@{/librarian/categories/{id}/dataList(id = ${categoryId})}">
+		データの編集
+	</a>
+</body>
+</html>

@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,7 +19,6 @@ import com.example.demo.entity.AdminLendRoom;
 import com.example.demo.entity.LendItem;
 import com.example.demo.entity.LendingItem;
 import com.example.demo.entity.Notice;
-import com.example.demo.entity.Room;
 import com.example.demo.model.SuperUser;
 import com.example.demo.repository.AccountRepository;
 import com.example.demo.repository.AdminLendListRepoitory;
@@ -105,8 +104,8 @@ public class LibrarianController {
 		}
 		model.addAttribute("LendJoinAny", LendJoinAny);
 
-		librarianService.forLibraryPullDown(model);
-		librarianService.forCategoryPullDown(model);
+		librarianService.forLibraryList(model);
+		librarianService.forCategoryList(model);
 		librarianService.forLibraryId(model, libraryId);
 
 		return "librarianLendItems";
@@ -152,7 +151,7 @@ public class LibrarianController {
 			Integer categoryId = Integer.parseInt(categoryIdStr);
 			librarianService.forLendProcessKeyword(categoryId, libraryId, keyword, model);
 		}
-		librarianService.forCategoryPullDown(model);
+		librarianService.forCategoryList(model);
 		librarianService.forLibraryId(model, libraryId);
 		return "librarianLendProcess";
 	}
@@ -174,7 +173,7 @@ public class LibrarianController {
 			String errorMsg = "メールアドレスが間違っています";
 			model.addAttribute("errorMsg", errorMsg);
 			librarianService.forLendProcessIdSearch(lendItemId, libraryId, model);
-			librarianService.forCategoryPullDown(model);
+			librarianService.forCategoryList(model);
 			librarianService.forLibraryId(model, libraryId);
 			return "librarianLendProcess";
 		}
@@ -246,13 +245,19 @@ public class LibrarianController {
 		return "lendItemEdit";
 	}
 
-	//TODO
 	//貸出物更新処理
+	//post処理だしプルダウンだしstatusIdはInteger以外こなさそう
 	@PostMapping("/librarian/lenditems/{id}/edit")
 	public String lendItemUpdate(
 			@PathVariable("id") Integer lendItemId,
-			@ModelAttribute("EditRoom") Room room,
+			@RequestParam("statusId") Integer statusId,
+			@RequestParam("anyId") Integer anyId,
 			Model model) {
+		LendItem lendItem = lendItemRepository.findById(lendItemId).get();
+		lendItem.setStatusId(statusId);
+		lendItem.setAnyId(anyId);
+		lendItem.setUpdateDate(LocalDateTime.now());
+		lendItemRepository.save(lendItem);
 		return "redirect:/librarian/lenditems/{id}/edit";
 	}
 
