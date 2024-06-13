@@ -17,6 +17,7 @@ import com.example.demo.entity.DetailIf;
 import com.example.demo.entity.Genre;
 import com.example.demo.entity.LendItemDetail;
 import com.example.demo.entity.Status;
+import com.example.demo.model.SuperUser;
 import com.example.demo.repository.ALLUserLendDetailRepoitory;
 import com.example.demo.repository.ALLUserLendListRepoitory;
 import com.example.demo.repository.AccountRepository;
@@ -47,6 +48,9 @@ public class LendItemController {
 	
 	@Autowired
 	DetailIfRepository detailIfRepository;
+	
+	@Autowired
+	SuperUser user;
 	
 	//貸出物一覧表示
 	@GetMapping({ "/lendItems" })
@@ -105,6 +109,9 @@ public class LendItemController {
 		}
 		model.addAttribute("lendItemList", lendItemList);
 
+		Integer userId = user.getUserId();
+		model.addAttribute("userId", userId);
+		
 		return "index";
 	}
 
@@ -173,6 +180,9 @@ public class LendItemController {
 			lendItemDetail = alluserLendDetailRepoitory.sqlALLUserKamishibaiLendJoinDetail(id).get(0);
 			model.addAttribute("lendItemDetail", lendItemDetail);
 		}
+		
+		Integer userId = user.getUserId();
+		model.addAttribute("userId", userId);
 
 		return "lendItemDetail";
 	}

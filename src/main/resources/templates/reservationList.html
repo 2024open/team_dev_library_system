@@ -18,14 +18,14 @@
 			<option  class="category" value="4">紙芝居</option>
 		</select>
 	</form>
-
-	<table border="1">
+<h2 th:if="${reservation.size() ==0}" style="color: red;">データが存在しません</h2>
+	<table border="1" th:if="${reservation.size() !=0}">
 		<tr>
 			<th>カテゴリー</th>
 			<th>タイトル</th>
 			<th>予約日</th>
 		<tr th:each="reserList:${reservation}">
-			<td th:text="${reserList.categoryId}"></td>
+			<td th:text="${categoryMap[reserList.categoryId]}"></td>
 			<td th:text="${reserList.title}"></td>
 			<td th:text="${#dates.format(reserList.reservationDate,'yyyy/MM/dd')}"></td>
 		</tr>

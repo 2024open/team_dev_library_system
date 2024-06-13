@@ -1,13 +1,13 @@
 <header>
-<!--	<form  id="submit_form">-->
+	<!--	<form  id="submit_form">-->
 
-<!--		<select id="submit_item">-->
-<!--			<option value="1">名古屋</option>-->
-<!--			<option value="2">栄</option>-->
-<!--			<option value="3">金山</option>-->
-<!--		</select>-->
-<!--	</form>-->
-	
+	<!--		<select id="submit_item">-->
+	<!--			<option value="1">名古屋</option>-->
+	<!--			<option value="2">栄</option>-->
+	<!--			<option value="3">金山</option>-->
+	<!--		</select>-->
+	<!--	</form>-->
+
 	<h1>名古屋市図書館</h1>
 	<h3>メニュー</h3>
 	<a href="/lendItems">
@@ -16,14 +16,15 @@
 	<a href="/notice">
 		<p>お知らせ</p>
 	</a>
-	<a href="/lending">
-		<p>現在借りている物</p>
+
+	<a href="/lending" th:if="${userId != 0}">
+		<p th:if="${userId != 0}">現在借りている物</p>
 	</a>
-	<a href="/reservation">
-		<p>予約一覧</p>
+	<a href="/reservation" th:if="${userId != 0}">
+		<p th:if="${userId != 0}">予約一覧</p>
 	</a>
-	<a href="/lendingHistory">
-		<p>貸出履歴</p>
+	<a href="/lendingHistory" th:if="${userId != 0}">
+		<p th:if="${userId != 0}">貸出履歴</p>
 	</a>
 	<a href="/login"><button>ログイン</button></a>
 	</div>
