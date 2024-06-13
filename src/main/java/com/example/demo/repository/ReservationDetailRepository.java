@@ -12,16 +12,53 @@ import com.example.demo.entity.ReservationDetail;
 public interface ReservationDetailRepository extends JpaRepository<ReservationDetail, Integer> {
 	
 	//予約一覧表示
-		static String sqlReservationList = "select reservation.lend_item_id,lend_item.category_id,book.title,reservation.reservation_date "
+		static String sqlReservationBookList = "select reservation.lend_item_id,lend_item.category_id,book.title,reservation.reservation_date "
 				+ "from reservation "
 				+ "inner join lend_item "
 				+ "on reservation.lend_item_id=lend_item.lend_item_id "
 				+ "inner join book "
 				+ "on lend_item.any_id=book.book_id "
-				+ "where reservation.user_id= :UserId ;";
+				+ "where reservation.user_id= :UserId AND lend_item.category_id=1;";
 
-		@Query(value = sqlReservationList, nativeQuery = true)
-		List<ReservationDetail> sqlReservationLendJoin(@Param("UserId")Integer UserId);
+		@Query(value = sqlReservationBookList, nativeQuery = true)
+		List<ReservationDetail> sqlReservationBookLendJoin(@Param("UserId")Integer UserId);
+		
+		static String sqlReservationCDList = "select reservation.lend_item_id,lend_item.category_id,cd.title,reservation.reservation_date "
+				+ "from reservation "
+				+ "inner join lend_item "
+				+ "on reservation.lend_item_id=lend_item.lend_item_id "
+				+ "inner join cd "
+				+ "on lend_item.any_id=cd.cd_id "
+				+ "where reservation.user_id= :UserId AND lend_item.category_id=2;";
+
+		@Query(value = sqlReservationCDList, nativeQuery = true)
+		List<ReservationDetail> sqlReservationCDLendJoin(@Param("UserId")Integer UserId);
+		
+		
+		static String sqlReservationDVDList = "select reservation.lend_item_id,lend_item.category_id,dvd.title,reservation.reservation_date "
+				+ "from reservation "
+				+ "inner join lend_item "
+				+ "on reservation.lend_item_id=lend_item.lend_item_id "
+				+ "inner join dvd "
+				+ "on lend_item.any_id=dvd.dvd_id "
+				+ "where reservation.user_id= :UserId AND lend_item.category_id=3;";
+
+		@Query(value = sqlReservationDVDList, nativeQuery = true)
+		List<ReservationDetail> sqlReservationDVDLendJoin(@Param("UserId")Integer UserId);
+		
+		
+		static String sqlReservationKamishibaiList = "select reservation.lend_item_id,lend_item.category_id,kamishibai.title,reservation.reservation_date "
+				+ "from reservation "
+				+ "inner join lend_item "
+				+ "on reservation.lend_item_id=lend_item.lend_item_id "
+				+ "inner join kamishibai "
+				+ "on lend_item.any_id=kamishibai.kamishibai_id "
+				+ "where reservation.user_id= :UserId AND lend_item.category_id=4;";
+
+		@Query(value = sqlReservationKamishibaiList, nativeQuery = true)
+		List<ReservationDetail> sqlReservationKamishibaiLendJoin(@Param("UserId")Integer UserId);
+		
+		
 		
 		
 }

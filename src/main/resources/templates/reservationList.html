@@ -8,6 +8,17 @@
 
 <body>
 	<header th:replace="header"></header>
+	
+		<form action="/reservation" method="get">
+		<select name="category" onchange="submit(this.form)">
+			<option value="">カテゴリ</option>
+			<option  class="category" value="1">本</option>
+			<option  class="category" value="2">CD</option>
+			<option  class="category" value="3">DVD</option>
+			<option  class="category" value="4">紙芝居</option>
+		</select>
+	</form>
+
 	<table border="1">
 		<tr>
 			<th>カテゴリー</th>
@@ -16,7 +27,7 @@
 		<tr th:each="reserList:${reservation}">
 			<td th:text="${reserList.categoryId}"></td>
 			<td th:text="${reserList.title}"></td>
-			<td th:text="${#temporals.format(reserList.reservationDate, 'yyyy年MM月dd日')}"></td>
+			<td th:text="${#dates.format(reserList.reservationDate,'yyyy/MM/dd')}"></td>
 		</tr>
 	</table>
 </body>

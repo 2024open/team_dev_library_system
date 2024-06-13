@@ -1,15 +1,15 @@
 package com.example.demo.entity;
 
-import java.util.Date;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
+@Table(name = "lend_item")
 @Data
-public class ReservationDetail {
+public class DetailIf {
 	
 	@Id
 	@Column(name = "lend_item_id")
@@ -18,9 +18,5 @@ public class ReservationDetail {
 	@Column(name = "category_id")
 	private Integer categoryId;
 	
-	private String title;
-
-	@Column(name = "reservation_date")
-	private Date reservationDate;
 	
 }
