@@ -15,10 +15,13 @@ public interface GenreRepository extends JpaRepository<Genre, Integer> {
 //	ジャンル追加時のエラーチェック用
 	List<Genre> findByCategoryIdAndGenreName(Integer categoryId,String genreName);
 	
-//	ジャンル一覧表示用（デリートフラグfalse、カテゴリー昇順）
+//	ジャンル一覧表示
 	List<Genre> findByDeletedFalseOrderByCategoryIdAsc();
 	
-//	カテゴリーごとのジャンル表示用(デリートフラグfalse)
+//	カテゴリーごとのジャンル表示
 	List<Genre> findByDeletedFalseAndCategoryId(Integer categoryId);
+	
+//	削除されたジャンル一覧表示
+	List<Genre> findByDeletedTrueOrderByCategoryIdAsc();
 
 }

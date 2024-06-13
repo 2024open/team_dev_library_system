@@ -36,16 +36,27 @@
 
 	<!--カテゴリーごとの一覧表示-->
 	<a th:each="c:${categoryList}" th:href="@{/admin/genre(categoryId=${c.categoryId})}">
-    <span th:text="${c.categoryName}" style="padding-left: 10px;"></span>
+    <span th:text="${c.categoryName}"></span>
 </a>
+
+	<!--削除一覧の表示-->
+	<a href="/admin/genre?deleted=true">削除したジャンル</a>
+	
 	<table style="margin-left: auto; margin-right: auto;">
 		<tr>
 			<th>カテゴリー名</th>
 			<th>ジャンル</th>
+			<th></th>
 		</tr>
 		<tr th:each="genre : ${genreList}">
 			<td th:text="${categoryMap.get(genre.categoryId)}"></td>
 			<td th:text="${genre.genreName}"></td>
+			
+			<td>
+				<form th:action="@{/admin/genre/{genreId}/delete(genreId=${genre.genreId})}" method="post">
+					<button>削除</button>
+				</form>
+			</td>
 		</tr>
 	</table>
 
