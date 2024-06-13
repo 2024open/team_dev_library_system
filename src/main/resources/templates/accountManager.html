@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>アカウント管理だYo!!</title>
+</head>
+<body>
+    <h1>出た</h1>
+    <form action="/admin/accountManager" method="get">
+    	<input type="text" name="userName" placeholder="利用者名" th:value="${userName}">
+    	<button>検索</button><br>
+	</form>
+		<tr th:each="accountManager:${accountList}">
+			<p>
+           		<td>利用者ID：</td>
+        		<td th:text="${accountManager.userId}"></td><br>
+        		<td>利用者名：</td>
+        		<td th:text="${accountManager.userName}"></td><br>
+        		<td>ニックネーム：</td>
+        		<td th:text="${accountManager.nickname}"></td><br>
+        		<td>メールアドレス：</td>
+        		<td th:text="${accountManager.email}"></td>
+        		<button>BAN</button>
+           </p>
+		</tr>
+</body>
+</html>

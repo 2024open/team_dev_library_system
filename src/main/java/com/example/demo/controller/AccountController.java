@@ -74,6 +74,7 @@ public class AccountController {
 			return "login";
 		}
 
+		//メールとパス検索
 		List<Account> accountList = accountRepository.findByEmailAndPassword(email, password);
 		if (accountList == null || accountList.size() == 0) {
 			// 存在しなかった場合
@@ -121,7 +122,7 @@ public class AccountController {
 		} else if (userName.length() > 50) {
 			errorList.add("名前は50字以下で入力してください");
 		}
-
+		
 		if (nickname.length() == 0) {
 			errorList.add("ニックネームは必須です");
 		} else if (nickname.length() > 50) {
