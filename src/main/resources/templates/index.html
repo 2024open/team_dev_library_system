@@ -8,7 +8,7 @@
 
 <body>
 	<header th:replace="header"></header>
-	
+
 	<script>
 		$(function () {
 			$("#submit_item").change(function () {
@@ -17,17 +17,17 @@
 		});
 	</script>
 
-	<form action="/" method="get">
+	<form action="/lendItems" method="get">
 		<select name="category" onchange="submit(this.form)">
 			<option value="">カテゴリ</option>
 			<option class="category" value="1">本</option>
 			<option class="category" value="2">CD</option>
 			<option class="category" value="3">DVD</option>
 			<option class="category" value="4">紙芝居</option>
-<!--			<option class="category" value="5">貸会議室</option>-->
+			<!--			<option class="category" value="5">貸会議室</option>-->
 		</select>
-<!--		<input type="text">-->
-<!--		<button>検索</button><br>-->
+		<!--		<input type="text">-->
+		<!--		<button>検索</button><br>-->
 		<!--		<select>-->
 		<!--			<option value="">図書館</option>-->
 		<!--			<option value="">名古屋</option>-->
@@ -43,8 +43,8 @@
 		<!--			<option value="">貸出可否</option>-->
 		<!--		</select>-->
 	</form>
-
-	<table border="1">
+	<h2 th:text="${titleMsg}"></h2>
+	<table border="1" th:if="${lendItemList.size() !=0}">
 		<tr>
 			<th>ジャンル</th>
 			<th>タイトル</th>

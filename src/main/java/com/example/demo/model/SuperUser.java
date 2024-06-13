@@ -10,7 +10,7 @@ public class SuperUser {
 	
 	private int libraryId;
 	private String libraryName;
-	private int userId;
+	private int userId = 0;
 	private int privilege;
 	
 
