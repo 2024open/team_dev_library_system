@@ -2,26 +2,34 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>アカウント管理だYo!!</title>
+<title>アカウント管理画面だYo!!</title>
+<link rel="stylesheet" type="text/css" href="/css/Measures.css">
 </head>
 <body>
-    <h1>出た</h1>
-    <form action="/admin/accountManager" method="get">
-    	<input type="text" name="userName" placeholder="利用者名" th:value="${userName}">
-    	<button>検索</button><br>
-	</form>
+	<div class="center">
+		<form action="/admin/accountManager" method="get">
+			<input type="text" name="userName" placeholder="利用者名" th:value="${userName}">
+			<button>検索</button><br>
+		</form>
 		<tr th:each="accountManager:${accountList}">
 			<p>
-           		<td>利用者ID：</td>
-        		<td th:text="${accountManager.userId}"></td><br>
-        		<td>利用者名：</td>
-        		<td th:text="${accountManager.userName}"></td><br>
-        		<td>ニックネーム：</td>
-        		<td th:text="${accountManager.nickname}"></td><br>
-        		<td>メールアドレス：</td>
-        		<td th:text="${accountManager.email}"></td>
-        		<button>BAN</button>
-           </p>
+				<form action="/admin/accountManager" method="post">
+				<div class="border">
+					<td>利用者ID：</td>
+					<td th:text="${accountManager.userId}"></td><br>
+					<td>利用者名：</td>
+					<td th:text="${accountManager.userName}"></td><br>
+					<td>ニックネーム：</td>
+					<td th:text="${accountManager.nickname}"></td><br>
+					<td>メールアドレス：</td>
+					<td th:text="${accountManager.email}"></td><br>
+					<button>BAN</button>
+				</div>
+				</form>
+			</p>
 		</tr>
+		<!--TODO 後で消すよ-->
+		<br><a href="/lendItems">戻る</a>
+	</div>
 </body>
 </html>

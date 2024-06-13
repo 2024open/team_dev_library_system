@@ -23,20 +23,19 @@ public class AdminController {
         // 処理は後で書く
         return "";
     }
-
+    
     @GetMapping("/admin/home")
     public String home() {
         // 処理は後で書く
         return "";
     }
-
+    
     // 管理者利用者情報管理画面
     @GetMapping("/admin/accountManager")
     public String index(
             @RequestParam(value = "userName", defaultValue = "%") String userName,
             Model model) {
         List<Account> accountList;
-        
         if (userName != null) {
             accountList = accountRepository.findByUserNameLike("%" + userName + "%");
         } else {
@@ -45,9 +44,13 @@ public class AdminController {
         model.addAttribute("accountList", accountList);
         return "accountManager";
     }
-    @PostMapping("/admin/ban")
-    public String ban() {
-        // 処理は後で書く
-        return "accountManager";
+    
+    //ban処理やるよ
+    @PostMapping("/admin/accountManager")
+    public String ban(
+    		//@RequestParam(value ="ban",defaultValue = "") boolean ban,
+    		Model model) {
+    	//accountRepository.save(account);
+        return "redirect:/admin/accountManager";
     }
 }

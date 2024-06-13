@@ -73,7 +73,7 @@ public class AccountController {
 			model.addAttribute("errorLists", errorList);
 			return "login";
 		}
-
+		
 		//メールとパス検索
 		List<Account> accountList = accountRepository.findByEmailAndPassword(email, password);
 		if (accountList == null || accountList.size() == 0) {
