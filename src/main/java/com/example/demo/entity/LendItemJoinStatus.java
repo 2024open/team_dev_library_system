@@ -15,7 +15,7 @@ public class LendItemJoinStatus {
 	private Integer LendItemId;
 
 	@Column(name = "library_id")
-	private Integer libraryid;
+	private Integer libraryId;
 
 	@Column(name = "category_id")
 	private Integer categoryId;

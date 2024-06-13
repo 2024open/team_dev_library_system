@@ -121,9 +121,9 @@ public class LibrarianService {
 		model.addAttribute("lendItem", lendItem);
 	}
 
-	//貸出処理検索用
-	public void forLendProcessIdSearch(Integer lendItemId, Model model) {
-		List<LendItemJoinStatus> tmpList = lendItemJoinStatusRepository.sqlLendProcessId(lendItemId);
+	//貸出処理ID検索用
+	public void forLendProcessIdSearch(Integer lendItemId, Integer libraryId, Model model) {
+		List<LendItemJoinStatus> tmpList = lendItemJoinStatusRepository.sqlLendProcessId(libraryId, lendItemId);
 		if (tmpList.size() == 0) {
 			//検索結果なし
 		} else {
@@ -151,27 +151,31 @@ public class LibrarianService {
 		}
 	}
 
-	//貸出処理検索用キーワード
-	public void forLendProcessKeyword(Integer categoryId, String keyword, Model model) {
+	//貸出処理キーワード検索用
+	public void forLendProcessKeyword(Integer categoryId, Integer libraryId, String keyword, Model model) {
 		keyword = "%" + keyword + "%";
 		List<LendItemJoinStatusJoinAny> lendItemList = new ArrayList<LendItemJoinStatusJoinAny>();
 
 		switch (categoryId) {
 		case 1:
 			lendItemList = lendItemJoinStatusJoinAnyRepository
-					.sqlLendProcessBookKeyword(keyword);
+					.sqlLendProcessBookKeyword(libraryId, keyword);
 			break;
 		case 2:
 			lendItemList = lendItemJoinStatusJoinAnyRepository
-					.sqlLendProcessCDKeyword(keyword);
+					.sqlLendProcessCDKeyword(libraryId, keyword);
 			break;
 		case 3:
 			lendItemList = lendItemJoinStatusJoinAnyRepository
-					.sqlLendProcessDVDKeyword(keyword);
+					.sqlLendProcessDVDKeyword(libraryId, keyword);
 			break;
 		case 4:
 			lendItemList = lendItemJoinStatusJoinAnyRepository
-					.sqlLendProcessKamishibaiKeyword(keyword);
+					.sqlLendProcessKamishibaiKeyword(libraryId, keyword);
+			break;
+		case 5:
+			lendItemList = lendItemJoinStatusJoinAnyRepository
+					.sqlLendProcessRoomKeyword(libraryId, keyword);
 			break;
 		}
 		model.addAttribute("lendItemList", lendItemList);
