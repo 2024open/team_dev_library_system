@@ -15,10 +15,14 @@ import com.example.demo.entity.LendItemJoinStatus;
 public interface LendItemJoinStatusRepository extends JpaRepository<LendItemJoinStatus, Integer> {
 	public static String sqlLendProcessId = "SELECT lend_item.* , status.status_name "
 			+ "FROM lend_item JOIN status ON lend_item.status_id = status.status_id "
-			+ "WHERE lend_item_id = :lendItemId ;";
+			+ "WHERE lend_item_id = :lendItemId "
+			+ "AND library_id = :libraryId "
+			+ "AND lend_item.deleted = false ";
 
 	//貸出処理検索用
 	@Query(value = sqlLendProcessId, nativeQuery = true)
-	List<LendItemJoinStatus> sqlLendProcessId(@Param("lendItemId") Integer lendItemId);
+	List<LendItemJoinStatus> sqlLendProcessId(
+			@Param("libraryId") Integer libraryId,
+			@Param("lendItemId") Integer lendItemId);
 
 }

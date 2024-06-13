@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +19,7 @@ import com.example.demo.entity.AdminLendRoom;
 import com.example.demo.entity.LendItem;
 import com.example.demo.entity.LendingItem;
 import com.example.demo.entity.Notice;
+import com.example.demo.entity.Room;
 import com.example.demo.model.SuperUser;
 import com.example.demo.repository.AccountRepository;
 import com.example.demo.repository.AdminLendListRepoitory;
@@ -110,7 +112,7 @@ public class LibrarianController {
 		return "librarianLendItems";
 	}
 
-	//貸出処理画面
+	//貸出処理画面 検索処理
 	@GetMapping("/librarian/lendProcess")
 	public String lendProcess(
 			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
@@ -142,11 +144,13 @@ public class LibrarianController {
 		Integer libraryId = Integer.parseInt(libraryIdStr);
 
 		if (!lendItemIdStr.isEmpty() && Integer.parseInt(lendItemIdStr) >= 0) {
+			//ID検索
 			Integer lendItemId = Integer.parseInt(lendItemIdStr);
-			librarianService.forLendProcessIdSearch(lendItemId, model);
+			librarianService.forLendProcessIdSearch(lendItemId, libraryId, model);
 		} else if (!categoryIdStr.isEmpty()) {
+			//キーワード検索
 			Integer categoryId = Integer.parseInt(categoryIdStr);
-			librarianService.forLendProcessKeyword(categoryId, keyword, model);
+			librarianService.forLendProcessKeyword(categoryId, libraryId, keyword, model);
 		}
 		librarianService.forCategoryPullDown(model);
 		librarianService.forLibraryId(model, libraryId);
@@ -154,7 +158,6 @@ public class LibrarianController {
 	}
 
 	//貸出処理
-	//TODO
 	@PostMapping("/librarian/lendProcess")
 	public String lendProcessExecute(
 			@RequestParam(name = "libraryId", defaultValue = "1") Integer libraryId,
@@ -170,7 +173,7 @@ public class LibrarianController {
 		} else {
 			String errorMsg = "メールアドレスが間違っています";
 			model.addAttribute("errorMsg", errorMsg);
-			librarianService.forLendProcessIdSearch(lendItemId, model);
+			librarianService.forLendProcessIdSearch(lendItemId, libraryId, model);
 			librarianService.forCategoryPullDown(model);
 			librarianService.forLibraryId(model, libraryId);
 			return "librarianLendProcess";
@@ -248,6 +251,7 @@ public class LibrarianController {
 	@PostMapping("/librarian/lenditems/{id}/edit")
 	public String lendItemUpdate(
 			@PathVariable("id") Integer lendItemId,
+			@ModelAttribute("EditRoom") Room room,
 			Model model) {
 		return "redirect:/librarian/lenditems/{id}/edit";
 	}

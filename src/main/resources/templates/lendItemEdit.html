@@ -42,6 +42,34 @@
 					<th>状態</th>
 					<td>
 						<select>
+							<option th:value="${lendItem.statusId}">[[${lendItem.statusId}]]</option>
+							<option th:each="status : ${statusList}" th:value="${status.statusId}">[[${status.statusName}]]</option>
+						</select>
+					</td>
+				</tr>
+			</table>
+			
+			<button>更新</button>
+		</form>
+	</th:block>
+	
+	<th:block th:if="${lendItem.categoryId} == 5">
+		<form 
+		method="post" 
+		th:action="@{/librarian/lenditems/{id}/edit(id = ${lendItem.lendItemId})}"
+		th:object="${lendAnyItem}">	
+			<table border="1">
+				<tr>
+					<th>部屋名</th>
+					<td>
+						<input type="text" th:value="*{roomName}">
+					</td>
+				</tr>
+				<tr>
+					<th>状態</th>
+					<td>
+						<select>
+							<option th:value="${lendItem.statusId}">[[${lendItem.statusId}]]</option>
 							<option th:each="status : ${statusList}" th:value="${status.statusId}">[[${status.statusName}]]</option>
 						</select>
 					</td>
