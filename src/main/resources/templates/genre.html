@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>ジャンル管理</title>
+</head>
+
+<body style="text-align: center;">
+	
+	<h1>ジャンル管理</h1>
+
+	<br>
+
+	<h2>ジャンルの追加</h2>
+
+	<form action="/admin/genre/add" method="post">
+		カテゴリ：<select name="categoryId">
+			<option value="1">本</option>
+			<option value="2">CD</option>
+			<option value="3">DVD</option>
+			<option value="4">紙芝居</option>
+		</select>
+		ジャンル：<input type="text" name="genreName">
+		<button>追加</button>
+	</form>
+
+	
+		<p th:text="${message}" style="color: red"></p>
+	</p>
+	<br>
+
+	<h2>ジャンル一覧</h2>
+	<!--商品一覧の表示-->
+	<a href="/admin/genre">全ジャンル</a>
+
+	<!--カテゴリーごとの一覧表示-->
+	<a th:each="c:${categoryList}" th:href="@{/admin/genre(categoryId=${c.categoryId})}">
+    <span th:text="${c.categoryName}"></span>
+</a>
+
+	<!--削除一覧の表示-->
+	<a href="/admin/genre?deleted=true">削除したジャンル</a>
+	
+	<table style="margin-left: auto; margin-right: auto;">
+		<tr>
+			<th>カテゴリー名</th>
+			<th>ジャンル</th>
+			<th></th>
+		</tr>
+		<tr th:each="genre : ${genreList}">
+			<td th:text="${categoryMap.get(genre.categoryId)}"></td>
+			<td th:text="${genre.genreName}"></td>
+			
+			<td>
+				<form th:action="@{/admin/genre/{genreId}/delete(genreId=${genre.genreId})}" method="post">
+					<button>削除</button>
+				</form>
+			</td>
+		</tr>
+	</table>
+
+</body>
+
+</html>
