@@ -63,9 +63,21 @@ public class AdminController {
     //ban処理やるよ
     @PostMapping("/admin/accountManager")
     public String ban(
-    		//@RequestParam(value ="ban",defaultValue = "") boolean ban,
+    		@RequestParam(value ="userId",defaultValue="") Integer userId,
+    		@RequestParam(value ="ban",defaultValue = "") boolean ban,
     		Model model) {
-    	//accountRepository.save(account);
+    	//AccountのuserIdを取得
+    	Account account = accountRepository.findById(userId).get();
+    	//BANの処理
+    	if(ban == true){
+    		ban = false;
+    	}
+    	else{
+        	ban = true;
+    	}
+    	//Accountにbanの結果をセット
+    	account.setBan(ban);
+    	accountRepository.save(account);
         return "redirect:/admin/accountManager";
     }
     

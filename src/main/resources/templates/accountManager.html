@@ -15,6 +15,7 @@
 			<p>
 				<form action="/admin/accountManager" method="post">
 				<div class="border">
+					<input type="hidden" name="userId" th:value="${accountManager.userId}">
 					<td>利用者ID：</td>
 					<td th:text="${accountManager.userId}"></td><br>
 					<td>利用者名：</td>
@@ -23,6 +24,7 @@
 					<td th:text="${accountManager.nickname}"></td><br>
 					<td>メールアドレス：</td>
 					<td th:text="${accountManager.email}"></td><br>
+					<input type="hidden" name="ban" th:value="${accountManager.ban}">
 					<button>BAN</button>
 				</div>
 				</form>

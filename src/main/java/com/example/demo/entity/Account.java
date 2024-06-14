@@ -61,6 +61,9 @@ public class Account {
 
 	}
 
+	public Account(boolean ban) {
+	}
+
 	public boolean isEmpty() {
 		return false;
 	}
