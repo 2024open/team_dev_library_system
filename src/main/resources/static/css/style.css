@@ -23,14 +23,14 @@ nav {
 	width: 100%;
 	padding: 0px;
 	padding-bottom: 5px;
-	background: #9999cc;
+	background: #CBFFD3;
 	color: #fff;
 }
 
 
 h1 {
 
-	color: #8888cc;
+	color: rgb(0, 0, 0);
 	width: 100%;
 	margin: 0;
 }
@@ -42,7 +42,7 @@ h1 {
 
 
 footer {
-	background-color: #9999cc;
+	background-color: #CBFFD3;
 	/*	 背景色 */
 	color: #ffffff;
 	/*	 文字色 */
@@ -54,7 +54,7 @@ footer {
 
 
 a {
-	color: #7777cc;
+	color: #33FF99;
 	text-decoration: none;
 	position: relative;
 	transition: .3s;
@@ -94,7 +94,7 @@ main a img:hover {
 
 /* 仕切り線 */
 hr {
-	border-top: 2px dashed #FFFFFF;
+	border-top: 2px dashed rgb(192, 192, 192);
 }
 
 /* 表線 */
@@ -102,13 +102,13 @@ table,
 th,
 td {
 	border-collapse: collapse;
-	border: none;
+	border-color:rgb(236, 236, 236);
 }
 
 /* 表 */
 table {
 	margin: auto;
-	max-width: 760px;
+	max-width: 1000px;
 	word-break: break-all;
 	padding: 10px;
 }
@@ -116,7 +116,7 @@ table {
 /* 表見出しセル */
 table th {
 	background: #ffffff;
-	color: #7777cc;
+	color: #33FF99	;
 	min-width: 120px;
 }
 
@@ -128,7 +128,7 @@ table th {
 button {
 	margin: 2px;
 	padding: 5px 20px;
-	background-color: #7777cc;
+	background-color: #33FF99;
 	color: #ffffff;
 	border: none;
 	width: 150px;
@@ -138,5 +138,5 @@ button {
 
 /* 送信ボタン(マウスオーバー時) */
 button:hover {
-	background-color: #8888cc;
+	background-color: #AEFFBD;
 }

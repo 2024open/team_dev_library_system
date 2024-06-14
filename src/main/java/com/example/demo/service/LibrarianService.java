@@ -78,13 +78,39 @@ public class LibrarianService {
 	}
 
 	public void forCategoryList(Model model) {
-		List<Category> categoryList = categoryRepository.findAll();
+		List<Category> categoryList = categoryRepository.findByOrderByCategoryId();
 		model.addAttribute("categoryList", categoryList);
 	}
 
 	public void forStatusList(Model model) {
 		List<Status> statusList = statusRepository.findAll();
 		model.addAttribute("statusList", statusList);
+	}
+
+	//categoryListに返す
+	public void forBookList(Model model) {
+		List<Book> bookList = bookRepository.findAll();
+		model.addAttribute("bookList", bookList);
+	}
+
+	public void forCDList(Model model) {
+		List<CD> cdList = cdRepository.findAll();
+		model.addAttribute("cdList", cdList);
+	}
+
+	public void forDVDList(Model model) {
+		List<DVD> dvdList = dvdRepository.findAll();
+		model.addAttribute("dvdList", dvdList);
+	}
+
+	public void forKamishibaiList(Model model) {
+		List<Kamishibai> kamishibaiList = kamishibaiRepository.findAll();
+		model.addAttribute("kamishibaiList", kamishibaiList);
+	}
+
+	public void forRoomList(Model model) {
+		List<Room> roomList = roomRepository.findAll();
+		model.addAttribute("roomList", roomList);
 	}
 
 	//検索ためのlibraryIdの保持

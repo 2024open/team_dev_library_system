@@ -129,21 +129,21 @@ public class AccountController {
 		if (userName.length() == 0) {
 			errorList.add("名前は必須です");
 		} else if (userName.length() > 50) {
-			errorList.add("名前は50字以下で入力してください");
+			errorList.add("名前は50字以内で入力してください");
 		}
 		
 		if (nickname.length() == 0) {
 			errorList.add("ニックネームは必須です");
 		} else if (nickname.length() > 50) {
-			errorList.add("ニックネームは50字以下で入力してください");
+			errorList.add("ニックネームは50字以内で入力してください");
 		}
 
 		if (email.length() == 0) {
 			errorList.add("メールアドレスは必須です");
 		} else if (email.length() > 100) {
-			errorList.add("メールアドレスは100字以下で入力してください");
+			errorList.add("メールアドレスは100字以内で入力してください");
 
-		} else if (accountRepository.findByEmail(email).isEmpty()) {
+		} else if ( accountRepository.findByEmail(email).size() != 0) {
 			errorList.add("登録済みのメールアドレスです");
 		}
 		if (password.length() == 0) {
