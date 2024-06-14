@@ -94,11 +94,10 @@ public class AdminController {
  		if(genreMessage != null) {
  	 		model.addAttribute("message", genreMessage.getMessage());
  		}
- 		
- 		// 	ジャンル検索
+
+ 		// 	ジャンル一覧表示切り替え用
  		List<Genre> genreList = null;
- 		
- 		//　削除したジャンル全表示 		
+ 		 				
  		if(deleted==null) {
  			model.addAttribute("btnView", "削除");	
  		if(categoryId == null) {
@@ -109,10 +108,12 @@ public class AdminController {
  			genreList=genreRepository.findByDeletedFalseAndCategoryId(categoryId);
  		}
  		}else {
+ 			//　削除したジャンル全表示 
  			genreList=genreRepository.findByDeletedTrueOrderByCategoryIdAsc();
  	 		model.addAttribute("btnView", "復元");		
 
  		}
+ 		
  		// 	カテゴリーから会議室を除く
  		List<Category> categoryList = categoryRepository.findAll();
  		categoryList.remove(4);
@@ -140,7 +141,7 @@ public class AdminController {
 
  		int categoryId = Integer.parseInt(strCategoryId);
 
- 		//    	エラーチェック
+ 		//    	エラー処理
  		List<Genre> genreList = genreRepository.findByCategoryIdAndGenreName(categoryId, genreName);
 
  		if ( genreName.isBlank() ) {
@@ -172,9 +173,11 @@ public class AdminController {
  		
  		Genre updateGenre = genreRepository.findById(genreId).get();
 
+ 	
+
 		if (updateGenre.getDeleted() == false) {
 			
-			//削除フラグ
+			//削除フラグ管理
 			updateGenre.setDeleted(true);
  
 			updateGenre = genreRepository.save(updateGenre);			
@@ -186,9 +189,12 @@ public class AdminController {
 		} else {
 			updateGenre.setDeleted(false);
 			updateGenre = genreRepository.save(updateGenre);
-			return "redirect:/admin/genre";
 		}
  
 		return "redirect:/admin/genre";
-}
-}
+
+		}
+	}
+
+
+
