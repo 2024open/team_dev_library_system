@@ -85,6 +85,7 @@ public class AdminController {
  	public String genre(
  			@RequestParam(value = "messageId",defaultValue = "") String messageId,
  			@RequestParam(value = "categoryId",defaultValue = "") Integer categoryId,
+ 			@RequestParam(value = "btnView",defaultValue = "") String btnView,
  			@RequestParam(value = "deleted",defaultValue = "") Boolean deleted,
  			Model model) {
  		
@@ -98,7 +99,8 @@ public class AdminController {
  		List<Genre> genreList = null;
  		
  		//　削除したジャンル全表示 		
- 		if(deleted==null) { 		
+ 		if(deleted==null) {
+ 			model.addAttribute("btnView", "削除");	
  		if(categoryId == null) {
  			// 	ジャンル全表示
  			genreList=genreRepository.findByDeletedFalseOrderByCategoryIdAsc();
@@ -108,6 +110,8 @@ public class AdminController {
  		}
  		}else {
  			genreList=genreRepository.findByDeletedTrueOrderByCategoryIdAsc();
+ 	 		model.addAttribute("btnView", "復元");		
+
  		}
  		// 	カテゴリーから会議室を除く
  		List<Category> categoryList = categoryRepository.findAll();
@@ -167,14 +171,24 @@ public class AdminController {
  			Model model) {
  		
  		Genre updateGenre = genreRepository.findById(genreId).get();
+
 		if (updateGenre.getDeleted() == false) {
 			
 			//削除フラグ
 			updateGenre.setDeleted(true);
+ 
 			updateGenre = genreRepository.save(updateGenre);			
  	}else {
 		return "redirect:/admin/genre?messageId=3";
  	}
+
+			updateGenre = genreRepository.save(updateGenre);
+		} else {
+			updateGenre.setDeleted(false);
+			updateGenre = genreRepository.save(updateGenre);
+			return "redirect:/admin/genre";
+		}
+ 
 		return "redirect:/admin/genre";
 }
 }
