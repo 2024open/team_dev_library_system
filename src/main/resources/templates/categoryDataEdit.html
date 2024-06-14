@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+<meta charset="UTF-8">
+<title> データ / [[${category.categoryName}]]</title>
+</head>
+<body>
+	<header th:replace ="adminHeader"></header>
+	<sidebar th:replace="librarianSidebar"></sidebar>
+	
+	<th:block th:if="${categoryId} == 1">
+		<table th:object="${categoryData}">
+			<tr>
+				<th>タイトル</th>
+				<td>[[*{categoryData.title}]]</td>
+			</tr>
+		</table>
+	</th:block>
+
+</body>
+</html>

@@ -11,11 +11,13 @@
 	<h1>カテゴリー一覧</h1>
 	<th:block th:if="${categoryList}">
 		<div th:each="category : ${categoryList}">
-			<a th:href="@{/librarian/categories/{id}(id = ${category.categoryId})}" >
+			<a th:href="@{/librarian/categories/{id}(id = ${category.categoryId}, libraryId = ${libraryId})}" >
 				[[${category.categoryId}]].[[${category.categoryName}]]
 			</a>
 		</div>
 	</th:block>
+	
+	<br>
 	
 	<a href="/librarian/categories/add">
 		カテゴリー追加

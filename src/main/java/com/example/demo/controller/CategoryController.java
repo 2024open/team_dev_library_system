@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Category;
 import com.example.demo.repository.CategoryRepository;
+import com.example.demo.service.CategoryService;
 import com.example.demo.service.Common;
 import com.example.demo.service.LibrarianService;
 
@@ -18,6 +19,9 @@ import com.example.demo.service.LibrarianService;
 public class CategoryController {
 	@Autowired
 	LibrarianService librarianService;
+
+	@Autowired
+	CategoryService categoryService;
 
 	@Autowired
 	CategoryRepository categoryRepository;
@@ -33,6 +37,7 @@ public class CategoryController {
 			return "redirects/librarian/home";
 		}
 		Integer libraryId = Integer.parseInt(libraryIdStr);
+
 		librarianService.forCategoryList(model);
 		librarianService.forLibraryList(model);
 		librarianService.forLibraryId(model, libraryId);
@@ -106,6 +111,57 @@ public class CategoryController {
 		librarianService.forLibraryList(model);
 		librarianService.forLibraryId(model, libraryId);
 		return "categoryRename";
+	}
+
+	//カテゴリデータ一覧画面
+	@GetMapping("/librarian/categories/{id}/data")
+	public String categoryEditData(
+			@PathVariable("id") String categoryIdStr,
+			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
+			Model model) {
+		if (!Common.isParceInt(libraryIdStr)) {
+			return "redirects:/librarian/home";
+		}
+		if (!Common.isParceInt(categoryIdStr)) {
+			return "redirects:/librarian/home";
+		}
+		Integer libraryId = Integer.parseInt(libraryIdStr);
+		Integer categoryId = Integer.parseInt(categoryIdStr);
+
+		categoryService.forCategoryDataList(model, categoryId);
+
+		librarianService.forCategoryList(model);
+		librarianService.forCategoryId(model, categoryId);
+		librarianService.forLibraryList(model);
+		librarianService.forLibraryId(model, libraryId);
+		return "categoryDataList";
+	}
+
+	@GetMapping("/librarian/categories/{categoryId}/data/{id}")
+	public String categoryDataDetail(
+			@PathVariable("categoryId") String categoryIdStr,
+			@PathVariable("id") String anyIdStr,
+			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
+			Model model) {
+
+		if (!Common.isParceInt(libraryIdStr)) {
+			return "redirects:/librarian/home";
+		}
+		if (!Common.isParceInt(anyIdStr)) {
+			return "redirects:/librarian/home";
+		}
+		if (!Common.isParceInt(categoryIdStr)) {
+			return "redirects:/librarian/home";
+		}
+		Integer libraryId = Integer.parseInt(libraryIdStr);
+		Integer anyId = Integer.parseInt(anyIdStr);
+		Integer categoryId = Integer.parseInt(categoryIdStr);
+
+		categoryService.forCategoryDataDetail(model, categoryId, anyId, "categoryData");
+		librarianService.forCategoryId(model, categoryId);
+		librarianService.forLibraryList(model);
+		librarianService.forLibraryId(model, libraryId);
+		return "categoryDataEdit";
 	}
 
 }
