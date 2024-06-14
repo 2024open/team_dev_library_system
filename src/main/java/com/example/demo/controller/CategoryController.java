@@ -9,7 +9,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.entity.Book;
+import com.example.demo.entity.CD;
 import com.example.demo.entity.Category;
+import com.example.demo.entity.DVD;
+import com.example.demo.entity.Kamishibai;
+import com.example.demo.entity.Room;
 import com.example.demo.repository.CategoryRepository;
 import com.example.demo.service.CategoryService;
 import com.example.demo.service.Common;
@@ -137,6 +142,7 @@ public class CategoryController {
 		return "categoryDataList";
 	}
 
+	//カテゴリーデータ更新画面
 	@GetMapping("/librarian/categories/{categoryId}/data/{id}")
 	public String categoryDataDetail(
 			@PathVariable("categoryId") String categoryIdStr,
@@ -158,6 +164,46 @@ public class CategoryController {
 		Integer categoryId = Integer.parseInt(categoryIdStr);
 
 		categoryService.forCategoryDataDetail(model, categoryId, anyId, "categoryData");
+		categoryService.forCategoryGenreList(model, categoryId, "genreList");
+
+		librarianService.forCategoryId(model, categoryId);
+		librarianService.forLibraryList(model);
+		librarianService.forLibraryId(model, libraryId);
+		return "categoryDataEdit";
+	}
+
+	//カテゴリーデータ更新処理
+	//TODO
+	@PostMapping("/librarian/categories/{categoryId}/data/{id}")
+	public String categoryDataEdit(
+			@PathVariable("categoryId") String categoryIdStr,
+			@PathVariable("id") String anyIdStr,
+			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
+			@ModelAttribute("objectBook") Book book,
+			@ModelAttribute("objectCD") CD cd,
+			@ModelAttribute("objectDVD") DVD dvd,
+			@ModelAttribute("objectKamishibai") Kamishibai kamishibai,
+			@ModelAttribute("objectRoom") Room room,
+			Model model) {
+
+		if (!Common.isParceInt(libraryIdStr)) {
+			return "redirects:/librarian/home";
+		}
+		if (!Common.isParceInt(anyIdStr)) {
+			return "redirects:/librarian/home";
+		}
+		if (!Common.isParceInt(categoryIdStr)) {
+			return "redirects:/librarian/home";
+		}
+		Integer libraryId = Integer.parseInt(libraryIdStr);
+		Integer anyId = Integer.parseInt(anyIdStr);
+		Integer categoryId = Integer.parseInt(categoryIdStr);
+
+		categoryService.forCategoryDataEdit(categoryId, book, cd, dvd, kamishibai, room);
+
+		categoryService.forCategoryDataDetail(model, categoryId, anyId, "categoryData");
+		categoryService.forCategoryGenreList(model, categoryId, "genreList");
+
 		librarianService.forCategoryId(model, categoryId);
 		librarianService.forLibraryList(model);
 		librarianService.forLibraryId(model, libraryId);

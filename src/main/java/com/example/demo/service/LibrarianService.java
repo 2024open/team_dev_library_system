@@ -87,7 +87,7 @@ public class LibrarianService {
 		model.addAttribute("statusList", statusList);
 	}
 
-	//categoryListに返す
+	//Listに返す
 	public void forBookList(Model model) {
 		List<Book> bookList = bookRepository.findAll();
 		model.addAttribute("bookList", bookList);
@@ -161,7 +161,8 @@ public class LibrarianService {
 			break;
 		}
 
-		List<Genre> genreList = genreRepository.findByCategoryId(lendItem.getCategoryId());
+		List<Genre> genreList = genreRepository
+				.findByCategoryId(lendItem.getCategoryId());
 		model.addAttribute("genreList", genreList);
 		forStatusList(model);
 		model.addAttribute("lendItem", lendItem);
