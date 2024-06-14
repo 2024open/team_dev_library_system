@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Data;
 
 @Entity
@@ -27,6 +28,7 @@ public class Book {
 	@Column(name = "genre_id")
 	private Integer genreId;
 
+	@Transient
 	private Boolean deleted;
 
 	public Book() {

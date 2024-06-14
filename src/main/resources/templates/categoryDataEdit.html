@@ -9,12 +9,194 @@
 	<sidebar th:replace="librarianSidebar"></sidebar>
 	
 	<th:block th:if="${categoryId} == 1">
-		<table th:object="${categoryData}">
-			<tr>
-				<th>タイトル</th>
-				<td>[[*{categoryData.title}]]</td>
-			</tr>
-		</table>
+		<form 
+		th:action="@{/librarian/categories/{categoryId}/data/{id}
+		(categoryId = ${categoryId}, id = ${categoryData.bookId})}"
+		th:object="${categoryData}"
+		name="objectBook"
+		method="post"
+		>
+			<table border = "1">
+				<tr>
+					<th>ID</th>
+					<td>
+						[[*{bookId}]]
+						<input type="hidden" th:field="*{bookId}">
+					</td>
+				</tr>
+				<tr>
+					<th>タイトル</th>
+					<td>
+						<input type="text" th:field="*{title}">
+					</td>
+				</tr>
+				<tr>
+					<th>著者</th>
+					<td>
+						<input type="text" th:field="*{author}">
+					</td>
+				</tr>
+				<tr>
+					<th>出版社</th>
+					<td>
+						<input type="text" th:field="*{publisher}">
+					</td>
+				</tr>
+				<tr>
+					<th>ジャンル</th>
+					<td>
+						<select th:field="*{genreId}">
+							<option th:each="genre : ${genreList}" th:value="${genre.genreId}">[[${genre.genreName}]]</option>
+						</select>
+					</td>
+				</tr>
+			</table>
+			
+			<input type="hidden" th:value="${libraryId}">
+			<button>更新</button>
+		</form>
+	</th:block>
+	
+	<th:block th:if="${categoryId} == 2">
+		<form
+		th:action="@{/librarian/categories/{categoryId}/data/{id}
+		(categoryId = ${categoryId}, id = ${categoryData.cdId})}"
+		th:object="${categoryData}"
+		name="objectCD"
+		method="post"
+		>		
+			<table border = "1" th:object="${categoryData}">
+				<tr>
+					<th>タイトル</th>
+					<td>
+						<input type="text" th:field="*{title}">
+					</td>
+				</tr>
+				<tr>
+					<th>アーティスト</th>
+					<td>
+						<input type="text" th:field="*{author}">
+					</td>
+				</tr>
+				<tr>
+					<th>レーベル</th>
+					<td>
+						<input type="text" th:field="*{publisher}">
+					</td>
+				</tr>
+				<tr>
+					<th>ジャンル</th>
+					<td>
+						<select th:field="*{genreId}">
+							<option th:each="genre : ${genreList}" th:value="${genre.genreId}">[[${genre.genreName}]]</option>
+						</select>
+					</td>
+				</tr>
+			</table>
+			
+			<input type="hidden" th:value="${libraryId}">
+			<button>更新</button>
+		</form>
+			
+	</th:block>
+	
+	<th:block th:if="${categoryId} == 3">
+		<form
+		th:action="@{/librarian/categories/{categoryId}/data/{id}
+		(categoryId = ${categoryId}, id = ${categoryData.dvdId})}"
+		th:object="${categoryData}"
+		name="objectDVD"
+		method="post"
+		>
+			<table border = "1" th:object="${categoryData}">
+				<tr>
+					<th>タイトル</th>
+					<td>
+						<input type="text" th:field="*{title}">
+					</td>
+				</tr>
+				<tr>
+					<th>監督</th>
+					<td>
+						<input type="text" th:field="*{author}">
+					</td>
+				</tr>
+				<tr>
+					<th>販売元</th>
+					<td>
+						<input type="text" th:field="*{publisher}">
+					</td>
+				</tr>
+				<tr>
+					<th>ジャンル</th>
+					<td>
+						<select th:field="*{genreId}">
+							<option th:each="genre : ${genreList}" th:value="${genre.genreId}">[[${genre.genreName}]]</option>
+						</select>
+					</td>
+				</tr>
+			</table>
+			
+			<input type="hidden" th:value="${libraryId}">
+			<button>更新</button>
+		</form>
+	</th:block>
+	
+	<th:block th:if="${categoryId} == 4">
+		<form
+		th:action="@{/librarian/categories/{categoryId}/data/{id}
+		(categoryId = ${categoryId}, id = ${categoryData.kamishibaiId})}"
+		th:object="${categoryData}"
+		name="objectKamishibai"
+		method="post"
+		>
+			<table border = "1" th:object="${categoryData}">
+				<tr>
+					<th>タイトル</th>
+					<td>
+						<input type="text" th:field="*{title}">
+					</td>
+				</tr>
+				<tr>
+					<th>作者</th>
+					<td>
+						<input type="text" th:field="*{author}">
+					</td>
+				</tr>
+				<tr>
+					<th>出版社</th>
+					<td>
+						<input type="text" th:field="*{publisher}">
+					</td>
+				</tr>
+				<tr>
+					<th>ジャンル</th>
+					<td>
+						<select th:field="*{genreId}">
+							<option th:each="genre : ${genreList}" th:value="${genre.genreId}">[[${genre.genreName}]]</option>
+						</select>
+					</td>
+				</tr>
+			</table>
+			
+			<input type="hidden" th:value="${libraryId}">
+			<button>更新</button>
+		</form>
+	</th:block>
+
+	<th:block th:if="${categoryId} == 5">
+		<form>		
+			<table border = "1" th:object="${categoryData}">
+				<tr>
+					<th>会議室名</th>
+					<td>
+						<input type="text" th:field="*{roomName}">
+					</td>
+				</tr>
+			</table>
+			
+			<button>更新</button>
+		</form>
 	</th:block>
 
 </body>

@@ -10,12 +10,14 @@ import com.example.demo.entity.AnyJoinGenre;
 import com.example.demo.entity.Book;
 import com.example.demo.entity.CD;
 import com.example.demo.entity.DVD;
+import com.example.demo.entity.Genre;
 import com.example.demo.entity.Kamishibai;
 import com.example.demo.entity.Room;
 import com.example.demo.repository.AnyJoinGenreRepository;
 import com.example.demo.repository.BookRepository;
 import com.example.demo.repository.CDRepository;
 import com.example.demo.repository.DVDRepository;
+import com.example.demo.repository.GenreRepository;
 import com.example.demo.repository.KamishibaiRepository;
 import com.example.demo.repository.RoomRepository;
 
@@ -45,6 +47,15 @@ public class CategoryService {
 	//自作
 	@Autowired
 	AnyJoinGenreRepository anyJoinGenreRepository;
+
+	@Autowired
+	GenreRepository genreRepository;
+
+	//カテゴリ編集画面用
+	public void forCategoryGenreList(Model model, Integer categoryId, String address) {
+		List<Genre> genreList = genreRepository.sqlGenreListId(categoryId);
+		model.addAttribute(address, genreList);
+	}
 
 	//B, C, D, K, Rの一覧表示用
 	public void forCategoryDataList(Model model, Integer categoryId) {
@@ -96,6 +107,33 @@ public class CategoryService {
 		case 5:
 			Room room = roomRepository.findById(anyId).get();
 			model.addAttribute(address, room);
+			break;
+		}
+	}
+
+	//更新処理
+	public void forCategoryDataEdit(
+			Integer categoryId,
+			Book book,
+			CD cd,
+			DVD dvd,
+			Kamishibai kamishibai,
+			Room room) {
+		switch (categoryId) {
+		case 1:
+			bookRepository.save(book);
+			break;
+		case 2:
+			cdRepository.save(cd);
+			break;
+		case 3:
+			dvdRepository.save(dvd);
+			break;
+		case 4:
+			kamishibaiRepository.save(kamishibai);
+			break;
+		case 5:
+			roomRepository.save(room);
 			break;
 		}
 	}

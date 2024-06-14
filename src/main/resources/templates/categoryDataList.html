@@ -51,7 +51,14 @@
 					<td>[[${lendAnyItem.author}]]</td>
 					<td>[[${lendAnyItem.publisher}]]</td>
 					<td>[[${lendAnyItem.genreName}]]</td>
-					<td></td>
+					<td>
+						<form 
+						th:action="@{/librarian/categories/{categoryId}/data/{id}(categoryId = *{categoryId}, id = ${lendAnyItem.anyId})}"
+						method="get">
+							<input type="hidden" name="libraryId" th:value="${libraryId}">
+							<button>編集</button>
+						</form>
+					</td>
 				</tr>
 			</div>
 
@@ -70,7 +77,14 @@
 					<td>[[${lendAnyItem.author}]]</td>
 					<td>[[${lendAnyItem.publisher}]]</td>
 					<td>[[${lendAnyItem.genreName}]]</td>
-					<td></td>
+					<td>
+						<form 
+						th:action="@{/librarian/categories/{categoryId}/data/{id}(categoryId = *{categoryId}, id = ${lendAnyItem.anyId})}"
+						method="get">
+							<input type="hidden" name="libraryId" th:value="${libraryId}">
+							<button>編集</button>
+						</form>
+					</td>
 				</tr>
 			</div>
 
@@ -89,7 +103,14 @@
 					<td>[[${lendAnyItem.author}]]</td>
 					<td>[[${lendAnyItem.publisher}]]</td>
 					<td>[[${lendAnyItem.genreName}]]</td>
-					<td></td>
+					<td>
+						<form 
+						th:action="@{/librarian/categories/{categoryId}/data/{id}(categoryId = *{categoryId}, id = ${lendAnyItem.anyId})}"
+						method="get">
+							<input type="hidden" name="libraryId" th:value="${libraryId}">
+							<button>編集</button>
+						</form>
+					</td>
 				</tr>
 			</div>
 			
@@ -102,7 +123,14 @@
 				<tr th:each="lendAnyItem : ${lendAnyItemList}">
 					<td>[[${lendAnyItem.roomId}]]</td>
 					<td>[[${lendAnyItem.roomName}]]</td>
-					<td></td>
+					<td>
+						<form 
+						th:action="@{/librarian/categories/{categoryId}/data/{id}(categoryId = *{categoryId}, id = ${lendAnyItem.roomId})}"
+						method="get">
+							<input type="hidden" name="libraryId" th:value="${libraryId}">
+							<button>編集</button>
+						</form>
+					</td>
 				</tr>
 			</div>
 		</table>
