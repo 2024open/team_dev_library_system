@@ -24,15 +24,14 @@ import com.example.demo.repository.GenreRepository;
 @Controller
 public class AdminController {
 
-	@Autowired
-	AccountRepository accountRepository;
+    @Autowired
+    AccountRepository accountRepository;
 
-	@Autowired
+    @Autowired
 	GenreRepository genreRepository;
 
 	@Autowired
 	CategoryRepository categoryRepository;
- 
 	
     @GetMapping("/admin/lenditems")
     public String lendItem() {
@@ -61,7 +60,7 @@ public class AdminController {
         return "accountManager";
     }
     
-    //ban処理やるよ
+    //BANの処理
     @PostMapping("/admin/accountManager")
     public String ban(
     		@RequestParam(value ="userId",defaultValue="") Integer userId,
@@ -69,7 +68,6 @@ public class AdminController {
     		Model model) {
     	//AccountのuserIdを取得
     	Account account = accountRepository.findById(userId).get();
-    	//BANの処理
     	if(ban == true){
     		ban = false;
     	}
@@ -96,7 +94,7 @@ public class AdminController {
  		if(genreMessage != null) {
  	 		model.addAttribute("message", genreMessage.getMessage());
  		}
-
+ 		
  		// 	ジャンル検索
  		List<Genre> genreList = null;
  		
@@ -132,9 +130,6 @@ public class AdminController {
  		return "genre";
  	}
 
- 	
- 	
- 	
  	//ジャンルの追加
  	@PostMapping("/admin/genre/add")
  	public String genreAdd(
@@ -177,18 +172,23 @@ public class AdminController {
  		
  		Genre updateGenre = genreRepository.findById(genreId).get();
 
-
-	
 		if (updateGenre.getDeleted() == false) {
-
+			
 			//削除フラグ
 			updateGenre.setDeleted(true);
+ 
+			updateGenre = genreRepository.save(updateGenre);			
+ 	}else {
+		return "redirect:/admin/genre?messageId=3";
+ 	}
+
 			updateGenre = genreRepository.save(updateGenre);
 		} else {
 			updateGenre.setDeleted(false);
 			updateGenre = genreRepository.save(updateGenre);
 			return "redirect:/admin/genre";
 		}
+ 
 		return "redirect:/admin/genre";
-	}
+}
 }

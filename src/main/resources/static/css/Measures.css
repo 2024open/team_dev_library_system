@@ -5,6 +5,7 @@
 /*枠線(枠線内を左揃え)*/
 .border{
 	display:inline-block;
+	width: 20em;
 	text-align: left;
 	border: solid 2px;
 }
@@ -17,3 +18,33 @@
 .detailBorder{
 	border: solid 2px;
 }
+
+/*BANの色変え*/
+.Ban {
+  background-color: rgb(255, 0, 0);
+  color: #fff;
+  transition: background-color 1s;
+}
+.Ban:hover {
+  background-color: rgb(0, 0, 0);
+}
+.Ban:focus,
+.Ban:active {
+  background-color: black;
+  transition: none;
+}
+/*BAN解除の色変え*/
+.NonBan {
+  background-color: rgb(0, 128, 255);
+  color: #fff;
+  transition: background-color 1s;
+}
+.NonBan:hover {
+  background-color: rgb(0, 0, 0);
+}
+.NonBan:focus,
+.NonBan:active {
+  background-color: black;
+  transition: none;
+}
+
