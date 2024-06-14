@@ -24,14 +24,15 @@ import com.example.demo.repository.GenreRepository;
 @Controller
 public class AdminController {
 
-    @Autowired
-    AccountRepository accountRepository;
+	@Autowired
+	AccountRepository accountRepository;
 
-    @Autowired
+	@Autowired
 	GenreRepository genreRepository;
 
 	@Autowired
 	CategoryRepository categoryRepository;
+ 
 	
     @GetMapping("/admin/lenditems")
     public String lendItem() {
@@ -63,9 +64,21 @@ public class AdminController {
     //ban処理やるよ
     @PostMapping("/admin/accountManager")
     public String ban(
-    		//@RequestParam(value ="ban",defaultValue = "") boolean ban,
+    		@RequestParam(value ="userId",defaultValue="") Integer userId,
+    		@RequestParam(value ="ban",defaultValue = "") boolean ban,
     		Model model) {
-    	//accountRepository.save(account);
+    	//AccountのuserIdを取得
+    	Account account = accountRepository.findById(userId).get();
+    	//BANの処理
+    	if(ban == true){
+    		ban = false;
+    	}
+    	else{
+        	ban = true;
+    	}
+    	//Accountにbanの結果をセット
+    	account.setBan(ban);
+    	accountRepository.save(account);
         return "redirect:/admin/accountManager";
     }
     
@@ -74,6 +87,7 @@ public class AdminController {
  	public String genre(
  			@RequestParam(value = "messageId",defaultValue = "") String messageId,
  			@RequestParam(value = "categoryId",defaultValue = "") Integer categoryId,
+ 			@RequestParam(value = "btnView",defaultValue = "") String btnView,
  			@RequestParam(value = "deleted",defaultValue = "") Boolean deleted,
  			Model model) {
  		
@@ -87,7 +101,8 @@ public class AdminController {
  		List<Genre> genreList = null;
  		
  		//　削除したジャンル全表示 		
- 		if(deleted==null) { 		
+ 		if(deleted==null) {
+ 			model.addAttribute("btnView", "削除");	
  		if(categoryId == null) {
  			// 	ジャンル全表示
  			genreList=genreRepository.findByDeletedFalseOrderByCategoryIdAsc();
@@ -97,6 +112,8 @@ public class AdminController {
  		}
  		}else {
  			genreList=genreRepository.findByDeletedTrueOrderByCategoryIdAsc();
+ 	 		model.addAttribute("btnView", "復元");		
+
  		}
  		// 	カテゴリーから会議室を除く
  		List<Category> categoryList = categoryRepository.findAll();
@@ -159,14 +176,19 @@ public class AdminController {
  			Model model) {
  		
  		Genre updateGenre = genreRepository.findById(genreId).get();
+
+
+	
 		if (updateGenre.getDeleted() == false) {
-			
+
 			//削除フラグ
 			updateGenre.setDeleted(true);
-			updateGenre = genreRepository.save(updateGenre);			
- 	}else {
-		return "redirect:/admin/genre?messageId=3";
- 	}
+			updateGenre = genreRepository.save(updateGenre);
+		} else {
+			updateGenre.setDeleted(false);
+			updateGenre = genreRepository.save(updateGenre);
+			return "redirect:/admin/genre";
+		}
 		return "redirect:/admin/genre";
-}
+	}
 }

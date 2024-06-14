@@ -4,10 +4,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title>ジャンル管理</title>
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 
-<body style="text-align: center;">
-	
+<body>
+	<header th:replace="suHeader"></header>
 	<h1>ジャンル管理</h1>
 
 	<br>
@@ -54,7 +55,7 @@
 			
 			<td>
 				<form th:action="@{/admin/genre/{genreId}/delete(genreId=${genre.genreId})}" method="post">
-					<button>削除</button>
+					<button th:text="${btnView}"></button>
 				</form>
 			</td>
 		</tr>

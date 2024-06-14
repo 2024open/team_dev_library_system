@@ -30,8 +30,13 @@ import com.example.demo.repository.DetailIfRepository;
 import com.example.demo.repository.GenreRepository;
 import com.example.demo.repository.StatusRepository;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class LendItemController {
+	@Autowired
+	HttpSession session;
+	
 	@Autowired
 	AccountRepository accountRepository;
 
