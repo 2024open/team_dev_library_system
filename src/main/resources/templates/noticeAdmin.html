@@ -4,6 +4,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>お知らせ一覧</title>
+		<link rel="stylesheet" type="text/css" href="/css/style.css">
+
 </head>
 
 <body>
@@ -24,7 +26,7 @@
 		</tr>
 		<tr th:each="notice:${notices}">
 			<td th:text="${notice.noticeId}"></td>
-			<td th:text="${notice.noticeDate}"></td>			
+			<td th:text="${#temporals.format(notice.noticeDate,'yyyy/MM/dd')}"></td>			
 			<td th:text="${notice.title}"></td>
 			<td th:text="${notice.content}"></td>
 			<td>
