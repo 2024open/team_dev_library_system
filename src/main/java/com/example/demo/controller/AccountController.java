@@ -98,7 +98,7 @@ public class AccountController {
 //		session.setAttribute("email", account.getEmail());
 //		session.setAttribute("password", account.getPassword());
 		
-//		//セッション管理されたSuperUserモデルに図書館ID、図書館名、ユーザーID、権限をセット
+		//セッション管理されたSuperUserモデルに図書館ID、図書館名、ユーザーID、権限をセット
 		List<Library> libraries = libraryRepository.findByLibraryId(libraryId);
 		Library library = libraries.get(0);
 		superUser.setLibraryId(libraryId);
@@ -137,7 +137,6 @@ public class AccountController {
 		} else if (nickname.length() > 50) {
 			errorList.add("ニックネームは50字以内で入力してください");
 		}
-
 		if (email.length() == 0) {
 			errorList.add("メールアドレスは必須です");
 		} else if (email.length() > 100) {
