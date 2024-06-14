@@ -24,7 +24,7 @@
 			<option class="category" value="2">CD</option>
 			<option class="category" value="3">DVD</option>
 			<option class="category" value="4">紙芝居</option>
-			<!--			<option class="category" value="5">貸会議室</option>-->
+			<option class="category" value="5">貸会議室</option>
 		</select>
 		<!--		<input type="text">-->
 		<!--		<button>検索</button><br>-->
@@ -44,18 +44,31 @@
 		<!--		</select>-->
 	</form>
 	<h2 th:text="${titleMsg}"></h2>
-	<table border="1" th:if="${lendItemList.size() !=0}">
+	<table border="1" th:if="${category != 5 && lendItemList.size() !=0}">
 		<tr>
 			<th>ジャンル</th>
 			<th>タイトル</th>
 			<th>著者</th>
 			<th>貸出可否</th>
+		</tr>
 		<tr th:each="lendItem:${lendItemList}">
 			<td th:text="${genreMap[lendItem.genreId]}"></td>
 			<td><a th:href="@{/lendItems/{id}(id=${lendItem.lendItemId})}">
 					<p th:text="${lendItem.title}"></p>
 				</a></td>
 			<td th:text="${lendItem.author}"></td>
+			<td th:text="${statusMap[lendItem.statusId]}"></td>
+		</tr>
+	</table>
+	<table border="1" th:if="${category == 5 && lendItemRoomList.size() !=0}">
+		<tr>
+			<th>タイトル</th>
+			<th>貸出可否</th>
+		</tr>
+		<tr th:each="lendItem:${lendItemRoomList}">
+			<td><a th:href="@{/lendItems/{id}(id=${lendItem.lendItemId})}">
+					<p th:text="${lendItem.roomName}"></p>
+				</a></td>
 			<td th:text="${statusMap[lendItem.statusId]}"></td>
 		</tr>
 	</table>
