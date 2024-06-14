@@ -6,6 +6,7 @@
 <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
+	<header th:replace="suHeader"></header>
 	<h1>お知らせ更新</h1>
 	<form th:action="@{/librarian/notice/{noticeId}/edit(noticeId=${notice.noticeId})}" method="post">
 		<table border="1">
