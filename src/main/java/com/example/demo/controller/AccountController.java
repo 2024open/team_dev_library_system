@@ -180,6 +180,6 @@ public class AccountController {
 		// accountテーブルへの反映（INSERT）
 		accountRepository.save(account);
 
-		return "redirect:/home";
+		return "redirect:/lendItems";
 	}
 }
