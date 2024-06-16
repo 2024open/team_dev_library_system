@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" >
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title> データ / [[${category.categoryName}]]</title>
+<title>Insert title here</title>
 </head>
 <body>
 	<header th:replace ="adminHeader"></header>
@@ -10,20 +10,12 @@
 	
 	<th:block th:if="${categoryId} == 1">
 		<form 
-		th:action="@{/librarian/categories/{categoryId}/datalist/{id}
-		(categoryId = ${categoryId}, id = ${categoryData.bookId})}"
+		th:action="@{/librarian/categories/{categoryId}/data(categoryId = ${categoryId})}"
 		th:object="${categoryData}"
-		name="objectBook"
+		name="objectData"
 		method="post"
 		>
 			<table border = "1">
-				<tr>
-					<th>ID</th>
-					<td>
-						[[*{bookId}]]
-						<input type="hidden" th:field="*{bookId}">
-					</td>
-				</tr>
 				<tr>
 					<th>タイトル</th>
 					<td>
@@ -53,26 +45,18 @@
 			</table>
 			
 			<input type="hidden" th:value="${libraryId}">
-			<button>更新</button>
+			<button>新規登録</button>
 		</form>
 	</th:block>
 	
 	<th:block th:if="${categoryId} == 2">
-		<form
-		th:action="@{/librarian/categories/{categoryId}/datalist/{id}
-		(categoryId = ${categoryId}, id = ${categoryData.cdId})}"
+		<form 
+		th:action="@{/librarian/categories/{categoryId}/data(categoryId = ${categoryId})}"
 		th:object="${categoryData}"
-		name="objectCD"
+		name="objectData"
 		method="post"
-		>		
+		>
 			<table border = "1">
-				<tr>
-					<th>ID</th>
-					<td>
-						[[*{cdId}]]
-						<input type="hidden" th:field="*{cdId}">
-					</td>
-				</tr>
 				<tr>
 					<th>タイトル</th>
 					<td>
@@ -102,27 +86,18 @@
 			</table>
 			
 			<input type="hidden" th:value="${libraryId}">
-			<button>更新</button>
+			<button>新規登録</button>
 		</form>
-			
 	</th:block>
 	
 	<th:block th:if="${categoryId} == 3">
-		<form
-		th:action="@{/librarian/categories/{categoryId}/datalist/{id}
-		(categoryId = ${categoryId}, id = ${categoryData.dvdId})}"
+		<form 
+		th:action="@{/librarian/categories/{categoryId}/data(categoryId = ${categoryId})}"
 		th:object="${categoryData}"
-		name="objectDVD"
+		name="objectData"
 		method="post"
 		>
 			<table border = "1">
-				<tr>
-					<th>ID</th>
-					<td>
-						[[*{dvdId}]]
-						<input type="hidden" th:field="*{dvdId}">
-					</td>
-				</tr>
 				<tr>
 					<th>タイトル</th>
 					<td>
@@ -152,26 +127,18 @@
 			</table>
 			
 			<input type="hidden" th:value="${libraryId}">
-			<button>更新</button>
+			<button>新規登録</button>
 		</form>
 	</th:block>
 	
 	<th:block th:if="${categoryId} == 4">
-		<form
-		th:action="@{/librarian/categories/{categoryId}/datalist/{id}
-		(categoryId = ${categoryId}, id = ${categoryData.kamishibaiId})}"
+		<form 
+		th:action="@{/librarian/categories/{categoryId}/data(categoryId = ${categoryId})}"
 		th:object="${categoryData}"
-		name="objectKamishibai"
+		name="objectData"
 		method="post"
 		>
 			<table border = "1">
-				<tr>
-					<th>ID</th>
-					<td>
-						[[*{kamishibaiId}]]
-						<input type="hidden" th:field="*{kamishibaiId}">
-					</td>
-				</tr>
 				<tr>
 					<th>タイトル</th>
 					<td>
@@ -204,33 +171,25 @@
 			<button>更新</button>
 		</form>
 	</th:block>
-
+	
 	<th:block th:if="${categoryId} == 5">
-		<form
-		th:action="@{/librarian/categories/{categoryId}/datalist/{id}
-		(categoryId = ${categoryId}, id = ${categoryData.roomId})}"
+		<form 
+		th:action="@{/librarian/categories/{categoryId}/data(categoryId = ${categoryId})}"
 		th:object="${categoryData}"
-		name="objectRoom"
+		name="objectData"
 		method="post"
-		>		
+		>
 			<table border = "1">
-				<tr>
-					<th>ID</th>
-					<td>
-						[[*{roomId}]]
-						<input type="hidden" th:field="*{roomId}">
-					</td>
-				</tr>
 				<tr>
 					<th>会議室名</th>
 					<td>
-						<input type="text" th:field="*{roomName}">
+						<input type="text" th:field="*{title}">
 					</td>
 				</tr>
 			</table>
 			
 			<input type="hidden" th:value="${libraryId}">
-			<button>更新</button>
+			<button>新規登録</button>
 		</form>
 	</th:block>
 
