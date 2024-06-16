@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import com.example.demo.entity.AnyJoinGenre;
 import com.example.demo.entity.Book;
 import com.example.demo.entity.CD;
+import com.example.demo.entity.CategoryDataForm;
 import com.example.demo.entity.DVD;
 import com.example.demo.entity.Genre;
 import com.example.demo.entity.Kamishibai;
@@ -50,6 +51,56 @@ public class CategoryService {
 
 	@Autowired
 	GenreRepository genreRepository;
+	
+	//カテゴリーデータinsert処理
+	public void forCategoryDataStore(Model model, Integer categoryId, CategoryDataForm categoryDataForm) {
+		switch(categoryId) {
+		case 1:
+			Book book = new Book();
+			book.setTitle(categoryDataForm.getTitle());
+			book.setAuthor(categoryDataForm.getAuthor());
+			book.setPublisher(categoryDataForm.getPublisher());
+			book.setGenreId(categoryDataForm.getGenreId());
+			book.setDeleted(false);
+			book = bookRepository.save(book);
+			break;
+		case 2:
+			CD cd = new CD();
+			cd.setTitle(categoryDataForm.getTitle());
+			cd.setAuthor(categoryDataForm.getAuthor());
+			cd.setPublisher(categoryDataForm.getPublisher());
+			cd.setGenreId(categoryDataForm.getGenreId());
+			cd.setDeleted(false);
+			cd = cdRepository.save(cd);
+			break;
+		case 3:
+			DVD dvd = new DVD();
+			dvd.setTitle(categoryDataForm.getTitle());
+			dvd.setAuthor(categoryDataForm.getAuthor());
+			dvd.setPublisher(categoryDataForm.getPublisher());
+			dvd.setGenreId(categoryDataForm.getGenreId());
+			dvd.setDeleted(false);
+			dvd = dvdRepository.save(dvd);
+			break;
+		case 4:
+			Kamishibai kamishibai = new Kamishibai();
+			kamishibai.setTitle(categoryDataForm.getTitle());
+			kamishibai.setAuthor(categoryDataForm.getAuthor());
+			kamishibai.setPublisher(categoryDataForm.getPublisher());
+			kamishibai.setGenreId(categoryDataForm.getGenreId());
+			kamishibai.setDeleted(false);
+			kamishibai = kamishibaiRepository.save(kamishibai);
+			break;
+		case 5:
+			Room room = new Room();
+			room.setRoomName(categoryDataForm.getTitle());
+			room.setDeleted(false);
+			room = roomRepository.save(room);
+			break;
+			
+		}
+	}
+	
 
 	//カテゴリ編集画面用
 	public void forCategoryGenreList(Model model, Integer categoryId, String address) {
@@ -79,7 +130,7 @@ public class CategoryService {
 			model.addAttribute("lendAnyItemList", kamishibaiJoinGenre);
 			break;
 		case 5:
-			List<Room> room = roomRepository.findAll();
+			List<Room> room = roomRepository.sqlRoomAll();
 			model.addAttribute("lendAnyItemList", room);
 			break;
 		}

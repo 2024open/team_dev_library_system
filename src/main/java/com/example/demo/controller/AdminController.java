@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -167,34 +166,34 @@ public class AdminController {
  	}
 
  // ジャンル削除処理
- 	@PostMapping("/admin/genre/{genreId}/delete")
- 	public String noticeDelete(@PathVariable("genreId") Integer genreId,
- 			Model model) {
- 		
- 		Genre updateGenre = genreRepository.findById(genreId).get();
+// 	@PostMapping("/admin/genre/{genreId}/delete")
+// 	public String noticeDelete(@PathVariable("genreId") Integer genreId,
+// 			Model model) {
+// 		
+// 		Genre updateGenre = genreRepository.findById(genreId).get();
+//
+//
+//		if (updateGenre.getDeleted() == false) {
+//			
+//			//削除フラグ管理
+//			updateGenre.setDeleted(true);
+// 
+//			updateGenre = genreRepository.save(updateGenre);
+// 	}else {
+//		return "redirect:/admin/genre?messageId=3";
+// 	}
 
- 	
-
-		if (updateGenre.getDeleted() == false) {
-			
-			//削除フラグ管理
-			updateGenre.setDeleted(true);
- 
-			updateGenre = genreRepository.save(updateGenre);			
- 	}else {
-		return "redirect:/admin/genre?messageId=3";
- 	}
-
-			updateGenre = genreRepository.save(updateGenre);
-		} else {
-			updateGenre.setDeleted(false);
-			updateGenre = genreRepository.save(updateGenre);
-		}
- 
-		return "redirect:/admin/genre";
-
-		}
+//		updateGenre = genreRepository.save(updateGenre);
+//		} else {
+//			updateGenre.setDeleted(false);
+//			updateGenre = genreRepository.save(updateGenre);
+//		}
+// 
+//		return "redirect:/admin/genre";
+//
+//		}
 	}
+
 
 
 

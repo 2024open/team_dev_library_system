@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.entity.Book;
 import com.example.demo.entity.CD;
 import com.example.demo.entity.Category;
+import com.example.demo.entity.CategoryDataForm;
 import com.example.demo.entity.DVD;
 import com.example.demo.entity.Kamishibai;
 import com.example.demo.entity.Room;
@@ -117,10 +118,60 @@ public class CategoryController {
 		librarianService.forLibraryId(model, libraryId);
 		return "categoryRename";
 	}
+	
+	//カテゴリーデータ新規登録画面
+	@GetMapping("/librarian/categories/{id}/data")
+	public String categoryData(
+			@PathVariable("id") String categoryIdStr,
+			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
+			Model model) {
+		if (!Common.isParceInt(libraryIdStr)) {
+			return "redirects:/librarian/home";
+		}
+		if (!Common.isParceInt(categoryIdStr)) {
+			return "redirects:/librarian/home";
+		}
+		Integer libraryId = Integer.parseInt(libraryIdStr);
+		Integer categoryId = Integer.parseInt(categoryIdStr);
+		
+		CategoryDataForm categoryDataForm = new CategoryDataForm();
+		model.addAttribute("categoryData", categoryDataForm);
+		categoryService.forCategoryGenreList(model, categoryId, "genreList");
+		
+		librarianService.forCategoryId(model, categoryId);
+		librarianService.forLibraryList(model);
+		librarianService.forLibraryId(model, libraryId);
+		return "categoryDataAdd";
+	}
+	
+	//カテゴリデータ新規登録処理
+	@PostMapping("/librarian/categories/{id}/data")
+	public String categoryDataAdd(
+			@PathVariable("id") String categoryIdStr,
+			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
+			@ModelAttribute("categoryData") CategoryDataForm categoryDataForm,
+			Model model) {
+		if (!Common.isParceInt(libraryIdStr)) {
+			return "redirects:/librarian/home";
+		}
+		if (!Common.isParceInt(categoryIdStr)) {
+			return "redirects:/librarian/home";
+		}
+		Integer libraryId = Integer.parseInt(libraryIdStr);
+		Integer categoryId = Integer.parseInt(categoryIdStr);
+		
+		categoryService.forCategoryDataStore(model, categoryId, categoryDataForm);
+		
+		librarianService.forCategoryId(model, categoryId);
+		librarianService.forLibraryList(model);
+		librarianService.forLibraryId(model, libraryId);
+		return "redirect:/librarian/categories/{id}";
+	}
+	
 
 	//カテゴリデータ一覧画面
-	@GetMapping("/librarian/categories/{id}/data")
-	public String categoryEditData(
+	@GetMapping("/librarian/categories/{id}/datalist")
+	public String categoryDataList(
 			@PathVariable("id") String categoryIdStr,
 			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
 			Model model) {
@@ -143,7 +194,7 @@ public class CategoryController {
 	}
 
 	//カテゴリーデータ更新画面
-	@GetMapping("/librarian/categories/{categoryId}/data/{id}")
+	@GetMapping("/librarian/categories/{categoryId}/datalist/{id}")
 	public String categoryDataDetail(
 			@PathVariable("categoryId") String categoryIdStr,
 			@PathVariable("id") String anyIdStr,
@@ -173,8 +224,7 @@ public class CategoryController {
 	}
 
 	//カテゴリーデータ更新処理
-	//TODO
-	@PostMapping("/librarian/categories/{categoryId}/data/{id}")
+	@PostMapping("/librarian/categories/{categoryId}/datalist/{id}")
 	public String categoryDataEdit(
 			@PathVariable("categoryId") String categoryIdStr,
 			@PathVariable("id") String anyIdStr,
@@ -199,6 +249,7 @@ public class CategoryController {
 		Integer anyId = Integer.parseInt(anyIdStr);
 		Integer categoryId = Integer.parseInt(categoryIdStr);
 
+		//データの直入れがキモい
 		categoryService.forCategoryDataEdit(categoryId, book, cd, dvd, kamishibai, room);
 
 		categoryService.forCategoryDataDetail(model, categoryId, anyId, "categoryData");
