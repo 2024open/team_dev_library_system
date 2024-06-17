@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import com.example.demo.entity.DVD;
 import com.example.demo.entity.Genre;
 import com.example.demo.entity.Kamishibai;
 import com.example.demo.entity.LendItem;
+import com.example.demo.entity.LendItemForm;
 import com.example.demo.entity.LendItemJoinStatus;
 import com.example.demo.entity.LendItemJoinStatusJoinAny;
 import com.example.demo.entity.Library;
@@ -29,12 +31,16 @@ import com.example.demo.repository.GenreRepository;
 import com.example.demo.repository.KamishibaiRepository;
 import com.example.demo.repository.LendItemJoinStatusJoinAnyRepository;
 import com.example.demo.repository.LendItemJoinStatusRepository;
+import com.example.demo.repository.LendItemRepository;
 import com.example.demo.repository.LibraryRepository;
 import com.example.demo.repository.RoomRepository;
 import com.example.demo.repository.StatusRepository;
 
 @Service
 public class LibrarianService {
+
+	@Autowired
+	LendItemRepository lendItemRepository;
 
 	@Autowired
 	CategoryRepository categoryRepository;
@@ -63,6 +69,7 @@ public class LibrarianService {
 	@Autowired
 	RoomRepository roomRepository;
 
+	//自作
 	@Autowired
 	AnyJoinGenreRepository anyJoinGenreRepository;
 
@@ -127,6 +134,24 @@ public class LibrarianService {
 		model.addAttribute("category", category);
 	}
 
+	//貸出物新規登録用
+	public void forLendItemForm(Model model, Integer categoryId, String address) {
+		LendItemForm lendItemForm = new LendItemForm();
+		model.addAttribute(address, lendItemForm);
+		model.addAttribute("categoryId", categoryId);
+	}
+
+	public void forLendItemFormStore(Integer categoryId, Integer libraryId, LendItemForm lendItemForm) {
+		LendItem lendItem = new LendItem();
+		lendItem.setLibraryid(libraryId);
+		lendItem.setCategoryId(categoryId);
+		lendItem.setCreateDate(LocalDateTime.now());
+		lendItem.setStatusId(lendItemForm.getStatusId());
+		lendItem.setAnyId(lendItemForm.getAnyId());
+		lendItem.setDeleted(false);
+		lendItemRepository.save(lendItem);
+	}
+
 	//貸出物更新用
 	public void forLendItemEdit(LendItem lendItem, Model model) {
 		switch (lendItem.getCategoryId()) {
@@ -158,6 +183,7 @@ public class LibrarianService {
 		case 5:
 			Room room = roomRepository.findById(lendItem.getAnyId()).get();
 			model.addAttribute("lendAnyItem", room);
+			model.addAttribute("lendAnyItemList", room);
 			break;
 		}
 

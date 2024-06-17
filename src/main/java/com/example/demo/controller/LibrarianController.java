@@ -9,34 +9,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Account;
-import com.example.demo.entity.AdminLendList;
-import com.example.demo.entity.AdminLendRoom;
 import com.example.demo.entity.LendItem;
+import com.example.demo.entity.LendItemForm;
 import com.example.demo.entity.LendingItem;
 import com.example.demo.entity.Notice;
 import com.example.demo.model.SuperUser;
 import com.example.demo.repository.AccountRepository;
-import com.example.demo.repository.AdminLendListRepoitory;
+import com.example.demo.repository.AdminLendListRepository;
 import com.example.demo.repository.AdminLendRoomRepository;
 import com.example.demo.repository.CategoryRepository;
 import com.example.demo.repository.LendItemRepository;
 import com.example.demo.repository.LendingItemRepository;
 import com.example.demo.repository.NoticeRepository;
+import com.example.demo.service.CategoryService;
 import com.example.demo.service.Common;
+import com.example.demo.service.LibrarianLendItemService;
 import com.example.demo.service.LibrarianService;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class LibrarianController {
-	//Service
+	//サービス
 	@Autowired
 	LibrarianService librarianService;
+
+	@Autowired
+	LibrarianLendItemService librarianLendItemService;
+
+	@Autowired
+	CategoryService categoryService;
 
 	@Autowired
 	CategoryRepository categoryRepository;
@@ -63,51 +71,96 @@ public class LibrarianController {
 	LendingItemRepository lendingItemRepository;
 
 	@Autowired
-	AdminLendListRepoitory adminLendListRepository;
+	AdminLendListRepository adminLendListRepository;
 
-	//貸出物一覧表示
-	@GetMapping({ "/librarian/lenditems", "/librarian", "/librarian/home" })
-	public String lendItem(
+	//ホーム
+	@GetMapping({ "/librarian/home", "/librarian" })
+	public String index(
+			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
+			Model model) {
+		if (!Common.isParceInt(libraryIdStr)) {
+			Integer libraryId = 1;
+			librarianService.forLibraryList(model);
+			librarianService.forLibraryId(model, libraryId);
+			return "librarianHome";
+		}
+		Integer libraryId = Integer.parseInt(libraryIdStr);
+
+		librarianService.forLibraryList(model);
+		librarianService.forLibraryId(model, libraryId);
+		return "librarianHome";
+	}
+
+	//貸出物新規登録画面
+	@GetMapping("/librarian/lenditems/add")
+	public String lendItemCreate(
 			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
 			@RequestParam(name = "categoryId", defaultValue = "1") String categoryIdStr,
-			@RequestParam(name = "genreId", defaultValue = "") String genreIdStr,
 			Model model) {
-
-		//		if (!(Common.isParceInt(libraryIdStr) && Common.isParceInt(categoryIdStr) && Common.isParceInt(genreIdStr))) {
-		//			return "redirect:/su/home";
-		//		}
-
-		List<AdminLendList> LendJoinAny = new ArrayList<AdminLendList>();
-		LendJoinAny = null;
+		if (!Common.isParceInt(libraryIdStr)) {
+			return "redirect:/librarian/lenditems";
+		}
+		if (!Common.isParceInt(categoryIdStr)) {
+			return "redirect:/librarian/lenditems";
+		}
 		Integer libraryId = Integer.parseInt(libraryIdStr);
 		Integer categoryId = Integer.parseInt(categoryIdStr);
-		//		Integer genreId = Integer.parseInt(genreIdStr);
 
-		switch (categoryId) {
-		case 1:
-			LendJoinAny = adminLendListRepository.sqlAdminLendJoinBook(libraryId);
-			break;
-		case 2:
-			LendJoinAny = adminLendListRepository.sqlAdminLendJoinCD(libraryId);
-			break;
-		case 3:
-			LendJoinAny = adminLendListRepository.sqlAdminLendJoinDVD(libraryId);
-			break;
-		case 4:
-			LendJoinAny = adminLendListRepository.sqlAdminLendJoinKamishibai(libraryId);
-			break;
-		case 5:
-			List<AdminLendRoom> LendJoinRoom = new ArrayList<AdminLendRoom>();
-			LendJoinRoom = adminLendRoomRepository.sqlAdminLendJoinRoom(libraryId);
-			model.addAttribute("LendJoinRoom", LendJoinRoom);
-			break;
-		}
-		model.addAttribute("LendJoinAny", LendJoinAny);
+		librarianService.forLendItemForm(model, categoryId, "lendItemForm");
+		categoryService.forCategoryDataList(model, categoryId);
+		librarianService.forStatusList(model);
 
 		librarianService.forLibraryList(model);
 		librarianService.forCategoryList(model);
 		librarianService.forLibraryId(model, libraryId);
+		return "lendItemAdd";
+	}
 
+	//貸出物新規登録処理
+	@PostMapping("/librarian/lenditems/add")
+	public String lendItemStore(
+			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
+			@RequestParam(name = "categoryId", defaultValue = "1") String categoryIdStr,
+			@ModelAttribute("lendItemForm") LendItemForm lendItemForm,
+			Model model) {
+		if (!Common.isParceInt(libraryIdStr)) {
+			return "redirect:/librarian/home";
+		}
+		if (!Common.isParceInt(categoryIdStr)) {
+			return "redirect:/librarian/home";
+		}
+		Integer libraryId = Integer.parseInt(libraryIdStr);
+		Integer categoryId = Integer.parseInt(categoryIdStr);
+
+		librarianService.forLendItemFormStore(categoryId, libraryId, lendItemForm);
+
+		librarianService.forCategoryList(model);
+		librarianService.forLibraryId(model, libraryId);
+		return "librarianLendItems";
+	}
+
+	//貸出物一覧表示
+	@GetMapping("/librarian/lenditems")
+	public String lendItem(
+			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
+			@RequestParam(name = "categoryId", defaultValue = "1") String categoryIdStr,
+			Model model) {
+
+		if (!Common.isParceInt(libraryIdStr)) {
+			return "redirect:/librarian/home";
+		}
+		if (!Common.isParceInt(categoryIdStr)) {
+			return "redirect:/librarian/home";
+		}
+		Integer libraryId = Integer.parseInt(libraryIdStr);
+		Integer categoryId = Integer.parseInt(categoryIdStr);
+
+		librarianLendItemService.forLendItemList(model, categoryId, libraryId);
+
+		librarianService.forLibraryList(model);
+		librarianService.forCategoryList(model);
+		librarianService.forLibraryId(model, libraryId);
+		librarianService.forCategoryId(model, categoryId);
 		return "librarianLendItems";
 	}
 
@@ -338,7 +391,7 @@ public class LibrarianController {
 			@RequestParam(value = "title", defaultValue = "") String title,
 			@RequestParam(value = "content", defaultValue = "") String content,
 			Model model) {
-//    	エラー処理
+		//    	エラー処理
 		List<String> errorList = new ArrayList<>();
 
 		//		文字数確認
@@ -359,14 +412,14 @@ public class LibrarianController {
 			model.addAttribute("errorList", errorList);
 			model.addAttribute("title", title);
 			model.addAttribute("content", content);
-			
+
 			// noticeテーブルをID（主キー）で検索
 			Notice notice = noticeRepository.findById(noticeId).get();
 			model.addAttribute("notice", notice);
-			
+
 			return "editNotice";
 		}
-		
+
 		Integer libraryId = superUser.getLibraryId();
 		Integer userId = superUser.getUserId();
 
