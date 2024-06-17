@@ -13,7 +13,8 @@ import com.example.demo.entity.Notice;
 import com.example.demo.repository.NoticeRepository;
 
 @Controller
-public class NoticeController {
+public class NoticeController 
+{
     @Autowired
     NoticeRepository noticeRepository;
 
@@ -21,10 +22,12 @@ public class NoticeController {
     @GetMapping("/notice")
     public String index(
             @RequestParam(value = "noticeId", defaultValue = "") Integer noticeId,
-            Model model) {
+            Model model) 
+    {
         //お知らせ一覧を取得
     	//TODO LibraryId取りたい
         List<Notice> noticeList = noticeRepository.findByUserIdAndLibraryId(null,1);
+        
         model.addAttribute("noticeList", noticeList);
         return "notice";
     }
@@ -32,7 +35,8 @@ public class NoticeController {
     @GetMapping("/notice/{id}")
     public String detail(
             @PathVariable("id") Integer id,
-            Model model) {
+            Model model) 
+    {
         //NoticeテーブルをID(主キー)で検索
         Notice notice = noticeRepository.findById(id).get();
         model.addAttribute("notice", notice);

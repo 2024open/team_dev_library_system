@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Data;
 
 @Entity
@@ -21,6 +22,7 @@ public class Room {
 	@Column(name = "room_name")
 	public String roomName;
 
+	@Transient
 	public Boolean deleted;
 
 	public Room() {

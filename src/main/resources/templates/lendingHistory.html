@@ -5,16 +5,17 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>貸出中一覧</h1>
+	<h1>貸出履歴</h1>
 	
 	<table border="1">
 		<tr>
 			<th>カテゴリ</th>
 			<th>貸出物</th>
 			<th>貸出日</th>
+			<th>返却日</th>
 		</tr>
 		
-		<tr th:each="lendingItem : ${lendingItemList}" th:object="${lendingItem}">
+		<tr th:each="lendingItem : ${lendingHistoryList}" th:object="${lendingItem}">
 			<td>[[*{categoryName}]]</td>
 			
 			<td th:if="*{categoryId} == 1">[[*{bookTitle}]]</td>
@@ -24,6 +25,7 @@
 			<td th:if="*{categoryId} == 5">[[*{roomName}]]</td>
 			
 			<td>[[*{borrowedDate}]]</td>
+			<td>[[*{returnDate}]]</td>
 		</tr>
 	</table>
 

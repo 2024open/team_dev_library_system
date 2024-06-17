@@ -13,7 +13,12 @@
 	</a>
 	<br>
 	<br>
-	<a th:href="@{/librarian/categories/{id}/dataList(id = ${categoryId})}">
+	<a th:href="@{/librarian/categories/{id}/data(id = ${categoryId}, libraryId = ${libraryId})}">
+		データの新規登録
+	</a>
+	<br>
+	<br>
+	<a th:href="@{/librarian/categories/{id}/datalist(id = ${categoryId}, libraryId = ${libraryId})}">
 		データの編集
 	</a>
 </body>

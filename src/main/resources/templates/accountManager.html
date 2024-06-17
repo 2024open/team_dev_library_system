@@ -6,7 +6,8 @@
 <link rel="stylesheet" type="text/css" href="/css/Measures.css">
 </head>
 <body>
-	<div class="center">
+	<sidebar th:replace="AdminSidebar"></sidebar>
+	<div class="accountCenter">
 		<form action="/admin/accountManager" method="get">
 			<input type="text" name="userName" placeholder="利用者名" th:value="${userName}">
 			<button>検索</button><br>
@@ -15,6 +16,7 @@
 			<p>
 				<form action="/admin/accountManager" method="post">
 				<div class="border">
+					<input type="hidden" name="userId" th:value="${accountManager.userId}">
 					<td>利用者ID：</td>
 					<td th:text="${accountManager.userId}"></td><br>
 					<td>利用者名：</td>
@@ -23,7 +25,12 @@
 					<td th:text="${accountManager.nickname}"></td><br>
 					<td>メールアドレス：</td>
 					<td th:text="${accountManager.email}"></td><br>
-					<button>BAN</button>
+					<input type="hidden" name="ban" th:value="${accountManager.ban}">
+					<div class="center">
+						<!--ボタン切り替え-->
+						<button class="Ban" th:if="${!accountManager.ban}">BAN</button>
+						<button class="NonBan"  th:if="${accountManager.ban}">BAN解除</button>
+					</div>
 				</div>
 				</form>
 			</p>
