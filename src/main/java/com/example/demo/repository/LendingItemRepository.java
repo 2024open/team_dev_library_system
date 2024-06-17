@@ -10,8 +10,10 @@ import com.example.demo.entity.LendingItem;
 
 public interface LendingItemRepository extends JpaRepository<LendingItem, Integer> {
 	public static String sqlLendingList = "SELECT * "
-			+ "	FROM lending_item "
-			+ "	WHERE user_id = :userId AND status_id = 2;";
+			+ "FROM lending_item "
+			+ "WHERE user_id = :userId "
+			+ "AND status_id = 2 "
+			+ "AND deleted = false ;";
 
 	public static String sqlLendingHistory = "SELECT * "
 			+ "	FROM lending_item "

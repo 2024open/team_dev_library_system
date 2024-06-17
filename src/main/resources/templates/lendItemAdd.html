@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<header th:replace ="adminHeader"></header>
+	<sidebar th:replace="librarianSidebar"></sidebar>
+	
+	<form
+	th:action="@{/librarian/lenditems/add}"
+	th:object="${lendItemForm}"
+	method="post">
+		<table border="1"
+		th:if="${categoryId} == 1 or
+			${categoryId} == 2 or
+			${catagoryId} == 3 or
+			${categoryId} == 4">
+			<tr>
+				<th>種別</th>
+				<td>
+					<select th:field="*{anyId}">
+						<option th:each="lendAnyItem : ${lendAnyItemList}" th:value="${lendAnyItem.anyId}">
+							[[${lendAnyItem.title}]]
+						</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>状態</th>
+				<td>
+					<select th:field="*{statusId}">
+						<option th:each="status : ${statusList}" th:value="${status.statusId}">
+							[[${status.statusName}]]
+						</option>
+					</select>
+				</td>
+			</tr>
+		</table>
+		
+		<table border="1"
+		th:if="${categoryId} == 5">
+			<tr>
+				<th>種別</th>
+				<td>
+					<select th:field="*{anyId}">
+						<option th:each="lendAnyItem : ${lendAnyItemList}" th:value="${lendAnyItem.roomId}">
+							[[${lendAnyItem.roomName}]]
+						</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>状態</th>
+				<td>
+					<select th:field="*{statusId}">
+						<option th:each="status : ${statusList}" th:value="${status.statusId}">
+							[[${status.statusName}]]
+						</option>
+					</select>
+				</td>
+			</tr>
+		</table>
+		
+		<input type="hidden" th:value="${categoryId}" name="categoryId">
+		<input type="hidden" th:value="${libraryId}" name = "libraryId">		
+		<button>新規登録</button>
+	</form>
+	
+	
+
+</body>
+</html>

@@ -7,10 +7,12 @@
 <body>
 	<header th:replace ="adminHeader"></header>
 	<sidebar th:replace="librarianSidebar"></sidebar>
-	<div th:replace="libraryPullDown"></div>
 	
-	<form action="/librarian/lenditems" method="get">
-		<select name="categoryId">
+	
+	<div th:replace="lendItemAddBar"></div>
+	
+	<form action="/librarian/lenditems" th:object="${category}" method="get">
+		<select th:field="*{categoryId}">
 			<option th:each="category : ${categoryList}" th:value="${category.categoryId}">[[${category.categoryName}]]</option>
 		</select>
 		
