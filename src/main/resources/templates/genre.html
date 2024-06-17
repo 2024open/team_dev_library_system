@@ -4,10 +4,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>ジャンル管理</title>
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 
-<body style="text-align: center;">
-	
+<body>
+	<header th:replace="suHeader"></header>
+	<sidebar th:replace="adminSidebar"></sidebar>
 	<h1>ジャンル管理</h1>
 
 	<br>
@@ -16,10 +18,8 @@
 
 	<form action="/admin/genre/add" method="post">
 		カテゴリ：<select name="categoryId">
-			<option value="1">本</option>
-			<option value="2">CD</option>
-			<option value="3">DVD</option>
-			<option value="4">紙芝居</option>
+			<option th:each ="category:${categoryList}"th:value="${category.categoryId}" th:text="${category.categoryName}"></option>
+	
 		</select>
 		ジャンル：<input type="text" name="genreName">
 		<button>追加</button>
@@ -54,7 +54,7 @@
 			
 			<td>
 				<form th:action="@{/admin/genre/{genreId}/delete(genreId=${genre.genreId})}" method="post">
-					<button>削除</button>
+					<button th:text="${btnView}"></button>
 				</form>
 			</td>
 		</tr>

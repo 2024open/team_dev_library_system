@@ -12,22 +12,13 @@
 <!--    	<option>栄</option>-->
 <!--    	<option>金山</option>-->
 <!--    </select>-->
-	<head>
-		<meta charset="UTF-8">
-		<title>名古屋図書館</title>
-	</head>
-
-	<body>
-		<h1>名古屋図書館</h1>
-		<header th:replace="header"></header>
-	<!--中央ぞろえのcss-->
-    <div class="center">
+	<header th:replace="header"></header>
+    <div class="noticeDetailCenter">
 		<h1>お知らせ詳細</h1>
 		<tr>
-			<!--ボーダー君囲んでるよ-->
         	<div class="border">
 				<th>日付：</th>
-				<!--"${#temporals.format(～～～,'yyyy/MM/dd')}"　日付を(2024/01/01)の形にする-->
+				<!--"${#temporals.format(～～～,'yyyy/MM/dd')}"日付を(2024/01/01)の形にする-->
 				<td th:text="${#temporals.format(notice.noticeDate,'yyyy/MM/dd')}"></td><br>
 				<th>タイトル：</th>
 				<td th:text="${notice.title}"></td>

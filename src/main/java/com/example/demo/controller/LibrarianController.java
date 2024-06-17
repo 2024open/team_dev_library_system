@@ -66,7 +66,7 @@ public class LibrarianController {
 	AdminLendListRepoitory adminLendListRepository;
 
 	//貸出物一覧表示
-	@GetMapping({ "/librarian/lenditems", "/librarian" })
+	@GetMapping({ "/librarian/lenditems", "/librarian", "/librarian/home" })
 	public String lendItem(
 			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
 			@RequestParam(name = "categoryId", defaultValue = "1") String categoryIdStr,
@@ -285,13 +285,36 @@ public class LibrarianController {
 			@RequestParam(value = "content", defaultValue = "") String content,
 			Model model) {
 
-		Integer userId = superUser.getLibraryId();
-		Integer libraryId = superUser.getUserId();
+		//    	エラー処理
+		List<String> errorList = new ArrayList<>();
 
+		//		文字数確認
+		if (title.isBlank()) {
+			errorList.add("タイトルは必須です");
+		} else if (title.length() > 30) {
+			errorList.add("タイトルは30字以内で入力してください");
+		}
+		if (content.isBlank()) {
+			errorList.add("内容は必須です");
+		} else if (title.length() > 30) {
+			errorList.add("内容は100字以内で入力してください");
+		}
+
+		// エラー発生時は新規登録画面に戻す
+
+		if (errorList.size() > 0) {
+			model.addAttribute("errorList", errorList);
+			model.addAttribute("title", title);
+			model.addAttribute("content", content);
+			return "addNotice";
+		}
+
+		Integer userId = superUser.getUserId();
+		Integer libraryId = superUser.getLibraryId();
 		// Noticeオブジェクトの生成
 		Notice notice = new Notice(libraryId, userId, title, content);
-		// noticeテーブルへの反映（INSERT）
 
+		// noticeテーブルへの反映（INSERT）
 		noticeRepository.save(notice);
 		return "redirect:/librarian/notice";
 	}
@@ -315,9 +338,38 @@ public class LibrarianController {
 			@RequestParam(value = "title", defaultValue = "") String title,
 			@RequestParam(value = "content", defaultValue = "") String content,
 			Model model) {
+//    	エラー処理
+		List<String> errorList = new ArrayList<>();
 
-		Integer userId = superUser.getLibraryId();
-		Integer libraryId = superUser.getUserId();
+		//		文字数確認
+		if (title.isBlank()) {
+			errorList.add("タイトルは必須です");
+		} else if (title.length() > 30) {
+			errorList.add("タイトルは30字以内で入力してください");
+		}
+		if (content.isBlank()) {
+			errorList.add("内容は必須です");
+		} else if (title.length() > 30) {
+			errorList.add("内容は100字以内で入力してください");
+		}
+
+		// エラー発生時は更新画面に戻す
+
+		if (errorList.size() > 0) {
+			model.addAttribute("errorList", errorList);
+			model.addAttribute("title", title);
+			model.addAttribute("content", content);
+			
+			// noticeテーブルをID（主キー）で検索
+			Notice notice = noticeRepository.findById(noticeId).get();
+			model.addAttribute("notice", notice);
+			
+			return "editNotice";
+		}
+		
+		Integer libraryId = superUser.getLibraryId();
+		Integer userId = superUser.getUserId();
+
 		Notice notice = new Notice(noticeId, libraryId, userId, title, content);
 
 		noticeRepository.save(notice);

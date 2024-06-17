@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+<meta charset="UTF-8">
+<title>データ一覧 / [[${category.categoryName}]]</title>
+</head>
+<body>
+	<header th:replace ="adminHeader"></header>
+	<sidebar th:replace="librarianSidebar"></sidebar>
+	
+	<th:block th:object="${category}">
+		<table border="1">
+			<div th:if="*{categoryId} == 1">
+				<tr>
+					<th>ID</th>
+					<th>タイトル</th>
+					<th>著者</th>
+					<th>出版社</th>
+					<th>ジャンル</th>
+					<th>編集</th>
+				</tr>
+				<tr th:each="lendAnyItem : ${lendAnyItemList}">
+					<td>[[${lendAnyItem.anyId}]]</td>
+					<td>[[${lendAnyItem.title}]]</td>
+					<td>[[${lendAnyItem.author}]]</td>
+					<td>[[${lendAnyItem.publisher}]]</td>
+					<td>[[${lendAnyItem.genreName}]]</td>
+					<td>
+						<form 
+						th:action="@{/librarian/categories/{categoryId}/data/{id}(categoryId = *{categoryId}, id = ${lendAnyItem.anyId})}"
+						method="get">
+							<input type="hidden" name="libraryId" th:value="${libraryId}">
+							<button>編集</button>
+						</form>
+					</td>
+				</tr>
+			</div>
+			
+			<div th:if="*{categoryId} == 2">
+				<tr>
+					<th>ID</th>
+					<th>タイトル</th>
+					<th>アーティスト</th>
+					<th>レーベル</th>
+					<th>ジャンル</th>
+					<th>編集</th>
+				</tr>
+				<tr th:each="lendAnyItem : ${lendAnyItemList}">
+					<td>[[${lendAnyItem.anyId}]]</td>
+					<td>[[${lendAnyItem.title}]]</td>
+					<td>[[${lendAnyItem.author}]]</td>
+					<td>[[${lendAnyItem.publisher}]]</td>
+					<td>[[${lendAnyItem.genreName}]]</td>
+					<td>
+						<form 
+						th:action="@{/librarian/categories/{categoryId}/data/{id}(categoryId = *{categoryId}, id = ${lendAnyItem.anyId})}"
+						method="get">
+							<input type="hidden" name="libraryId" th:value="${libraryId}">
+							<button>編集</button>
+						</form>
+					</td>
+				</tr>
+			</div>
+
+			<div th:if="*{categoryId} == 3">
+				<tr>
+					<th>ID</th>
+					<th>タイトル</th>
+					<th>監督</th>
+					<th>販売元</th>
+					<th>ジャンル</th>
+					<th>編集</th>
+				</tr>
+				<tr th:each="lendAnyItem : ${lendAnyItemList}">
+					<td>[[${lendAnyItem.anyId}]]</td>
+					<td>[[${lendAnyItem.title}]]</td>
+					<td>[[${lendAnyItem.author}]]</td>
+					<td>[[${lendAnyItem.publisher}]]</td>
+					<td>[[${lendAnyItem.genreName}]]</td>
+					<td>
+						<form 
+						th:action="@{/librarian/categories/{categoryId}/data/{id}(categoryId = *{categoryId}, id = ${lendAnyItem.anyId})}"
+						method="get">
+							<input type="hidden" name="libraryId" th:value="${libraryId}">
+							<button>編集</button>
+						</form>
+					</td>
+				</tr>
+			</div>
+
+			<div th:if="*{categoryId} == 4">
+				<tr>
+					<th>ID</th>
+					<th>タイトル</th>
+					<th>作者</th>
+					<th>出版社</th>
+					<th>ジャンル</th>
+					<th>編集</th>
+				</tr>
+				<tr th:each="lendAnyItem : ${lendAnyItemList}">
+					<td>[[${lendAnyItem.anyId}]]</td>
+					<td>[[${lendAnyItem.title}]]</td>
+					<td>[[${lendAnyItem.author}]]</td>
+					<td>[[${lendAnyItem.publisher}]]</td>
+					<td>[[${lendAnyItem.genreName}]]</td>
+					<td>
+						<form 
+						th:action="@{/librarian/categories/{categoryId}/data/{id}(categoryId = *{categoryId}, id = ${lendAnyItem.anyId})}"
+						method="get">
+							<input type="hidden" name="libraryId" th:value="${libraryId}">
+							<button>編集</button>
+						</form>
+					</td>
+				</tr>
+			</div>
+			
+			<div th:if="*{categoryId} == 5">
+				<tr>
+					<th>ID</th>
+					<th>会議室名</th>
+					<th>編集</th>
+				</tr>
+				<tr th:each="lendAnyItem : ${lendAnyItemList}">
+					<td>[[${lendAnyItem.roomId}]]</td>
+					<td>[[${lendAnyItem.roomName}]]</td>
+					<td>
+						<form 
+						th:action="@{/librarian/categories/{categoryId}/data/{id}(categoryId = *{categoryId}, id = ${lendAnyItem.roomId})}"
+						method="get">
+							<input type="hidden" name="libraryId" th:value="${libraryId}">
+							<button>編集</button>
+						</form>
+					</td>
+				</tr>
+			</div>
+		</table>
+	</th:block>
+
+</body>
+</html>

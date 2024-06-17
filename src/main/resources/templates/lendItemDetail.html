@@ -9,7 +9,7 @@
 <body>
 	<header th:replace="header"></header>
 	<p th:text="${msg}" style="color: red;"></p>
-	<table border="1" th:each="Detail:${lendItemDetail}">
+	<table border="1" th:each="Detail:${lendItemDetail}" th:if="${Detail.categoryId != 5}">
 		<tr>
 			<th>タイトル</th>
 			<td th:text="${Detail.title}"></td>
@@ -37,6 +37,25 @@
 			<form method="post" action="/reservation/add">
 				<button type="hidden" name="reservation" th:value="${Detail.lendItemId}" th:if="${userId!=0}">予約</button>
 			</form>
+	</table>
+
+
+	<table border="1" th:each="Detail:${lendItemRoomDetail}" th:if="${Detail.categoryId == 5}">
+		<tr>
+			<th>名前</th>
+			<td th:text="${Detail.roomName}"></td>
+		</tr>
+		<tr>
+			<th>カテゴリー</th>
+			<td th:text="${categoryMap[Detail.categoryId]}"></td>
+		</tr>
+		<tr>
+			<th>貸出可否</th>
+			<td th:text="${statusMap[Detail.statusId]}"></td>
+		</tr>
+		<form method="post" action="/reservation/add" th:if="${userId!=0}">
+			<button type="hidden" name="reservation" th:value="${Detail.lendItemId}">予約</button>
+		</form>
 	</table>
 </body>
 

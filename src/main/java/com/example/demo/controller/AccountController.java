@@ -37,11 +37,13 @@ public class AccountController {
 	@GetMapping({ "", "/login", "/logout" })
 	public String index(
 			@RequestParam(name = "error", defaultValue = "") String error,
-			Model model) {
+			Model model) 
+	{
 		//セッション情報を全てクリア
 		session.invalidate();
 		//エラーパラメータのチェック
-		if (error.equals("notloggedIn")) {
+		if (error.equals("notloggedIn")) 
+		{
 			model.addAttribute("message", "ログインしてください");
 		}
 		return "login";
@@ -53,30 +55,37 @@ public class AccountController {
 			@RequestParam("libraryName") int libraryId,
 			@RequestParam("email") String email,
 			@RequestParam("password") String password,
-			Model model) {
+			Model model) 
+	{
 		//エラー処理
 		List<String> errorList = new ArrayList<>();
 		//文字数のチェック
-		if (email.length() > 100) {
+		if (email.length() > 100) 
+		{
 			errorList.add("メールアドレスは100字以内で入力してください");
 		}
-		if (email.length() == 0) {
+		if (email.length() == 0) 
+		{
 			errorList.add("メールアドレスを入力してください");
 		}
-		if (password.length() > 30) {
+		if (password.length() > 30) 
+		{
 			errorList.add("パスワードは30字以内で入力してください");
 		}
-		if (password.length() == 0) {
+		if (password.length() == 0) 
+		{
 			errorList.add("パスワードを入力してください");
 		}
-		if (!errorList.isEmpty()) {
+		if (!errorList.isEmpty()) 
+		{
 			model.addAttribute("errorLists", errorList);
 			return "login";
 		}
 		
 		//メールとパス検索
 		List<Account> accountList = accountRepository.findByEmailAndPassword(email, password);
-		if (accountList == null || accountList.size() == 0) {
+		if (accountList == null || accountList.size() == 0) 
+		{
 			// 存在しなかった場合
 			model.addAttribute("errorLists", "メールアドレスとパスワードが一致しませんでした");
 			return "login";
@@ -89,7 +98,7 @@ public class AccountController {
 //		session.setAttribute("email", account.getEmail());
 //		session.setAttribute("password", account.getPassword());
 		
-//		//セッション管理されたSuperUserモデルに図書館ID、図書館名、ユーザーID、権限をセット
+		//セッション管理されたSuperUserモデルに図書館ID、図書館名、ユーザーID、権限をセット
 		List<Library> libraries = libraryRepository.findByLibraryId(libraryId);
 		Library library = libraries.get(0);
 		superUser.setLibraryId(libraryId);
@@ -120,21 +129,20 @@ public class AccountController {
 		if (userName.length() == 0) {
 			errorList.add("名前は必須です");
 		} else if (userName.length() > 50) {
-			errorList.add("名前は50字以下で入力してください");
+			errorList.add("名前は50字以内で入力してください");
 		}
 		
 		if (nickname.length() == 0) {
 			errorList.add("ニックネームは必須です");
 		} else if (nickname.length() > 50) {
-			errorList.add("ニックネームは50字以下で入力してください");
+			errorList.add("ニックネームは50字以内で入力してください");
 		}
-
 		if (email.length() == 0) {
 			errorList.add("メールアドレスは必須です");
 		} else if (email.length() > 100) {
-			errorList.add("メールアドレスは100字以下で入力してください");
+			errorList.add("メールアドレスは100字以内で入力してください");
 
-		} else if (accountRepository.findByEmail(email).isEmpty()) {
+		} else if ( accountRepository.findByEmail(email).size() != 0) {
 			errorList.add("登録済みのメールアドレスです");
 		}
 		if (password.length() == 0) {
@@ -171,6 +179,6 @@ public class AccountController {
 		// accountテーブルへの反映（INSERT）
 		accountRepository.save(account);
 
-		return "redirect:/home";
+		return "redirect:/lendItems";
 	}
 }
