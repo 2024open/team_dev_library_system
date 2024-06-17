@@ -3,6 +3,7 @@ package com.example.demo.service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -123,13 +124,29 @@ public class LibrarianService {
 	//検索ためのlibraryIdの保持
 	//ヘッダーのための情報
 	public void forLibraryId(Model model, Integer libraryId) {
-		Library library = libraryRepository.findById(libraryId).get();
+		Optional<Library> OptLibrary = libraryRepository.findById(libraryId);
+		Library library = new Library();
+		if (OptLibrary.isPresent()) {
+			library = OptLibrary.get();
+		} else {
+			model.addAttribute("errorMsg", "不正な値:libraryId");
+			library = libraryRepository.findById(1).get();
+		}
 		model.addAttribute("libraryId", libraryId);
 		model.addAttribute("library", library);
 	}
 
 	public void forCategoryId(Model model, Integer categoryId) {
-		Category category = categoryRepository.findById(categoryId).get();
+		Optional<Category> OptCategory = categoryRepository.findById(categoryId);
+		Category category = new Category();
+		if (OptCategory.isPresent()) {
+			category = OptCategory.get();
+		} else {
+			if (categoryId != 0) {
+				model.addAttribute("errorMsg", "不正な値:categoryId");
+			}
+			category = categoryRepository.findById(1).get();
+		}
 		model.addAttribute("categoryId", categoryId);
 		model.addAttribute("category", category);
 	}

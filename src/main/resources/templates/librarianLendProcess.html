@@ -18,8 +18,8 @@
 		<button>ID検索</button>
 	</form>
 	
-	<form action="/librarian/lendProcess" method="get">
-		<select name="categoryId">
+	<form action="/librarian/lendProcess" th:object="${category}" method="get">
+		<select th:field="*{categoryId}">
 			<option th:each="category : ${categoryList}" th:value="${category.categoryId}">[[${category.categoryName}]]</option>
 		</select>
 		<input type="text" name="keyword" th;value="${keyword}">
