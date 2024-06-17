@@ -2,49 +2,81 @@
 .center{
 	text-align: center;
 }
-/*枠線(枠線内を左揃え)*/
+
+/*ログイン画面*/
+/*中央ぞろえ*/
+.logCenter{
+	text-align: center;
+	font-size:150%;
+}
+/*ボーダー*/
+.logBorder{
+	display:inline-block;
+	border: solid 2px;
+}
+
+/*お知らせ画面*/
+/*中央ぞろえ*/
+.noticeCenter{
+	text-align: center;
+	font-size:150%;
+}
+/*枠線(枠線内を左揃え_text-align)*/
 .border{
 	display:inline-block;
 	width: 20em;
 	text-align: left;
 	border: solid 2px;
 }
-/*ログイン用*/
-.logBorder{
-	display:inline-block;
-	border: solid 2px;
+/*お知らせ詳細画面*/
+/*中央ぞろえ*/
+.noticeDetailCenter{
+	text-align: center;
+	font-size:150%;
 }
 /*枠線内の枠線*/
 .detailBorder{
 	border: solid 2px;
 }
 
+/*アカウント管理画面用*/
+/*中央揃え*/
+.accountCenter{
+	text-align: center;
+	font-size:150%;
+}
 /*BANの色変え*/
 .Ban {
   background-color: rgb(255, 0, 0);
   color: #fff;
   transition: background-color 1s;
+  font-size:100%;
 }
 .Ban:hover {
   background-color: rgb(0, 0, 0);
+  font-size:100%;
 }
 .Ban:focus,
 .Ban:active {
   background-color: black;
   transition: none;
+  font-size:100%;
 }
 /*BAN解除の色変え*/
 .NonBan {
   background-color: rgb(0, 128, 255);
   color: #fff;
   transition: background-color 1s;
+  font-size:100%;
 }
 .NonBan:hover {
   background-color: rgb(0, 0, 0);
+  font-size:100%;
 }
 .NonBan:focus,
 .NonBan:active {
   background-color: black;
   transition: none;
+  font-size:100%;
 }
 

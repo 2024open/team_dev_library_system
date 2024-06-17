@@ -12,7 +12,7 @@ import com.example.demo.entity.ReservationDetail;
 public interface ReservationDetailRepository extends JpaRepository<ReservationDetail, Integer> {
 	
 	//予約一覧表示
-		static String sqlReservationBookList = "select reservation.lend_item_id,lend_item.category_id,book.title,reservation.reservation_date "
+		static String sqlReservationBookList = "select reservation.reservation_id, reservation.lend_item_id,lend_item.category_id,book.title,reservation.reservation_date "
 				+ "from reservation "
 				+ "inner join lend_item "
 				+ "on reservation.lend_item_id=lend_item.lend_item_id "
@@ -23,7 +23,7 @@ public interface ReservationDetailRepository extends JpaRepository<ReservationDe
 		@Query(value = sqlReservationBookList, nativeQuery = true)
 		List<ReservationDetail> sqlReservationBookLendJoin(@Param("UserId")Integer UserId);
 		
-		static String sqlReservationCDList = "select reservation.lend_item_id,lend_item.category_id,cd.title,reservation.reservation_date "
+		static String sqlReservationCDList = "select reservation.reservation_id,reservation.lend_item_id,lend_item.category_id,cd.title,reservation.reservation_date "
 				+ "from reservation "
 				+ "inner join lend_item "
 				+ "on reservation.lend_item_id=lend_item.lend_item_id "
@@ -35,7 +35,7 @@ public interface ReservationDetailRepository extends JpaRepository<ReservationDe
 		List<ReservationDetail> sqlReservationCDLendJoin(@Param("UserId")Integer UserId);
 		
 		
-		static String sqlReservationDVDList = "select reservation.lend_item_id,lend_item.category_id,dvd.title,reservation.reservation_date "
+		static String sqlReservationDVDList = "select reservation.reservation_id,reservation.lend_item_id,lend_item.category_id,dvd.title,reservation.reservation_date "
 				+ "from reservation "
 				+ "inner join lend_item "
 				+ "on reservation.lend_item_id=lend_item.lend_item_id "
@@ -47,7 +47,7 @@ public interface ReservationDetailRepository extends JpaRepository<ReservationDe
 		List<ReservationDetail> sqlReservationDVDLendJoin(@Param("UserId")Integer UserId);
 		
 		
-		static String sqlReservationKamishibaiList = "select reservation.lend_item_id,lend_item.category_id,kamishibai.title,reservation.reservation_date "
+		static String sqlReservationKamishibaiList = "select reservation.reservation_id,reservation.lend_item_id,lend_item.category_id,kamishibai.title,reservation.reservation_date "
 				+ "from reservation "
 				+ "inner join lend_item "
 				+ "on reservation.lend_item_id=lend_item.lend_item_id "

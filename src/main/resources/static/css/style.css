@@ -39,6 +39,13 @@ h1 {
 	z-index: 9999;
 }
 
+.adminSidebar{
+	float: left;
+}
+
+.librarianSidebar{
+	float: left;
+}
 
 footer {
 	background-color: #CBFFD3;
@@ -130,9 +137,9 @@ button {
 	background-color: #33FF99;
 	color: #ffffff;
 	border: none;
-	width: 150px;
+	width: 100px;
 	cursor: pointer;
-	border-radius: 100vh;
+
 }
 
 /* 送信ボタン(マウスオーバー時) */
