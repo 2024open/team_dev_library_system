@@ -8,26 +8,33 @@
 
 <body>
 	<header th:replace="header"></header>
-	
-		<form action="/reservation" method="get">
+
+	<form action="/reservation" method="get">
 		<select name="category" onchange="submit(this.form)">
 			<option value="">カテゴリ</option>
-			<option  class="category" value="1">本</option>
-			<option  class="category" value="2">CD</option>
-			<option  class="category" value="3">DVD</option>
-			<option  class="category" value="4">紙芝居</option>
+			<option class="category" value="1">本</option>
+			<option class="category" value="2">CD</option>
+			<option class="category" value="3">DVD</option>
+			<option class="category" value="4">紙芝居</option>
 		</select>
 	</form>
-<h2 th:if="${reservation.size() ==0}" style="color: red;">データが存在しません</h2>
+	<h2 th:if="${reservation.size() ==0}" style="color: red;">データが存在しません</h2>
 	<table border="1" th:if="${reservation.size() !=0}">
 		<tr>
 			<th>カテゴリー</th>
 			<th>タイトル</th>
 			<th>予約日</th>
-		<tr th:each="reserList:${reservation}">
+			<th>予約取り消し</th>
+		<tr  th:each="reserList:${reservation}">
 			<td th:text="${categoryMap[reserList.categoryId]}"></td>
 			<td th:text="${reserList.title}"></td>
 			<td th:text="${#dates.format(reserList.reservationDate,'yyyy/MM/dd')}"></td>
+			<td>
+				<form th:action="@{/reservation/{Id}/delete(Id=${reserList.reservationId})}" method="post"
+					onsubmit="return confirm('本当に取り消しますか')">
+					<button>取り消し</button>
+				</form>
+			</td>
 		</tr>
 	</table>
 </body>

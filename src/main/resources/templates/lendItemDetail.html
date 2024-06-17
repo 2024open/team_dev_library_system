@@ -35,7 +35,7 @@
 			<td th:text="${statusMap[Detail.statusId]}"></td>
 		</tr>
 			<form method="post" action="/reservation/add">
-				<button type="hidden" name="reservation" th:value="${Detail.lendItemId}">予約</button>
+				<button type="hidden" name="reservation" th:value="${Detail.lendItemId}" th:if="${userId!=0}">予約</button>
 			</form>
 	</table>
 </body>

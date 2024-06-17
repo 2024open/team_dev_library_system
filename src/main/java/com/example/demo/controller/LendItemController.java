@@ -45,17 +45,19 @@ public class LendItemController {
 
 	@Autowired
 	CategoryRepository categoryRepository;
-	
+
 	@Autowired
 	DetailIfRepository detailIfRepository;
-	
+
 	@Autowired
 	SuperUser user;
-	
+
 	//貸出物一覧表示
 	@GetMapping({ "/lendItems" })
 	public String index(
 			@RequestParam(value = "category", defaultValue = "") Integer category,
+			@RequestParam(value = "search", defaultValue = "") String search,
+			@RequestParam(value = "Possibility", defaultValue = "0") Integer Possibility,
 			Model model) {
 		List<AllUserLendList> lendItemList = null;
 
@@ -87,23 +89,157 @@ public class LendItemController {
 		String titleMsg = "";
 
 		if (category == null) {
-			lendItemList = allUserLendListrepository.sqlALLUserBookLendJoin();
+			//デフォルト表示
+			if (search.equals("")) {
+				switch (Possibility) {
+				case 1:
+					lendItemList = allUserLendListrepository.sqlALLUserBookLendJoinP();
+					break;
+					
+				case 2:
+					lendItemList = allUserLendListrepository.sqlALLUserBookLendJoinI();
+					break;
+					
+				default:
+					lendItemList = allUserLendListrepository.sqlALLUserBookLendJoin();
+				}
+			} else {
+				switch (Possibility) {
+				case 1:
+					lendItemList = allUserLendListrepository.sqlALLUserBookLendJoinPsearch('%'+search+'%');
+					break;
+				case 2:
+					lendItemList = allUserLendListrepository.sqlALLUserBookLendJoinIsearch('%'+search+'%');
+					break;
+				default:
+					lendItemList = allUserLendListrepository.sqlALLUserBookLendJoinSearch('%'+search+'%');
+				}
+			}
 			titleMsg = "本一覧";
 			model.addAttribute("titleMsg", titleMsg);
 		} else if (category == 1) {
-			lendItemList = allUserLendListrepository.sqlALLUserBookLendJoin();
+			//本表示
+			if (search.equals("")) {
+				switch (Possibility) {
+				case 1:
+					lendItemList = allUserLendListrepository.sqlALLUserBookLendJoinP();
+					break;
+
+				case 2:
+					lendItemList = allUserLendListrepository.sqlALLUserBookLendJoinI();
+					break;
+
+				default:
+					lendItemList = allUserLendListrepository.sqlALLUserBookLendJoin();
+				}
+			} else {
+				switch (Possibility) {
+				case 1:
+					lendItemList = allUserLendListrepository.sqlALLUserBookLendJoinPsearch('%'+search+'%');
+					break;
+
+				case 2:
+					lendItemList = allUserLendListrepository.sqlALLUserBookLendJoinIsearch('%'+search+'%');
+					break;
+
+				default:
+					lendItemList = allUserLendListrepository.sqlALLUserBookLendJoinSearch('%'+search+'%');
+				}
+			}
 			titleMsg = "本一覧";
 			model.addAttribute("titleMsg", titleMsg);
 		} else if (category == 2) {
-			lendItemList = allUserLendListrepository.sqlALLUserCDLendJoin();
+			//CD表示
+			if (search.equals("")) {
+				switch (Possibility) {
+				case 1:
+					lendItemList = allUserLendListrepository.sqlALLUserCDLendJoinP();
+					break;
+
+				case 2:
+					lendItemList = allUserLendListrepository.sqlALLUserCDLendJoinI();
+					break;
+
+				default:
+					lendItemList = allUserLendListrepository.sqlALLUserCDLendJoin();
+				}
+			} else {
+				switch (Possibility) {
+				case 1:
+					lendItemList = allUserLendListrepository.sqlALLUserCDLendJoinPsearch('%'+search+'%');
+					break;
+
+				case 2:
+					lendItemList = allUserLendListrepository.sqlALLUserCDLendJoinIsearch('%'+search+'%');
+					break;
+
+				default:
+					lendItemList = allUserLendListrepository.sqlALLUserCDLendJoinSearch('%'+search+'%');
+				}
+			}
 			titleMsg = "CD一覧";
 			model.addAttribute("titleMsg", titleMsg);
 		} else if (category == 3) {
-			lendItemList = allUserLendListrepository.sqlALLUserDVDLendJoin();
+			//DVD表示
+			if (search.equals("")) {
+				switch (Possibility) {
+				case 1:
+					lendItemList = allUserLendListrepository.sqlALLUserDVDLendJoinP();
+					break;
+
+				case 2:
+					lendItemList = allUserLendListrepository.sqlALLUserDVDLendJoinI();
+					break;
+
+				default:
+					lendItemList = allUserLendListrepository.sqlALLUserDVDLendJoin();
+				}
+			} else {
+				switch (Possibility) {
+				case 1:
+					lendItemList = allUserLendListrepository.sqlALLUserDVDLendJoinPsearch('%'+search+'%');
+					break;
+
+				case 2:
+					lendItemList = allUserLendListrepository.sqlALLUserDVDLendJoinIsearch('%'+search+'%');
+					break;
+
+				default:
+					lendItemList = allUserLendListrepository.sqlALLUserDVDLendJoinSearch('%'+search+'%');
+				}
+			}
+
 			titleMsg = "DVD一覧";
 			model.addAttribute("titleMsg", titleMsg);
 		} else if (category == 4) {
-			lendItemList = allUserLendListrepository.sqlALLUserKamishibaiLendJoin();
+			//紙芝居表示
+			if (search.equals("")) {
+				switch (Possibility) {
+				case 1:
+					lendItemList = allUserLendListrepository.sqlALLUserKamishibaiLendJoinP();
+					break;
+
+				case 2:
+					lendItemList = allUserLendListrepository.sqlALLUserKamishibaiLendJoinI();
+					break;
+
+				default:
+					lendItemList = allUserLendListrepository.sqlALLUserKamishibaiLendJoin();
+				}
+			} else {
+				switch (Possibility) {
+				case 1:
+					lendItemList = allUserLendListrepository.sqlALLUserKamishibaiLendJoinPsearch('%'+search+'%');
+					break;
+
+				case 2:
+					lendItemList = allUserLendListrepository.sqlALLUserKamishibaiLendJoinIsearch('%'+search+'%');
+					break;
+
+				default:
+					lendItemList = allUserLendListrepository.sqlALLUserKamishibaiLendJoinSearch('%'+search+'%');
+				}
+			}
 			titleMsg = "紙芝居一覧";
 			model.addAttribute("titleMsg", titleMsg);
 		}
@@ -111,7 +247,7 @@ public class LendItemController {
 
 		Integer userId = user.getUserId();
 		model.addAttribute("userId", userId);
-		
+
 		return "index";
 	}
 
@@ -159,15 +295,14 @@ public class LendItemController {
 		model.addAttribute("genreMap", genreMap);
 		model.addAttribute("statusMap", statusMap);
 		//Map
-		
-		
-//		LendItemDetail lendItemDetailIf = alluserLendDetailRepoitory.sqlALLUserDVDLendJoinDetail(id).get(0);
+
+		//		LendItemDetail lendItemDetailIf = alluserLendDetailRepoitory.sqlALLUserDVDLendJoinDetail(id).get(0);
 
 		DetailIf Detailif = detailIfRepository.findByLendItemId(id).get(0);
-		
+
 		LendItemDetail lendItemDetail = null;
 
-		if (Detailif.getCategoryId()==1) {
+		if (Detailif.getCategoryId() == 1) {
 			lendItemDetail = alluserLendDetailRepoitory.sqlALLUserBookLendJoinDetail(id).get(0);
 			model.addAttribute("lendItemDetail", lendItemDetail);
 		} else if (Detailif.getCategoryId() == 2) {
@@ -180,7 +315,7 @@ public class LendItemController {
 			lendItemDetail = alluserLendDetailRepoitory.sqlALLUserKamishibaiLendJoinDetail(id).get(0);
 			model.addAttribute("lendItemDetail", lendItemDetail);
 		}
-		
+
 		Integer userId = user.getUserId();
 		model.addAttribute("userId", userId);
 

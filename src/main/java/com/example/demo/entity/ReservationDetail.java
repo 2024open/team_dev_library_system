@@ -4,6 +4,8 @@ import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 
@@ -11,7 +13,12 @@ import lombok.Data;
 @Data
 public class ReservationDetail {
 	
+	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "reservation_id")
+	private Integer reservationId;
+	
 	@Column(name = "lend_item_id")
 	private Integer lendItemId;
 	
