@@ -59,6 +59,4 @@ public interface ReservationDetailRepository extends JpaRepository<ReservationDe
 		List<ReservationDetail> sqlReservationKamishibaiLendJoin(@Param("UserId")Integer UserId);
 		
 		
-		
-		
 }

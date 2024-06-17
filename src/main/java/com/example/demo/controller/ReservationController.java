@@ -137,7 +137,7 @@ public class ReservationController {
 		Integer status = 3;
 
 		if (lenditem.getStatusId() == 1) {
-			List<ReservationDetail> reservationerr = reservationDetailRepository.sqlReservationBookLendJoin(userId);
+			List<Reservation> reservationerr = reservationRepoitory.findByUserId(userId);
 			if (reservationerr.size() < 5) {
 				Reservation reserv = new Reservation(lendItemDetail.getLendItemId(), userId);
 
