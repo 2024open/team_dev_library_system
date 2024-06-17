@@ -7,6 +7,7 @@
 </head>
 <body>
 	<header th:replace="suHeader"></header>
+	<sidebar th:replace="librarianSidebar"></sidebar>
 	<h1>お知らせ更新</h1>
 	<form th:action="@{/librarian/notice/{noticeId}/edit(noticeId=${notice.noticeId})}" method="post">
 		<table border="1">

@@ -42,7 +42,7 @@ public class AdminController {
 	@GetMapping("/admin/home")
 	public String home() {
 		// 処理は後で書く
-		return "";
+		return "adminHome";
 	}
 
 	// 管理者利用者情報管理画面
