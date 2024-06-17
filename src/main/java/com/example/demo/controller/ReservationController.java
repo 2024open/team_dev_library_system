@@ -172,22 +172,12 @@ public class ReservationController {
 		Integer status = 3;
 
 		if (lenditem.getStatusId() == 1) {
-			List<ReservationDetail> reservationbook = reservationDetailRepository.sqlReservationBookLendJoin(userId);
-			List<ReservationDetail> reservationcd = reservationDetailRepository.sqlReservationCDLendJoin(userId);
-			List<ReservationDetail> reservationdvd = reservationDetailRepository.sqlReservationDVDLendJoin(userId);
-			List<ReservationDetail> reservationkamishibai = reservationDetailRepository.sqlReservationKamishibaiLendJoin(userId);
-			List<ReservationDetail> reservationerr = reservationDetailRepository.sqlReservationLendJoin(userId);
-			if (reservationerr.size() < 5 && reservationkamishibai.size() <5 && reservationdvd.size()<5 && reservationcd.size()<5 && reservationbook.size()<5) {
-				if (lendItemRoomDetail == null) {
-					Reservation reserv = new Reservation(lendItemDetail.getLendItemId(), userId);
-
-					LendItem lenditemsave = new LendItem(reservation, lenditem.getLibraryid(), lenditem.getCategoryId(),
-							localdatetime, status, lenditem.getAnyId());
-
-					lendItemSaveRepository.save(lenditemsave);
-
+			List<Reservation> reservationerr = reservationRepoitory.findByUserId(userId);
+			if (reservationerr.size() < 5) {
+				Reservation reserv = new Reservation(lendItemDetail.getLendItemId(), userId);
 				LendItem lenditemsave = new LendItem(reservation, lenditem.getLibraryid(), lenditem.getCategoryId(),
 						LocalDateTime.now(), status, lenditem.getAnyId());
+        	lendItemSaveRepository.save(lenditemsave);
 					reservationRepoitory.save(reserv);
 					return "redirect:/lendItems";
 				} else {

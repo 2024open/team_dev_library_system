@@ -70,7 +70,6 @@ public interface ReservationDetailRepository extends JpaRepository<ReservationDe
 		List<ReservationDetail> sqlReservationRoomLendJoin(@Param("UserId")Integer UserId);
 		
 		
-		
 		static String sqlReservationList = "select reservation.lend_item_id,lend_item.category_id,book.title,reservation.reservation_date "
 				+ "from reservation "
 				+ "inner join lend_item "
