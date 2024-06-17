@@ -208,8 +208,8 @@ public class LibrarianController {
 		librarianService.forLibraryId(model, libraryId);
 		return "librarianLendProcess";
 	}
-
-	//貸出処理
+	
+	//貸出選択画面
 	@PostMapping("/librarian/lendProcess")
 	public String lendProcessExecute(
 			@RequestParam(name = "libraryId", defaultValue = "1") Integer libraryId,
@@ -220,9 +220,17 @@ public class LibrarianController {
 		//email見つかるか
 		List<Account> tmpList = accountRepository.findByEmail(email);
 		Account lenderAccount = new Account();
+		
 		if (tmpList.size() == 1) {
 			lenderAccount = tmpList.get(0);
-		} else {
+//			貸出するものを選択したときに、エラーメッセージが出ないようにする
+	}else if(email.equals("hogege")) {
+		librarianService.forLendProcessIdSearch(lendItemId, libraryId, model);
+		librarianService.forCategoryList(model);
+		librarianService.forLibraryId(model, libraryId);
+		return "librarianLendProcess";
+		
+	}else {
 			String errorMsg = "メールアドレスが間違っています";
 			model.addAttribute("errorMsg", errorMsg);
 			librarianService.forLendProcessIdSearch(lendItemId, libraryId, model);
@@ -276,6 +284,7 @@ public class LibrarianController {
 			return "lendProcessExecuted";
 		}
 	}
+
 
 	//貸出物更新画面
 	@GetMapping("/librarian/lenditems/{id}/edit")
