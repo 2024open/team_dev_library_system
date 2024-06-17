@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -16,6 +17,7 @@ import com.example.demo.entity.Category;
 import com.example.demo.entity.Genre;
 import com.example.demo.entity.LendItem;
 import com.example.demo.entity.LendItemDetail;
+import com.example.demo.entity.LendItemStatus;
 import com.example.demo.entity.LendItemRoomDetail;
 import com.example.demo.entity.Reservation;
 import com.example.demo.entity.ReservationDetail;
@@ -24,6 +26,7 @@ import com.example.demo.entity.Status;
 import com.example.demo.model.SuperUser;
 import com.example.demo.repository.ALLUserLendDetailRepoitory;
 import com.example.demo.repository.ALLUserLendListRepoitory;
+import com.example.demo.repository.ALLUserLendListStatusRepoitory;
 import com.example.demo.repository.ALLUserLendRoomDetailRepoitory;
 import com.example.demo.repository.AccountRepository;
 import com.example.demo.repository.CategoryRepository;
@@ -68,6 +71,9 @@ public class ReservationController {
 
 	@Autowired
 	ALLUserLendRoomDetailRepoitory allUserLendRoomDetailRepoitory;
+
+	@Autowired
+	ALLUserLendListStatusRepoitory allUserLendListStatusRepoitory ;
 
 	@Autowired
 	SuperUser superUser;
@@ -131,6 +137,7 @@ public class ReservationController {
 
 		model.addAttribute("categoryMap", categoryMap);
 
+
 		return "reservationList";
 	}
 
@@ -139,7 +146,6 @@ public class ReservationController {
 	public String reserve(
 			@RequestParam(value = "reservation", defaultValue = "") Integer reservation,
 			@RequestParam(value = "category", defaultValue = "") Integer category,
-			LocalDateTime localdatetime,
 			Model model) {
 		LendItemDetail lendItemDetail = null;
 
@@ -180,6 +186,8 @@ public class ReservationController {
 
 					lendItemSaveRepository.save(lenditemsave);
 
+				LendItem lenditemsave = new LendItem(reservation, lenditem.getLibraryid(), lenditem.getCategoryId(),
+						LocalDateTime.now(), status, lenditem.getAnyId());
 					reservationRepoitory.save(reserv);
 					return "redirect:/lendItems";
 				} else {
@@ -280,6 +288,25 @@ public class ReservationController {
 			return "lendItemDetail";
 		}
 
+	}
+	
+	@PostMapping({ "/reservation/{Id}/delete" })
+	public String delete(
+			@PathVariable("Id") Integer id,
+			Model model) {
+		
+		LendItemStatus itemId = allUserLendListStatusRepoitory.sqlALLUserLendItemStatus(id);
+		
+		LendItem lenditem = lendItemSaveRepository.findByLendItemId(itemId.getLendItemId());
+		
+		LendItem lenditemsave = new LendItem(itemId.getLendItemId(), lenditem.getLibraryid(), lenditem.getCategoryId(),
+				LocalDateTime.now(), 1, lenditem.getAnyId());
+		
+		lendItemSaveRepository.save(lenditemsave);
+		
+		reservationRepoitory.deleteById(id);
+		
+		return "redirect:/reservation";
 	}
 
 }

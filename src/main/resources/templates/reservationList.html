@@ -16,6 +16,7 @@
 			<option class="category" value="2">CD</option>
 			<option class="category" value="3">DVD</option>
 			<option class="category" value="4">紙芝居</option>
+
 			<option class="category" value="5">貸会議室</option>
 		</select>
 	</form>
@@ -26,10 +27,17 @@
 			<th>カテゴリー</th>
 			<th>タイトル</th>
 			<th>予約日</th>
-		<tr th:each="reserList:${reservation}">
+			<th>予約取り消し</th>
+		<tr  th:each="reserList:${reservation}">
 			<td th:text="${categoryMap[reserList.categoryId]}"></td>
 			<td th:text="${reserList.title}"></td>
 			<td th:text="${#dates.format(reserList.reservationDate,'yyyy/MM/dd')}"></td>
+			<td>
+				<form th:action="@{/reservation/{Id}/delete(Id=${reserList.reservationId})}" method="post"
+					onsubmit="return confirm('本当に取り消しますか')">
+					<button>取り消し</button>
+				</form>
+			</td>
 		</tr>
 	</table>
 
