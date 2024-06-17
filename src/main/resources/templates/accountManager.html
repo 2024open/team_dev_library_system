@@ -7,7 +7,7 @@
 </head>
 <body>
 	<sidebar th:replace="AdminSidebar"></sidebar>
-	<div class="center">
+	<div class="accountCenter">
 		<form action="/admin/accountManager" method="get">
 			<input type="text" name="userName" placeholder="利用者名" th:value="${userName}">
 			<button>検索</button><br>
