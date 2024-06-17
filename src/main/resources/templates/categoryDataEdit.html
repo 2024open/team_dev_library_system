@@ -10,7 +10,7 @@
 	
 	<th:block th:if="${categoryId} == 1">
 		<form 
-		th:action="@{/librarian/categories/{categoryId}/datalist/{id}
+		th:action="@{/librarian/categories/{categoryId}/data/{id}
 		(categoryId = ${categoryId}, id = ${categoryData.bookId})}"
 		th:object="${categoryData}"
 		name="objectBook"
@@ -59,7 +59,7 @@
 	
 	<th:block th:if="${categoryId} == 2">
 		<form
-		th:action="@{/librarian/categories/{categoryId}/datalist/{id}
+		th:action="@{/librarian/categories/{categoryId}/data/{id}
 		(categoryId = ${categoryId}, id = ${categoryData.cdId})}"
 		th:object="${categoryData}"
 		name="objectCD"
@@ -109,7 +109,7 @@
 	
 	<th:block th:if="${categoryId} == 3">
 		<form
-		th:action="@{/librarian/categories/{categoryId}/datalist/{id}
+		th:action="@{/librarian/categories/{categoryId}/data/{id}
 		(categoryId = ${categoryId}, id = ${categoryData.dvdId})}"
 		th:object="${categoryData}"
 		name="objectDVD"
@@ -158,7 +158,7 @@
 	
 	<th:block th:if="${categoryId} == 4">
 		<form
-		th:action="@{/librarian/categories/{categoryId}/datalist/{id}
+		th:action="@{/librarian/categories/{categoryId}/data/{id}
 		(categoryId = ${categoryId}, id = ${categoryData.kamishibaiId})}"
 		th:object="${categoryData}"
 		name="objectKamishibai"
@@ -207,7 +207,7 @@
 
 	<th:block th:if="${categoryId} == 5">
 		<form
-		th:action="@{/librarian/categories/{categoryId}/datalist/{id}
+		th:action="@{/librarian/categories/{categoryId}/data/{id}
 		(categoryId = ${categoryId}, id = ${categoryData.roomId})}"
 		th:object="${categoryData}"
 		name="objectRoom"
