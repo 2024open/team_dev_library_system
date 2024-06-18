@@ -93,11 +93,12 @@
 			<input type="hidden" name="lendItemId" th:value="${lendItem.lendItemId}">
 			<input type="hidden" name="libraryId" th:value="${library.libraryId}">
 			<input type="hidden" name="title" th:value="${lendItem.title}">
+
 			<button style="margin-bottom: 20px;">
 				<p th:if="${lendItem.statusId} == 1" style="display: inline;">貸出処理へ</p>
 				<p th:if="${lendItem.statusId} == 2" style="display: inline;">返却処理へ</p>
 			</button>
-			
+      
 		</form>
 		
 	</th:block>

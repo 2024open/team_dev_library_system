@@ -162,7 +162,7 @@ public class AdminController {
 
 		// genreテーブルへの反映（INSERT）
 		genreRepository.save(newGenre);
-		return "redirect:/admin/genre";
+		return "redirect:/admin/genre?messageId=3";
 	}
 
 //	  ジャンル削除処理

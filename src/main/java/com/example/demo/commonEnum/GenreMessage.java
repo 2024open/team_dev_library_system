@@ -4,7 +4,7 @@ public enum GenreMessage {
 
     EMPTY("1","ジャンル名を入力してください"),
     EXIST("2","既に存在するジャンルです"),
-	DELETED("3","既に削除されています");
+	SUCCEED("3","ジャンルを追加しました");
 
 	private String id;
     private String message;
