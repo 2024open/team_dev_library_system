@@ -6,17 +6,9 @@
 <link rel="stylesheet" type="text/css" href="/css/Measures.css">
 </head>
 <body>
-<!--	TODO選択できるだけ-->
-<!--	<select name="example">-->
-<!--    	<option>名古屋</option>-->
-<!--    	<option>栄</option>-->
-<!--    	<option>金山</option>-->
-<!--    </select>-->
-		<header th:replace="header"></header>
-	<!--中央ぞろえのcss-->
+	<header th:replace="header"></header>
     <div class="noticeCenter">
     	<h1>お知らせ</h1>
-    	<!--ボーダー君囲んでるよ-->
        	<div class="border">
 			<tr th:each="notice:${noticeList}">
 			<!--"${#temporals.format(～～～,'yyyy/MM/dd')}"　日付を(2024/01/01)の形にする-->

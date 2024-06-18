@@ -1,6 +1,5 @@
 package com.example.demo.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,8 +12,6 @@ import com.example.demo.entity.CD;
 import com.example.demo.entity.Category;
 import com.example.demo.entity.DVD;
 import com.example.demo.entity.Kamishibai;
-import com.example.demo.entity.LendItemJoinStatus;
-import com.example.demo.entity.LendItemJoinStatusJoinAny;
 import com.example.demo.entity.Library;
 import com.example.demo.entity.Room;
 import com.example.demo.entity.Status;
@@ -93,37 +90,37 @@ public class LibrarianService {
 
 	//Listに返す
 	public void forBookList(Model model) {
-		List<Book> bookList = bookRepository.findAll();
+		List<Book> bookList = bookRepository.sqlBookAll();
 		model.addAttribute("bookList", bookList);
 	}
 
 	public void forCDList(Model model) {
-		List<CD> cdList = cdRepository.findAll();
+		List<CD> cdList = cdRepository.sqlCDAll();
 		model.addAttribute("cdList", cdList);
 	}
 
 	public void forDVDList(Model model) {
-		List<DVD> dvdList = dvdRepository.findAll();
+		List<DVD> dvdList = dvdRepository.sqlDVDAll();
 		model.addAttribute("dvdList", dvdList);
 	}
 
 	public void forKamishibaiList(Model model) {
-		List<Kamishibai> kamishibaiList = kamishibaiRepository.findAll();
+		List<Kamishibai> kamishibaiList = kamishibaiRepository.sqlKamishibaiAll();
 		model.addAttribute("kamishibaiList", kamishibaiList);
 	}
 
 	public void forRoomList(Model model) {
-		List<Room> roomList = roomRepository.findAll();
+		List<Room> roomList = roomRepository.sqlRoomAll();
 		model.addAttribute("roomList", roomList);
 	}
 
 	//検索ためのlibraryIdの保持
 	//ヘッダーのための情報
 	public void forLibraryId(Model model, Integer libraryId) {
-		Optional<Library> OptLibrary = libraryRepository.findById(libraryId);
+		Optional<Library> optLibrary = libraryRepository.findById(libraryId);
 		Library library = new Library();
-		if (OptLibrary.isPresent()) {
-			library = OptLibrary.get();
+		if (optLibrary.isPresent()) {
+			library = optLibrary.get();
 		} else {
 			model.addAttribute("errorMsg", "不正な値:libraryId");
 			library = libraryRepository.findById(1).get();
@@ -133,10 +130,10 @@ public class LibrarianService {
 	}
 
 	public void forCategoryId(Model model, Integer categoryId) {
-		Optional<Category> OptCategory = categoryRepository.findById(categoryId);
+		Optional<Category> optCategory = categoryRepository.findById(categoryId);
 		Category category = new Category();
-		if (OptCategory.isPresent()) {
-			category = OptCategory.get();
+		if (optCategory.isPresent()) {
+			category = optCategory.get();
 		} else {
 			if (categoryId != 0) {
 				model.addAttribute("errorMsg", "不正な値:categoryId");
@@ -147,63 +144,4 @@ public class LibrarianService {
 		model.addAttribute("category", category);
 	}
 
-	//貸出処理ID検索用
-	public void forLendProcessIdSearch(Integer lendItemId, Integer libraryId, Model model) {
-		List<LendItemJoinStatus> tmpList = lendItemJoinStatusRepository.sqlLendProcessId(libraryId, lendItemId);
-		if (tmpList.size() == 0) {
-			//検索結果なし
-		} else {
-			LendItemJoinStatus lendItem = tmpList.get(0);
-			model.addAttribute("lendItem", lendItem);
-
-			String title = null;
-			switch (lendItem.getCategoryId()) {
-			case 1:
-				title = bookRepository.findById(lendItem.getAnyId()).get().getTitle();
-				break;
-			case 2:
-				title = cdRepository.findById(lendItem.getAnyId()).get().getTitle();
-				break;
-			case 3:
-				title = dvdRepository.findById(lendItem.getAnyId()).get().getTitle();
-				break;
-			case 4:
-				title = kamishibaiRepository.findById(lendItem.getAnyId()).get().getTitle();
-				break;
-			case 5:
-				title = roomRepository.findById(lendItem.getAnyId()).get().getRoomName();
-			}
-			model.addAttribute("title", title);
-		}
-	}
-
-	//貸出処理キーワード検索用
-	public void forLendProcessKeyword(Integer categoryId, Integer libraryId, String keyword, Model model) {
-		keyword = "%" + keyword + "%";
-		List<LendItemJoinStatusJoinAny> lendItemList = new ArrayList<LendItemJoinStatusJoinAny>();
-
-		switch (categoryId) {
-		case 1:
-			lendItemList = lendItemJoinStatusJoinAnyRepository
-					.sqlLendProcessBookKeyword(libraryId, keyword);
-			break;
-		case 2:
-			lendItemList = lendItemJoinStatusJoinAnyRepository
-					.sqlLendProcessCDKeyword(libraryId, keyword);
-			break;
-		case 3:
-			lendItemList = lendItemJoinStatusJoinAnyRepository
-					.sqlLendProcessDVDKeyword(libraryId, keyword);
-			break;
-		case 4:
-			lendItemList = lendItemJoinStatusJoinAnyRepository
-					.sqlLendProcessKamishibaiKeyword(libraryId, keyword);
-			break;
-		case 5:
-			lendItemList = lendItemJoinStatusJoinAnyRepository
-					.sqlLendProcessRoomKeyword(libraryId, keyword);
-			break;
-		}
-		model.addAttribute("lendItemList", lendItemList);
-	}
 }

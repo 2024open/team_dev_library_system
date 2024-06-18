@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Data;
 
+//librarian/lendProcessの検索表示で使用
 @Entity
 @Data
 public class LendItemJoinStatusJoinAny {
