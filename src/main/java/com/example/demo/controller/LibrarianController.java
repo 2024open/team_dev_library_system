@@ -196,6 +196,7 @@ public class LibrarianController {
 			Integer categoryId = Integer.parseInt(categoryIdStr);
 			lendProcessService.forLendProcessKeyword(categoryId, libraryId, keyword, model);
 			librarianService.forCategoryId(model, categoryId);
+			model.addAttribute("keyword", keyword);
 		}
 
 		librarianService.forCategoryList(model);

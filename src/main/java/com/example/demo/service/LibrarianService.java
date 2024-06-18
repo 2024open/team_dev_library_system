@@ -15,15 +15,12 @@ import com.example.demo.entity.Kamishibai;
 import com.example.demo.entity.Library;
 import com.example.demo.entity.Room;
 import com.example.demo.entity.Status;
-import com.example.demo.repository.AnyJoinGenreRepository;
 import com.example.demo.repository.BookRepository;
 import com.example.demo.repository.CDRepository;
 import com.example.demo.repository.CategoryRepository;
 import com.example.demo.repository.DVDRepository;
 import com.example.demo.repository.GenreRepository;
 import com.example.demo.repository.KamishibaiRepository;
-import com.example.demo.repository.LendItemJoinStatusJoinAnyRepository;
-import com.example.demo.repository.LendItemJoinStatusRepository;
 import com.example.demo.repository.LendItemRepository;
 import com.example.demo.repository.LibraryRepository;
 import com.example.demo.repository.RoomRepository;
@@ -62,16 +59,6 @@ public class LibrarianService {
 
 	@Autowired
 	RoomRepository roomRepository;
-
-	//自作
-	@Autowired
-	AnyJoinGenreRepository anyJoinGenreRepository;
-
-	@Autowired
-	LendItemJoinStatusRepository lendItemJoinStatusRepository;
-
-	@Autowired
-	LendItemJoinStatusJoinAnyRepository lendItemJoinStatusJoinAnyRepository;
 
 	public void forLibraryList(Model model) {
 		List<Library> libraryList = libraryRepository.findAll();
