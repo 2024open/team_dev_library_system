@@ -1,37 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>お知らせ登録</title>
-<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<meta charset="UTF-8">
+	<title>お知らせ登録</title>
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
-	<header th:replace="suHeader"></header
-	<sidebar th:replace="librarianSidebar"></sidebar>
-	<h1>お知らせ登録</h1>
+	<div class="text-center">
+		<header th:replace="suHeader"></header>
+		<sidebar th:replace="librarianSidebar"></sidebar>
 
-	<form action="/librarian/notice/add" method="post">
-		<table border="1">
+		<h1>お知らせ登録</h1>
 
-			<tr>
-				<th>タイトル</th>
-				<td>
-					<input type="text" name="title" th:value="${title}">
-				</td>
-			</tr>
-			<tr>
-				<th>内容</th>
-				<td>
-					<textarea name="content"rows="5" cols="40" th:value="${content}"></textarea>
-				</td>
-			</tr>
-		</table>
-		<button>登録</button>
-	</form>
-	
-	<!--			エラー表示-->
+		<form action="/librarian/notice/add" method="post">
+			<table border="1" class="table">
+
+				<tr>
+					<th class="table-primary">タイトル</thclass="table-primary">
+					<td>
+						<input type="text" name="title" th:value="${title}">
+					</td>
+				</tr>
+				<tr>
+					<th class="table-primary">内容</th>
+					<td>
+						<textarea name="content" rows="5" cols="40" th:value="${content}"></textarea>
+					</td>
+				</tr>
+			</table>
+			<button class="btn btn-primary">登録</button>
+		</form>
+
+		<!--			エラー表示-->
 		<p th:each="error:${errorList}">
 			<span th:text="${error}" style="color: red"></span>
 		</p>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="/js/bootstrap.min.js"></script>
 </body>
+
 </html>

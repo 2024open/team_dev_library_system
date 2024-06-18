@@ -4,46 +4,51 @@
 <head>
 	<meta charset="UTF-8">
 	<title>お知らせ一覧</title>
-		<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
 
 <body>
-	<header th:replace="suHeader"></header>
-	<sidebar th:replace="librarianSidebar"></sidebar>
-	<a href="/librarian/notice/add">新規投稿</a>
-	
-	<h1>お知らせ一覧</h1>
+	<div class="text-center">
+		<header th:replace="suHeader"></header>
+		<sidebar th:replace="librarianSidebar"></sidebar>
+		<br>
+		<br>
+		<h2><a href="/librarian/notice/add" class="link-offset-2 link-underline link-underline-opacity-0">新規投稿</a></h2>
 
-	
+		<h3>お知らせ一覧</h3>
 
-	<table border="1">
-		<tr>
-			<th>お知らせID</th>
-			<th>日付</th>
-			<th>タイトル</th>
-			<th>内容</th>
-			<th>更新</th>
-			<th>削除</th>
-		</tr>
-		<tr th:each="notice:${notices}">
-			<td th:text="${notice.noticeId}"></td>
-			<td th:text="${#temporals.format(notice.noticeDate,'yyyy/MM/dd')}"></td>			
-			<td th:text="${notice.title}"></td>
-			<td th:text="${notice.content}"></td>
-			<td>
-				<form th:action="@{/librarian/notice/{noticeId}/edit(noticeId=${notice.noticeId})}" method="get">
-					<button>更新</button>
-				</form>
-			</td>
-			<td>
-				<form th:action="@{/librarian/notice/{noticeId}/delete(noticeId=${notice.noticeId})}" method="post">
-					<button>削除</button>
-				</form>
-			</td>
-		</tr>
-	</table>
 
+
+		<table border="1" class="table">
+			<tr scope="col" class="table-primary">
+				<th>お知らせID</th>
+				<th>日付</th>
+				<th>タイトル</th>
+				<th>内容</th>
+				<th>更新</th>
+				<th>削除</th>
+			</tr>
+			<tr scope="col" th:each="notice:${notices}">
+				<td th:text="${notice.noticeId}"></td>
+				<td th:text="${#temporals.format(notice.noticeDate,'yyyy/MM/dd')}"></td>
+				<td th:text="${notice.title}"></td>
+				<td th:text="${notice.content}"></td>
+				<td>
+					<form th:action="@{/librarian/notice/{noticeId}/edit(noticeId=${notice.noticeId})}" method="get">
+						<button class="btn btn-primary">更新</button>
+					</form>
+				</td>
+				<td>
+					<form th:action="@{/librarian/notice/{noticeId}/delete(noticeId=${notice.noticeId})}" method="post">
+						<button class="btn btn-primary">削除</button>
+					</form>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
 </body>
 
 </html>
