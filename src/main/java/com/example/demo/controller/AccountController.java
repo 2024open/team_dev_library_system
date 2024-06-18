@@ -34,7 +34,7 @@ public class AccountController {
 	SuperUser superUser;
 
 	//ログイン画面表示
-	@GetMapping({ "", "/login", "/logout" })
+	@GetMapping({ "", "/login" })
 	public String index(
 			@RequestParam(name = "error", defaultValue = "") String error,
 			Model model) 
@@ -47,6 +47,22 @@ public class AccountController {
 			model.addAttribute("message", "ログインしてください");
 		}
 		return "login";
+	}
+	
+	//ログイン画面表示
+	@GetMapping({"/logout" })
+	public String logout(
+			@RequestParam(name = "error", defaultValue = "") String error,
+			Model model) 
+	{
+		//セッション情報を全てクリア
+		session.invalidate();
+		//エラーパラメータのチェック
+		if (error.equals("notloggedIn")) 
+		{
+			model.addAttribute("message", "ログインしてください");
+		}
+		return "redirect:/lendItems";
 	}
 
 	//ログイン実行
