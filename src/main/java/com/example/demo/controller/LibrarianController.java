@@ -1,7 +1,5 @@
 package com.example.demo.controller;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.entity.Account;
 import com.example.demo.entity.LendItem;
 import com.example.demo.entity.LendItemForm;
-import com.example.demo.entity.LendingItem;
 import com.example.demo.entity.Notice;
 import com.example.demo.model.SuperUser;
 import com.example.demo.repository.AccountRepository;
@@ -29,6 +25,8 @@ import com.example.demo.repository.LendingItemRepository;
 import com.example.demo.repository.NoticeRepository;
 import com.example.demo.service.CategoryService;
 import com.example.demo.service.Common;
+import com.example.demo.service.LendItemEditService;
+import com.example.demo.service.LendProcessService;
 import com.example.demo.service.LibrarianLendItemService;
 import com.example.demo.service.LibrarianService;
 
@@ -47,16 +45,24 @@ public class LibrarianController {
 	CategoryService categoryService;
 
 	@Autowired
-	CategoryRepository categoryRepository;
+	LendProcessService lendProcessService;
 
 	@Autowired
-	AdminLendRoomRepository adminLendRoomRepository;
+	LendItemEditService lendItemEditService;
 
+	//セッション刑
 	@Autowired
 	HttpSession session;
 
 	@Autowired
 	SuperUser superUser;
+
+	//リポジトリ
+	@Autowired
+	CategoryRepository categoryRepository;
+
+	@Autowired
+	AdminLendRoomRepository adminLendRoomRepository;
 
 	@Autowired
 	AccountRepository accountRepository;
@@ -211,8 +217,8 @@ public class LibrarianController {
 		librarianService.forLibraryId(model, libraryId);
 		return "librarianLendProcess";
 	}
-	
-	//貸出選択画面
+
+	//貸出処理
 	@PostMapping("/librarian/lendProcess")
 	public String lendProcessExecute(
 			@RequestParam(name = "libraryId", defaultValue = "1") Integer libraryId,
@@ -220,76 +226,10 @@ public class LibrarianController {
 			@RequestParam(name = "title", defaultValue = "") String title,
 			@RequestParam(name = "email", defaultValue = "") String email,
 			Model model) {
-		//email見つかるか
-		List<Account> tmpList = accountRepository.findByEmail(email);
-		Account lenderAccount = new Account();
-		
-		if (tmpList.size() == 1) {
-			lenderAccount = tmpList.get(0);
-//			貸出するものを選択したときに、エラーメッセージが出ないようにする
-	}else if(email.equals("hogege")) {
-		librarianService.forLendProcessIdSearch(lendItemId, libraryId, model);
-		librarianService.forCategoryList(model);
-		librarianService.forLibraryId(model, libraryId);
-		return "librarianLendProcess";
-		
-	}else {
-			String errorMsg = "メールアドレスが間違っています";
-			model.addAttribute("errorMsg", errorMsg);
-			librarianService.forLendProcessIdSearch(lendItemId, libraryId, model);
-			librarianService.forCategoryList(model);
-			librarianService.forLibraryId(model, libraryId);
-			return "librarianLendProcess";
-		}
 
-		LendItem updateItem = lendItemRepository.findById(lendItemId).get();
-		if (updateItem.getStatusId() == 1) {
-			//貸出物テーブルのステータス変更
-			updateItem.setStatusId(2);
-			updateItem = lendItemRepository.save(updateItem);
-
-			//貸出中テーブルに追加
-			LendingItem lendingItem = new LendingItem();
-			lendingItem.setLendItemId(updateItem.getLendItemId());
-			lendingItem.setUserId(lenderAccount.getUserId());
-			lendingItem.setStatusId(updateItem.getStatusId());
-			lendingItem.setBorrowedDate(LocalDate.now());
-			lendingItem.setReturnDate(null); //返却日はnull
-			lendingItemRepository.save(lendingItem);
-
-			model.addAttribute("msg", "貸出");
-			model.addAttribute("lendItem", updateItem);
-			model.addAttribute("title", title);
-			librarianService.forLibraryId(model, libraryId);
-			return "librarianLendProcessExecuted";
-		} else if (updateItem.getStatusId() == 2) {
-			//貸出物テーブルのステータス変更
-			updateItem.setStatusId(1);
-			updateItem = lendItemRepository.save(updateItem);
-
-			//貸出中テーブルの更新
-			List<LendingItem> returnItemList = lendingItemRepository.findByLendItemId(lendItemId);
-			LendingItem returnItem = returnItemList.get(0);
-			returnItem.setReturnDate(LocalDate.now());
-			returnItem.setStatusId(1);
-			lendingItemRepository.save(returnItem);
-
-			model.addAttribute("msg", "返却");
-			model.addAttribute("lendItem", updateItem);
-			model.addAttribute("title", title);
-			librarianService.forLibraryId(model, libraryId);
-			return "librarianLendProcessExecuted";
-		} else {
-			String errorMsg = "貸出不可";
-
-			model.addAttribute("errorMsg", errorMsg);
-			model.addAttribute("lendItem", updateItem);
-			model.addAttribute("title", title);
-			librarianService.forLibraryId(model, libraryId);
-			return "librarianLendProcessExecuted";
-		}
+		String returnURL = lendProcessService.forLendProcess(model, libraryId, lendItemId, title, email);
+		return returnURL;
 	}
-
 
 	//貸出物更新画面
 	@GetMapping("/librarian/lenditems/{id}/edit")
@@ -297,17 +237,18 @@ public class LibrarianController {
 			@PathVariable("id") String lendItemIdStr,
 			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
 			Model model) {
-
-		if (!Common.isParceInt(lendItemIdStr) ||
-				!Common.isParceInt(libraryIdStr)) {
-			return "redirect:/librarian/lenditems";
+		if (!Common.isParceInt(libraryIdStr)) {
+			return "redirect:/librarian/home";
+		}
+		if (!Common.isParceInt(lendItemIdStr)) {
+			return "redirect:/librarian/home";
 		}
 		Integer lendItemId = Integer.parseInt(lendItemIdStr);
 		Integer libraryId = Integer.parseInt(libraryIdStr);
 
 		LendItem lendItem = lendItemRepository.findById(lendItemId).get();
 
-		librarianService.forLendItemEdit(lendItem, model);
+		lendItemEditService.forLendItemEdit(lendItem, model);
 		librarianService.forLibraryId(model, libraryId);
 		return "lendItemEdit";
 	}
@@ -320,11 +261,9 @@ public class LibrarianController {
 			@RequestParam("statusId") Integer statusId,
 			@RequestParam("anyId") Integer anyId,
 			Model model) {
-		LendItem lendItem = lendItemRepository.findById(lendItemId).get();
-		lendItem.setStatusId(statusId);
-		lendItem.setAnyId(anyId);
-		lendItem.setUpdateDate(LocalDateTime.now());
-		lendItemRepository.save(lendItem);
+
+		lendItemEditService.forEditExecute(lendItemId, statusId, anyId);
+
 		return "redirect:/librarian/lenditems/{id}/edit";
 	}
 
