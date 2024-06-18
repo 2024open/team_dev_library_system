@@ -22,6 +22,7 @@ public class LibrarianLendItemService {
 	@Autowired
 	AdminLendRoomRepository adminLendRoomRepository;
 
+	// librarian/lenditemsの一覧表示用?
 	public void forLendItemList(Model model, Integer categoryId, Integer libraryId) {
 		List<AdminLendList> LendJoinAny = new ArrayList<AdminLendList>();
 		LendJoinAny = null;
