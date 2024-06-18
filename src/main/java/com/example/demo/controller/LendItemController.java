@@ -317,20 +317,24 @@ public class LendItemController {
 			}
 
 		} catch (Exception e) {
-			String errmsg = "エラーが発生しました";
-			model.addAttribute("errmsg", errmsg);
 			Integer userId = user.getUserId();
 			model.addAttribute("userId", userId);
 			lendItemList = allUserLendListrepository.sqlALLUserBookLendJoin();
 			model.addAttribute("lendItemList", lendItemList);
 			model.addAttribute("category", category);
+			titleMsg = "本一覧";
+			model.addAttribute("titleMsg", titleMsg);
+			
 			return "index";
 		}
 
 		model.addAttribute("category", category);
 		Integer userId = user.getUserId();
 		model.addAttribute("userId", userId);
+		model.addAttribute("search",search);
 
+		model.addAttribute("Possibility",Possibility);
+		
 		return "index";
 
 	}
