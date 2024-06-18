@@ -18,7 +18,6 @@ import com.example.demo.entity.Genre;
 import com.example.demo.entity.LendItem;
 import com.example.demo.entity.LendItemDetail;
 import com.example.demo.entity.LendItemStatus;
-import com.example.demo.entity.LendItemRoomDetail;
 import com.example.demo.entity.Reservation;
 import com.example.demo.entity.ReservationDetail;
 import com.example.demo.entity.ReservationRoomDetail;
@@ -27,7 +26,6 @@ import com.example.demo.model.SuperUser;
 import com.example.demo.repository.ALLUserLendDetailRepoitory;
 import com.example.demo.repository.ALLUserLendListRepoitory;
 import com.example.demo.repository.ALLUserLendListStatusRepoitory;
-import com.example.demo.repository.ALLUserLendRoomDetailRepoitory;
 import com.example.demo.repository.AccountRepository;
 import com.example.demo.repository.CategoryRepository;
 import com.example.demo.repository.GenreRepository;
@@ -65,15 +63,12 @@ public class ReservationController {
 
 	@Autowired
 	ReservationDetailRepository reservationDetailRepository;
+
+	@Autowired
+	ALLUserLendListStatusRepoitory allUserLendListStatusRepoitory;
 	
 	@Autowired
 	ReservationRoomDetailRepository reservationRoomDetailRepository;
-
-	@Autowired
-	ALLUserLendRoomDetailRepoitory allUserLendRoomDetailRepoitory;
-
-	@Autowired
-	ALLUserLendListStatusRepoitory allUserLendListStatusRepoitory ;
 
 	@Autowired
 	SuperUser superUser;
@@ -83,62 +78,62 @@ public class ReservationController {
 	public String index(@RequestParam(value = "category", defaultValue = "") Integer category,
 			Model model) {
 
-		Integer userId = superUser.getUserId();
-		String titleMsg ="";
+			Integer userId = superUser.getUserId();
+			String titleMsg ="";
 
-		if (category == null) {
-			titleMsg = "本予約一覧";
-			model.addAttribute("titleMsg", titleMsg);
-			List<ReservationDetail> reservationBook = reservationDetailRepository.sqlReservationBookLendJoin(userId);
-			model.addAttribute("reservation", reservationBook);
-		} else if (category == 1) {
-			titleMsg = "本予約一覧";
-			model.addAttribute("titleMsg", titleMsg);
-			List<ReservationDetail> reservationBook = reservationDetailRepository.sqlReservationBookLendJoin(userId);
-			model.addAttribute("reservation", reservationBook);
-		} else if (category == 2) {
-			titleMsg = "CD予約一覧";
-			model.addAttribute("titleMsg", titleMsg);
-			List<ReservationDetail> reservationCD = reservationDetailRepository.sqlReservationCDLendJoin(userId);
-			model.addAttribute("reservation", reservationCD);
-		} else if (category == 3) {
-			titleMsg = "DVD予約一覧";
-			model.addAttribute("titleMsg", titleMsg);
-			List<ReservationDetail> reservationDVD = reservationDetailRepository.sqlReservationDVDLendJoin(userId);
-			model.addAttribute("reservation", reservationDVD);
-		} else if (category == 4) {
-			titleMsg = "紙芝居予約一覧";
-			model.addAttribute("titleMsg", titleMsg);
-			List<ReservationDetail> reservationKamishibai = reservationDetailRepository
-					.sqlReservationKamishibaiLendJoin(userId);
-			model.addAttribute("reservation", reservationKamishibai);
-		} else if (category == 5) {
-			titleMsg = "貸会議室予約一覧";
-			model.addAttribute("titleMsg", titleMsg);
-			List<ReservationRoomDetail> reservationRoom = reservationRoomDetailRepository
-					.sqlReservationRoomLendJoin(userId);
-			model.addAttribute("reservation", reservationRoom);
-		}
+			if (category == null) {
+				titleMsg = "本予約一覧";
+				model.addAttribute("titleMsg", titleMsg);
+				List<ReservationDetail> reservationBook = reservationDetailRepository.sqlReservationBookLendJoin(userId);
+				model.addAttribute("reservation", reservationBook);
+			} else if (category == 1) {
+				titleMsg = "本予約一覧";
+				model.addAttribute("titleMsg", titleMsg);
+				List<ReservationDetail> reservationBook = reservationDetailRepository.sqlReservationBookLendJoin(userId);
+				model.addAttribute("reservation", reservationBook);
+			} else if (category == 2) {
+				titleMsg = "CD予約一覧";
+				model.addAttribute("titleMsg", titleMsg);
+				List<ReservationDetail> reservationCD = reservationDetailRepository.sqlReservationCDLendJoin(userId);
+				model.addAttribute("reservation", reservationCD);
+			} else if (category == 3) {
+				titleMsg = "DVD予約一覧";
+				model.addAttribute("titleMsg", titleMsg);
+				List<ReservationDetail> reservationDVD = reservationDetailRepository.sqlReservationDVDLendJoin(userId);
+				model.addAttribute("reservation", reservationDVD);
+			} else if (category == 4) {
+				titleMsg = "紙芝居予約一覧";
+				model.addAttribute("titleMsg", titleMsg);
+				List<ReservationDetail> reservationKamishibai = reservationDetailRepository
+						.sqlReservationKamishibaiLendJoin(userId);
+				model.addAttribute("reservation", reservationKamishibai);
+			} else if (category == 5) {
+				titleMsg = "貸会議室予約一覧";
+				model.addAttribute("titleMsg", titleMsg);
+				List<ReservationRoomDetail> reservationRoom = reservationRoomDetailRepository
+						.sqlReservationRoomLendJoin(userId);
+				model.addAttribute("reservation", reservationRoom);
+			}
 
+			
+			model.addAttribute("titleMsg",titleMsg);
+			model.addAttribute("category",category);
+			
+			Map<Integer, String> categoryMap = new HashMap<>();
+
+			List<Category> categoryMapList = categoryRepository.findAll();
+
+			//Mapで格納
+			for (Category categoryList : categoryMapList) {
+
+				categoryMap.put(categoryList.getCategoryId(), categoryList.getCategoryName());
+
+			}
+
+			model.addAttribute("categoryMap", categoryMap);
+
+			return "reservationList";
 		
-		model.addAttribute("titleMsg",titleMsg);
-		model.addAttribute("category",category);
-		
-		Map<Integer, String> categoryMap = new HashMap<>();
-
-		List<Category> categoryMapList = categoryRepository.findAll();
-
-		//Mapで格納
-		for (Category categoryList : categoryMapList) {
-
-			categoryMap.put(categoryList.getCategoryId(), categoryList.getCategoryName());
-
-		}
-
-		model.addAttribute("categoryMap", categoryMap);
-
-
-		return "reservationList";
 	}
 
 	//予約
@@ -149,8 +144,6 @@ public class ReservationController {
 			Model model) {
 		LendItemDetail lendItemDetail = null;
 
-		LendItemRoomDetail lendItemRoomDetail = null;
-		
 		if (category == null) {
 			lendItemDetail = alluserLendDetailRepoitory.sqlALLUserBookLendJoinDetail(reservation).get(0);
 		} else if (category == 1) {
@@ -161,8 +154,6 @@ public class ReservationController {
 			lendItemDetail = alluserLendDetailRepoitory.sqlALLUserDVDLendJoinDetail(reservation).get(0);
 		} else if (category == 4) {
 			lendItemDetail = alluserLendDetailRepoitory.sqlALLUserKamishibaiLendJoinDetail(reservation).get(0);
-		} else if (category == 5) {
-			lendItemRoomDetail = allUserLendRoomDetailRepoitory.sqlALLUserRoomLendJoinDetail(reservation).get(0);
 		}
 
 		LendItem lenditem = lendItemSaveRepository.findByLendItemId(reservation);
@@ -172,35 +163,17 @@ public class ReservationController {
 		Integer status = 3;
 
 		if (lenditem.getStatusId() == 1) {
-			List<ReservationDetail> reservationbook = reservationDetailRepository.sqlReservationBookLendJoin(userId);
-			List<ReservationDetail> reservationcd = reservationDetailRepository.sqlReservationCDLendJoin(userId);
-			List<ReservationDetail> reservationdvd = reservationDetailRepository.sqlReservationDVDLendJoin(userId);
-			List<ReservationDetail> reservationkamishibai = reservationDetailRepository.sqlReservationKamishibaiLendJoin(userId);
-			List<ReservationDetail> reservationerr = reservationDetailRepository.sqlReservationLendJoin(userId);
-			if (reservationerr.size() < 5 && reservationkamishibai.size() <5 && reservationdvd.size()<5 && reservationcd.size()<5 && reservationbook.size()<5) {
-				if (lendItemRoomDetail == null) {
-					Reservation reserv = new Reservation(lendItemDetail.getLendItemId(), userId);
-
-					LendItem lenditemsave = new LendItem(reservation, lenditem.getLibraryid(), lenditem.getCategoryId(),
-							localdatetime, status, lenditem.getAnyId());
-
-					lendItemSaveRepository.save(lenditemsave);
+			List<Reservation> reservationerr = reservationRepoitory.findByUserId(userId);
+			if (reservationerr.size() < 5) {
+				Reservation reserv = new Reservation(lendItemDetail.getLendItemId(), userId);
 
 				LendItem lenditemsave = new LendItem(reservation, lenditem.getLibraryid(), lenditem.getCategoryId(),
 						LocalDateTime.now(), status, lenditem.getAnyId());
-					reservationRepoitory.save(reserv);
-					return "redirect:/lendItems";
-				} else {
-					Reservation reservRoom = new Reservation(lendItemRoomDetail.getLendItemId(), userId);
 
-					LendItem lenditemsave = new LendItem(reservation, lenditem.getLibraryid(), lenditem.getCategoryId(),
-							localdatetime, status, lenditem.getAnyId());
+				lendItemSaveRepository.save(lenditemsave);
 
-					lendItemSaveRepository.save(lenditemsave);
-
-					reservationRepoitory.save(reservRoom);
-					return "redirect:/lendItems";
-				}
+				reservationRepoitory.save(reserv);
+				return "redirect:/lendItems";
 			} else {
 				Map<Integer, String> genreMap = new HashMap<>();
 
@@ -289,23 +262,23 @@ public class ReservationController {
 		}
 
 	}
-	
+
 	@PostMapping({ "/reservation/{Id}/delete" })
 	public String delete(
 			@PathVariable("Id") Integer id,
 			Model model) {
-		
+
 		LendItemStatus itemId = allUserLendListStatusRepoitory.sqlALLUserLendItemStatus(id);
-		
+
 		LendItem lenditem = lendItemSaveRepository.findByLendItemId(itemId.getLendItemId());
-		
+
 		LendItem lenditemsave = new LendItem(itemId.getLendItemId(), lenditem.getLibraryid(), lenditem.getCategoryId(),
 				LocalDateTime.now(), 1, lenditem.getAnyId());
-		
+
 		lendItemSaveRepository.save(lenditemsave);
-		
+
 		reservationRepoitory.deleteById(id);
-		
+
 		return "redirect:/reservation";
 	}
 

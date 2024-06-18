@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>貸出処理</title>
 </head>
 <body>
 	<header th:replace ="adminHeader"></header>
 	<sidebar th:replace="librarianSidebar"></sidebar>
 	
-	<h1>貸出完了</h1>
+	<h1>[[${msg}]]完了</h1>
 	
 	<table border="1">
 		<tr>
@@ -16,7 +16,7 @@
 			<td>[[${lendItem.lendItemId}]]</td>
 		</tr>
 		<tr>
-			<th>貸出物名</th>
+			<th>貸出物</th>
 			<td>[[${title}]]</td>
 		</tr>
 		<tr>

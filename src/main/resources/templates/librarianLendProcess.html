@@ -3,12 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <title>貸出処理 返却処理</title>
+<link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
 	<header th:replace ="adminHeader"></header>
 	<sidebar th:replace="librarianSidebar"></sidebar>
 	
 	<h1>貸出処理</h1>
+	
 	<p th:if="${errorMsg}">[[${errorMsg}]]</p>
 	
 	<form action="/librarian/lendProcess" method="get">
@@ -16,8 +18,8 @@
 		<button>ID検索</button>
 	</form>
 	
-	<form action="/librarian/lendProcess" method="get">
-		<select name="categoryId">
+	<form action="/librarian/lendProcess" th:object="${category}" method="get">
+		<select th:field="*{categoryId}">
 			<option th:each="category : ${categoryList}" th:value="${category.categoryId}">[[${category.categoryName}]]</option>
 		</select>
 		<input type="text" name="keyword" th;value="${keyword}">
@@ -27,6 +29,7 @@
 	</form>
 	
 	<th:block th:if="${lendItem}">
+		
 		<form action="/librarian/lendProcess" method="post">
 			<table border="1">
 				<tr>
@@ -56,13 +59,13 @@
 			<input type="hidden" name="lendItemId" th:value="${lendItem.lendItemId}">
 			<input type="hidden" name="libraryId" th:value="${library.libraryId}">
 			<input type="hidden" name="title" th:value="${title}">
-			<button>処理</button>
+			<button>貸出を確定する</button>
 		</form>
 	</th:block>
 	
 	<th:block th:if="${lendItemList}">
 		<form action="/librarian/lendProcess" method="post" th:each="lendItem : ${lendItemList}">
-			<table border="1">
+			<table border="1" >
 				<tr>
 					<th>貸出物ID</th>
 					<td>[[${lendItem.lendItemId}]]</td>
@@ -79,19 +82,17 @@
 					<th>状態</th>
 					<td>[[${lendItem.statusName}]]</td>
 				</tr>
-				<tr>
-					<th>email</th>
-					<td>
-						<input type="text" name="email">
-					</td>
-				</tr>
+				
 			</table>
 			
 			<input type="hidden" name="lendItemId" th:value="${lendItem.lendItemId}">
 			<input type="hidden" name="libraryId" th:value="${library.libraryId}">
 			<input type="hidden" name="title" th:value="${lendItem.title}">
-			<button>処理</button>
+			<input type="hidden" name="email" value="hogege">
+			<button style="margin-bottom: 20px;">貸出する</button>
+			
 		</form>
+		
 	</th:block>
 </body>
 </html>

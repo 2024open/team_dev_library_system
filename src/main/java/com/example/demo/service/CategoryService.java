@@ -51,10 +51,16 @@ public class CategoryService {
 
 	@Autowired
 	GenreRepository genreRepository;
-	
+
+	//カテゴリ編集画面用
+	public void forCategoryGenreList(Model model, Integer categoryId, String address) {
+		List<Genre> genreList = genreRepository.sqlGenreListId(categoryId);
+		model.addAttribute(address, genreList);
+	}
+
 	//カテゴリーデータinsert処理
 	public void forCategoryDataStore(Model model, Integer categoryId, CategoryDataForm categoryDataForm) {
-		switch(categoryId) {
+		switch (categoryId) {
 		case 1:
 			Book book = new Book();
 			book.setTitle(categoryDataForm.getTitle());
@@ -97,15 +103,8 @@ public class CategoryService {
 			room.setDeleted(false);
 			room = roomRepository.save(room);
 			break;
-			
-		}
-	}
-	
 
-	//カテゴリ編集画面用
-	public void forCategoryGenreList(Model model, Integer categoryId, String address) {
-		List<Genre> genreList = genreRepository.sqlGenreListId(categoryId);
-		model.addAttribute(address, genreList);
+		}
 	}
 
 	//B, C, D, K, Rの一覧表示用

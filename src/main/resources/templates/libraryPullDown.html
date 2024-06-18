@@ -1,10 +1,7 @@
 <div id = "libraryPullDown">
 	<th:block th:if="${libraryList}">
-<!--		<form th:action="@{${url}}" method="get">-->
-		<form action="/librarian/lenditems" method="get">
-			<select name="libraryId">
-				
-				<option th:value="${libraryId}"></option>
+		<form action="/librarian/home" method="get" th:object="${library}">
+			<select th:field="*{libraryId}">
 				<option th:each="library : ${libraryList}" th:value="${library.libraryId}" >
 					[[${library.libraryName}]]
 				</option>

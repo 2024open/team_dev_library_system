@@ -18,8 +18,8 @@ public interface ReservationDetailRepository extends JpaRepository<ReservationDe
 				+ "on reservation.lend_item_id=lend_item.lend_item_id "
 				+ "inner join book "
 				+ "on lend_item.any_id=book.book_id "
-				+ "where reservation.user_id= :UserId AND lend_item.category_id=1;";
-
+				+ "where reservation.user_id= :UserId AND lend_item.category_id=1 "
+				+ "order by reservation.reservation_id asc;";
 		@Query(value = sqlReservationBookList, nativeQuery = true)
 		List<ReservationDetail> sqlReservationBookLendJoin(@Param("UserId")Integer UserId);
 		
@@ -29,7 +29,8 @@ public interface ReservationDetailRepository extends JpaRepository<ReservationDe
 				+ "on reservation.lend_item_id=lend_item.lend_item_id "
 				+ "inner join cd "
 				+ "on lend_item.any_id=cd.cd_id "
-				+ "where reservation.user_id= :UserId AND lend_item.category_id=2;";
+				+ "where reservation.user_id= :UserId AND lend_item.category_id=2 "
+				+ "order by reservation.reservation_id asc;";
 
 		@Query(value = sqlReservationCDList, nativeQuery = true)
 		List<ReservationDetail> sqlReservationCDLendJoin(@Param("UserId")Integer UserId);
@@ -41,7 +42,8 @@ public interface ReservationDetailRepository extends JpaRepository<ReservationDe
 				+ "on reservation.lend_item_id=lend_item.lend_item_id "
 				+ "inner join dvd "
 				+ "on lend_item.any_id=dvd.dvd_id "
-				+ "where reservation.user_id= :UserId AND lend_item.category_id=3;";
+				+ "where reservation.user_id= :UserId AND lend_item.category_id=3 "
+				+ "order by reservation.reservation_id asc;";
 
 		@Query(value = sqlReservationDVDList, nativeQuery = true)
 		List<ReservationDetail> sqlReservationDVDLendJoin(@Param("UserId")Integer UserId);
@@ -53,7 +55,8 @@ public interface ReservationDetailRepository extends JpaRepository<ReservationDe
 				+ "on reservation.lend_item_id=lend_item.lend_item_id "
 				+ "inner join kamishibai "
 				+ "on lend_item.any_id=kamishibai.kamishibai_id "
-				+ "where reservation.user_id= :UserId AND lend_item.category_id=4;";
+				+ "where reservation.user_id= :UserId AND lend_item.category_id=4 "
+				+ "order by reservation.reservation_id asc;";
 
 		@Query(value = sqlReservationKamishibaiList, nativeQuery = true)
 		List<ReservationDetail> sqlReservationKamishibaiLendJoin(@Param("UserId")Integer UserId);
@@ -64,11 +67,11 @@ public interface ReservationDetailRepository extends JpaRepository<ReservationDe
 				+ "on reservation.lend_item_id=lend_item.lend_item_id "
 				+ "inner join room "
 				+ "on lend_item.any_id=room.room_id "
-				+ "where reservation.user_id= :UserId AND lend_item.category_id=4;";
+				+ "where reservation.user_id= :UserId AND lend_item.category_id=5 "
+				+ "order by reservation.reservation_id asc;";
 
 		@Query(value = sqlReservationRoomList, nativeQuery = true)
 		List<ReservationDetail> sqlReservationRoomLendJoin(@Param("UserId")Integer UserId);
-		
 		
 		
 		static String sqlReservationList = "select reservation.lend_item_id,lend_item.category_id,book.title,reservation.reservation_date "
