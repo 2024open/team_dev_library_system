@@ -14,6 +14,7 @@ public interface LendItemJoinStatusJoinAnyRepository
 		extends JpaRepository<LendItemJoinStatusJoinAny, Integer> {
 	//ID検索用SQL
 	//使わない 06/13
+	//使用　06/18
 	static String sqlLendProcessBookId = "SELECT lend_item.* , status.status_name, title "
 			+ "FROM lend_item "
 			+ "JOIN status ON lend_item.status_id = status.status_id "
@@ -24,28 +25,28 @@ public interface LendItemJoinStatusJoinAnyRepository
 	static String sqlLendProcessCDId = "SELECT lend_item.* , status.status_name, title "
 			+ "FROM lend_item "
 			+ "JOIN status ON lend_item.status_id = status.status_id "
-			+ "JOIN book ON lend_item.any_id = book.book_id "
+			+ "JOIN cd ON lend_item.any_id = cd.cd_id "
 			+ "WHERE lend_item_id = :lendItemId "
 			+ "AND library_id = :libraryId "
 			+ "AND lend_item.deleted = false ";
 	static String sqlLendProcessDVDId = "SELECT lend_item.* , status.status_name, title "
 			+ "FROM lend_item "
 			+ "JOIN status ON lend_item.status_id = status.status_id "
-			+ "JOIN book ON lend_item.any_id = book.book_id "
+			+ "JOIN dvd ON lend_item.any_id = dvd.dvd_id "
 			+ "WHERE lend_item_id = :lendItemId "
 			+ "AND library_id = :libraryId "
 			+ "AND lend_item.deleted = false ";
 	static String sqlLendProcessKamishibaiId = "SELECT lend_item.* , status.status_name, title "
 			+ "FROM lend_item "
 			+ "JOIN status ON lend_item.status_id = status.status_id "
-			+ "JOIN book ON lend_item.any_id = book.book_id "
+			+ "JOIN kamishibai ON lend_item.any_id = kamishibai.kamishibai_id "
 			+ "WHERE lend_item_id = :lendItemId "
 			+ "AND library_id = :libraryId "
 			+ "AND lend_item.deleted = false ";
-	static String sqlLendProcessRoomId = "SELECT lend_item.* , status.status_name, title "
+	static String sqlLendProcessRoomId = "SELECT lend_item.* , status.status_name, room_name AS title "
 			+ "FROM lend_item "
 			+ "JOIN status ON lend_item.status_id = status.status_id "
-			+ "JOIN book ON lend_item.any_id = book.book_id "
+			+ "JOIN room ON lend_item.any_id = room.room_id "
 			+ "WHERE lend_item_id = :lendItemId "
 			+ "AND library_id = :libraryId "
 			+ "AND lend_item.deleted = false ";
@@ -96,6 +97,32 @@ public interface LendItemJoinStatusJoinAnyRepository
 			+ "AND lend_item.deleted = false "
 			+ "AND room_name LIKE :keyword "
 			+ "ORDER BY lend_item_id ;";
+
+	//ID検索用
+	@Query(value = sqlLendProcessBookId, nativeQuery = true)
+	List<LendItemJoinStatusJoinAny> sqlLendProcessBookId(
+			@Param("lendItemId") Integer lendItemId,
+			@Param("libraryId") Integer libraryId);
+
+	@Query(value = sqlLendProcessCDId, nativeQuery = true)
+	List<LendItemJoinStatusJoinAny> sqlLendProcessCDId(
+			@Param("lendItemId") Integer lendItemId,
+			@Param("libraryId") Integer libraryId);
+
+	@Query(value = sqlLendProcessDVDId, nativeQuery = true)
+	List<LendItemJoinStatusJoinAny> sqlLendProcessDVDId(
+			@Param("lendItemId") Integer lendItemId,
+			@Param("libraryId") Integer libraryId);
+
+	@Query(value = sqlLendProcessKamishibaiId, nativeQuery = true)
+	List<LendItemJoinStatusJoinAny> sqlLendProcessKamishibaiId(
+			@Param("lendItemId") Integer lendItemId,
+			@Param("libraryId") Integer libraryId);
+
+	@Query(value = sqlLendProcessRoomId, nativeQuery = true)
+	List<LendItemJoinStatusJoinAny> sqlLendProcessRoomId(
+			@Param("lendItemId") Integer lendItemId,
+			@Param("libraryId") Integer libraryId);
 
 	//キーワード検索用クエリ
 	@Query(value = sqlLendProcessBookKeyword, nativeQuery = true)
