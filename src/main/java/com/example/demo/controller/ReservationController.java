@@ -160,7 +160,7 @@ public class ReservationController {
 
 		Integer userId = superUser.getUserId();
 
-		Integer status = 3;
+		Integer status = 4;
 
 		if (lenditem.getStatusId() == 1) {
 			List<Reservation> reservationerr = reservationRepoitory.findByUserId(userId);
