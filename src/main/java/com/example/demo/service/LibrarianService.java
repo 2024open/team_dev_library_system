@@ -1,6 +1,5 @@
 package com.example.demo.service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -14,8 +13,6 @@ import com.example.demo.entity.CD;
 import com.example.demo.entity.Category;
 import com.example.demo.entity.DVD;
 import com.example.demo.entity.Kamishibai;
-import com.example.demo.entity.LendItem;
-import com.example.demo.entity.LendItemForm;
 import com.example.demo.entity.LendItemJoinStatus;
 import com.example.demo.entity.LendItemJoinStatusJoinAny;
 import com.example.demo.entity.Library;
@@ -148,24 +145,6 @@ public class LibrarianService {
 		}
 		model.addAttribute("categoryId", categoryId);
 		model.addAttribute("category", category);
-	}
-
-	//貸出物新規登録用
-	public void forLendItemForm(Model model, Integer categoryId, String address) {
-		LendItemForm lendItemForm = new LendItemForm();
-		model.addAttribute(address, lendItemForm);
-		model.addAttribute("categoryId", categoryId);
-	}
-
-	public void forLendItemFormStore(Integer categoryId, Integer libraryId, LendItemForm lendItemForm) {
-		LendItem lendItem = new LendItem();
-		lendItem.setLibraryid(libraryId);
-		lendItem.setCategoryId(categoryId);
-		lendItem.setCreateDate(LocalDateTime.now());
-		lendItem.setStatusId(lendItemForm.getStatusId());
-		lendItem.setAnyId(lendItemForm.getAnyId());
-		lendItem.setDeleted(false);
-		lendItemRepository.save(lendItem);
 	}
 
 	//貸出処理ID検索用

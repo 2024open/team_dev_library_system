@@ -24,6 +24,7 @@ import com.example.demo.repository.LendingItemRepository;
 import com.example.demo.repository.NoticeRepository;
 import com.example.demo.service.CategoryService;
 import com.example.demo.service.Common;
+import com.example.demo.service.LendItemAddService;
 import com.example.demo.service.LendItemEditService;
 import com.example.demo.service.LendProcessService;
 import com.example.demo.service.LibrarianLendItemService;
@@ -48,6 +49,9 @@ public class LibrarianController {
 
 	@Autowired
 	LendItemEditService lendItemEditService;
+
+	@Autowired
+	LendItemAddService lendItemAddService;
 
 	//セッション刑
 	@Autowired
@@ -103,17 +107,15 @@ public class LibrarianController {
 			@RequestParam(name = "categoryId", defaultValue = "1") String categoryIdStr,
 			Model model) {
 		if (!Common.isParceInt(libraryIdStr)) {
-			return "redirect:/librarian/lenditems";
+			return "redirect:/librarian/home";
 		}
 		if (!Common.isParceInt(categoryIdStr)) {
-			return "redirect:/librarian/lenditems";
+			return "redirect:/librarian/home";
 		}
 		Integer libraryId = Integer.parseInt(libraryIdStr);
 		Integer categoryId = Integer.parseInt(categoryIdStr);
 
-		librarianService.forLendItemForm(model, categoryId, "lendItemForm");
-		categoryService.forCategoryDataList(model, categoryId);
-		librarianService.forStatusList(model);
+		lendItemAddService.forLendItemForm(model, categoryId, "lendItemForm");
 
 		librarianService.forLibraryList(model);
 		librarianService.forCategoryList(model);
@@ -137,14 +139,17 @@ public class LibrarianController {
 		Integer libraryId = Integer.parseInt(libraryIdStr);
 		Integer categoryId = Integer.parseInt(categoryIdStr);
 
-		librarianService.forLendItemFormStore(categoryId, libraryId, lendItemForm);
+		lendItemAddService.forLendItemFormStore(categoryId, libraryId, lendItemForm);
 
+		librarianService.forLibraryList(model);
 		librarianService.forCategoryList(model);
 		librarianService.forLibraryId(model, libraryId);
+		librarianService.forCategoryId(model, categoryId);
 		return "librarianLendItems";
 	}
 
 	//貸出物一覧表示
+	// TODO ここもModelAttribute使えるネ
 	@GetMapping("/librarian/lenditems")
 	public String lendItem(
 			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
@@ -169,6 +174,7 @@ public class LibrarianController {
 	}
 
 	//貸出処理画面 検索処理
+	// TODO ここもModelAttribute使えるネ
 	@GetMapping("/librarian/lendProcess")
 	public String lendProcess(
 			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
@@ -218,6 +224,7 @@ public class LibrarianController {
 	}
 
 	//貸出処理
+	// TODO ここもModelAttribute使えるネ
 	@PostMapping("/librarian/lendProcess")
 	public String lendProcessExecute(
 			@RequestParam(name = "libraryId", defaultValue = "1") Integer libraryId,
@@ -288,6 +295,7 @@ public class LibrarianController {
 
 	// 新規登録処理
 	@PostMapping("/librarian/notice/add")
+	// TODO ここもModelAttribute使えるネ
 	public String noticeStore(
 			@RequestParam(value = "title", defaultValue = "") String title,
 			@RequestParam(value = "content", defaultValue = "") String content,
@@ -341,6 +349,7 @@ public class LibrarianController {
 
 	// お知らせ更新処理
 	@PostMapping("/librarian/notice/{noticeId}/edit")
+	// TODO ここもModelAttribute使えるネ
 	public String noticeUpdate(
 			@PathVariable("noticeId") Integer noticeId,
 			@RequestParam(value = "title", defaultValue = "") String title,
@@ -387,6 +396,7 @@ public class LibrarianController {
 
 	// お知らせ削除処理
 	@PostMapping("/librarian/notice/{noticeId}/delete")
+	// TODO ここもModelAttribute使えるネ
 	public String noticeDelete(@PathVariable("noticeId") Integer noticeId, Model model) {
 
 		noticeRepository.deleteById(noticeId);
