@@ -3,15 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <title>データ一覧 / [[${category.categoryName}]]</title>
+<link href="/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+	<div class="text-center">
 	<header th:replace ="adminHeader"></header>
 	<sidebar th:replace="librarianSidebar"></sidebar>
 	
 	<th:block th:object="${category}">
-		<table border="1">
+		<table border="1" class="table">
 			<div th:if="*{categoryId} == 1">
-				<tr>
+				<tr scope="col" class="table-primary">
 					<th>ID</th>
 					<th>タイトル</th>
 					<th>著者</th>
@@ -19,7 +21,7 @@
 					<th>ジャンル</th>
 					<th>編集</th>
 				</tr>
-				<tr th:each="lendAnyItem : ${lendAnyItemList}">
+				<tr scope="col" th:each="lendAnyItem : ${lendAnyItemList}">
 					<td>[[${lendAnyItem.anyId}]]</td>
 					<td>[[${lendAnyItem.title}]]</td>
 					<td>[[${lendAnyItem.author}]]</td>
@@ -30,14 +32,14 @@
 						th:action="@{/librarian/categories/{categoryId}/data/{id}(categoryId = *{categoryId}, id = ${lendAnyItem.anyId})}"
 						method="get">
 							<input type="hidden" name="libraryId" th:value="${libraryId}">
-							<button>編集</button>
+							<button class="btn btn-primary">編集</button>
 						</form>
 					</td>
 				</tr>
 			</div>
 			
 			<div th:if="*{categoryId} == 2">
-				<tr>
+				<tr scope="col" th:each="notice:${notices}">
 					<th>ID</th>
 					<th>タイトル</th>
 					<th>アーティスト</th>
@@ -45,7 +47,7 @@
 					<th>ジャンル</th>
 					<th>編集</th>
 				</tr>
-				<tr th:each="lendAnyItem : ${lendAnyItemList}">
+				<tr scope="col" th:each="notice:${notices}" th:each="lendAnyItem : ${lendAnyItemList}">
 					<td>[[${lendAnyItem.anyId}]]</td>
 					<td>[[${lendAnyItem.title}]]</td>
 					<td>[[${lendAnyItem.author}]]</td>
@@ -56,7 +58,7 @@
 						th:action="@{/librarian/categories/{categoryId}/data/{id}(categoryId = *{categoryId}, id = ${lendAnyItem.anyId})}"
 						method="get">
 							<input type="hidden" name="libraryId" th:value="${libraryId}">
-							<button>編集</button>
+							<buttonclass="btn btn-primary">編集</button>
 						</form>
 					</td>
 				</tr>
@@ -135,6 +137,8 @@
 			</div>
 		</table>
 	</th:block>
-
+	</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
 </body>
 </html>
