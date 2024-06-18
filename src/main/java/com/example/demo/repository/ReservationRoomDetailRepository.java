@@ -11,7 +11,7 @@ import com.example.demo.entity.ReservationRoomDetail;
 
 public interface ReservationRoomDetailRepository extends JpaRepository<ReservationRoomDetail, Integer> {
 	
-		static String sqlReservationRoomList = "select reservation.lend_item_id,lend_item.category_id,room.room_name,reservation.reservation_date "
+		static String sqlReservationRoomList = "select  reservation.reservation_id,reservation.lend_item_id,lend_item.category_id,room.room_name,reservation.reservation_date "
 				+ "from reservation "
 				+ "inner join lend_item "
 				+ "on reservation.lend_item_id=lend_item.lend_item_id "
