@@ -71,7 +71,7 @@ public class LendProcessService {
 			return "librarianLendProcessExecuted";
 
 		} else if (updateItem.getStatusId() == 2) {
-
+			//2 : 貸出中
 			//返却処理
 			forReturnExecute(updateItem, lendItemId);
 

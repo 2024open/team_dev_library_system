@@ -13,6 +13,7 @@
 	
 	<p th:if="${errorMsg}">[[${errorMsg}]]</p>
 	
+<!--	ID検索-->
 	<form action="/librarian/lendProcess" method="get">
 		<input type="number" name="lendItemId">
 		
@@ -20,6 +21,7 @@
 		<button>ID検索</button>
 	</form>
 	
+<!--	キーワード検索-->
 	<form action="/librarian/lendProcess" th:object="${category}" method="get">
 		<select th:field="*{categoryId}">
 			<option th:each="category : ${categoryList}" th:value="${category.categoryId}">[[${category.categoryName}]]</option>
@@ -32,25 +34,28 @@
 	
 	<th:block th:if="${lendItem}">
 		
-		<form action="/librarian/lendProcess" method="post">
+		<form 
+		action="/librarian/lendProcess" 
+		method="post"
+		th:object="${lendItem}">
 			<table border="1">
 				<tr>
 					<th>貸出物ID</th>
-					<td>[[${lendItem.lendItemId}]]</td>
+					<td>[[*{lendItemId}]]</td>
 				</tr>
 				<tr>
 					<th>図書館ID</th>
-					<td>[[${lendItem.libraryId}]]</td>
+					<td>[[*{libraryId}]]</td>
 				</tr>
 				<tr>
 					<th>貸出物名</th>
-					<td>[[${title}]]</td>
+					<td>[[*{title}]]</td>
 				</tr>
 				<tr>
 					<th>状態</th>
-					<td>[[${lendItem.statusName}]]</td>
+					<td>[[*{statusName}]]</td>
 				</tr>
-				<tr th:if="${lendItem.statusId} == 1">
+				<tr th:if="*{statusId} == 1">
 					<th>email</th>
 					<td>
 						<input type="text" name="email">
@@ -58,18 +63,21 @@
 				</tr>
 			</table>
 			
-			<input type="hidden" name="lendItemId" th:value="${lendItem.lendItemId}">
+			<input type="hidden" th:field="*{lendItemId}">
+			<input type="hidden" th:field="*{title}">
 			<input type="hidden" name="libraryId" th:value="${library.libraryId}">
-			<input type="hidden" name="title" th:value="${title}">
 			<button>
-				<p th:if="${lendItem.statusId} == 1" style="display: inline;">貸出</p>
-				<p th:if="${lendItem.statusId} == 2" style="display: inline;">返却</p>
+				<p th:if="*{statusId} == 1" style="display: inline;">貸出</p>
+				<p th:if="*{statusId} == 2" style="display: inline;">返却</p>
 			</button>
 		</form>
 	</th:block>
 	
 	<th:block th:if="${lendItemList}">
-		<form action="/librarian/lendProcess" method="get" th:each="lendItem : ${lendItemList}">
+		<form 
+		action="/librarian/lendProcess" 
+		method="get" 
+		th:each="lendItem : ${lendItemList}">
 			<table border="1" >
 				<tr>
 					<th>貸出物ID</th>
