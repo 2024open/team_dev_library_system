@@ -16,11 +16,6 @@ import com.example.demo.entity.LendItemForm;
 import com.example.demo.entity.Notice;
 import com.example.demo.model.SuperUser;
 import com.example.demo.repository.AccountRepository;
-import com.example.demo.repository.AdminLendListRepository;
-import com.example.demo.repository.AdminLendRoomRepository;
-import com.example.demo.repository.CategoryRepository;
-import com.example.demo.repository.LendItemRepository;
-import com.example.demo.repository.LendingItemRepository;
 import com.example.demo.repository.NoticeRepository;
 import com.example.demo.service.CategoryService;
 import com.example.demo.service.Common;
@@ -62,25 +57,10 @@ public class LibrarianController {
 
 	//リポジトリ
 	@Autowired
-	CategoryRepository categoryRepository;
-
-	@Autowired
-	AdminLendRoomRepository adminLendRoomRepository;
-
-	@Autowired
 	AccountRepository accountRepository;
 
 	@Autowired
-	LendItemRepository lendItemRepository;
-
-	@Autowired
 	NoticeRepository noticeRepository;
-
-	@Autowired
-	LendingItemRepository lendingItemRepository;
-
-	@Autowired
-	AdminLendListRepository adminLendListRepository;
 
 	//ホーム
 	@GetMapping({ "/librarian/home", "/librarian" })
@@ -209,12 +189,12 @@ public class LibrarianController {
 		if (!lendItemIdStr.isEmpty() && Integer.parseInt(lendItemIdStr) >= 0) {
 			//ID検索
 			Integer lendItemId = Integer.parseInt(lendItemIdStr);
-			librarianService.forLendProcessIdSearch(lendItemId, libraryId, model);
+			lendProcessService.forLendProcessIdSearch(lendItemId, libraryId, model);
 			librarianService.forCategoryId(model, 1);
 		} else if (!categoryIdStr.isEmpty()) {
 			//キーワード検索
 			Integer categoryId = Integer.parseInt(categoryIdStr);
-			librarianService.forLendProcessKeyword(categoryId, libraryId, keyword, model);
+			lendProcessService.forLendProcessKeyword(categoryId, libraryId, keyword, model);
 			librarianService.forCategoryId(model, categoryId);
 		}
 

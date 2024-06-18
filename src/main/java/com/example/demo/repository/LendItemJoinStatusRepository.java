@@ -17,7 +17,7 @@ public interface LendItemJoinStatusRepository extends JpaRepository<LendItemJoin
 			+ "FROM lend_item JOIN status ON lend_item.status_id = status.status_id "
 			+ "WHERE lend_item_id = :lendItemId "
 			+ "AND library_id = :libraryId "
-			+ "AND lend_item.deleted = false ";
+			+ "AND lend_item.deleted = false ; ";
 
 	//貸出処理検索用
 	@Query(value = sqlLendProcessId, nativeQuery = true)
