@@ -16,7 +16,7 @@
 	<a href="/notice">
 		<p>お知らせ</p>
 	</a>
-	
+
 	<a href="/lending" th:if="${userId != 0}">
 		<p th:if="${userId != 0}">現在借りている物</p>
 	</a>
@@ -27,5 +27,6 @@
 		<p th:if="${userId != 0}">貸出履歴</p>
 	</a>
 	<a href="/login"><button>ログイン</button></a>
+	<a href="/logout" th:if="${userId != 0}"><button>ログアウト</button></a>
 	</div>
 </header>
