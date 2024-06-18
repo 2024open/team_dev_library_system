@@ -30,7 +30,7 @@ public class NoticeController
     {
         //お知らせ一覧を取得
     	//TODO LibraryId取りたい
-        List<Notice> noticeList = noticeRepository.findByUserIdAndLibraryId(null,1);
+        List<Notice> noticeList = noticeRepository.findByUserIdAndLibraryId(2,1);
         
         Integer userId = user.getUserId();
         
