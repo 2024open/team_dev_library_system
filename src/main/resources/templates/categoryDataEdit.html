@@ -18,7 +18,7 @@
 		name="objectBook"
 		method="post"
 		>
-			<table border = "1" border="1" class="table">
+			<table border = "1"  class="table">
 				<tr>
 					<th>ID</th>
 					<td>
@@ -55,7 +55,7 @@
 			</table>
 			
 			<input type="hidden" th:value="${libraryId}">
-			<button>更新</button>
+			<button class="btn btn-primary">更新</button>
 		</form>
 	</th:block>
 	
@@ -67,34 +67,34 @@
 		name="objectCD"
 		method="post"
 		>		
-			<table border = "1" border="1" class="table">
+			<table border = "1" class="table">
 				<tr>
-					<th>ID</th>
+					<th class="table-primary">ID</th>
 					<td>
 						[[*{cdId}]]
 						<input type="hidden" th:field="*{cdId}">
 					</td>
 				</tr>
 				<tr>
-					<th>タイトル</th>
+					<th class="table-primary">タイトル</th>
 					<td>
 						<input type="text" th:field="*{title}">
 					</td>
 				</tr>
 				<tr>
-					<th>アーティスト</th>
+					<th class="table-primary">アーティスト</th>
 					<td>
 						<input type="text" th:field="*{author}">
 					</td>
 				</tr>
 				<tr>
-					<th>レーベル</th>
+					<th class="table-primary">レーベル</th>
 					<td>
 						<input type="text" th:field="*{publisher}">
 					</td>
 				</tr>
 				<tr>
-					<th>ジャンル</th>
+					<th class="table-primary">ジャンル</th>
 					<td>
 						<select th:field="*{genreId}">
 							<option th:each="genre : ${genreList}" th:value="${genre.genreId}">[[${genre.genreName}]]</option>
@@ -104,7 +104,7 @@
 			</table>
 			
 			<input type="hidden" th:value="${libraryId}">
-			<button>更新</button>
+			<button class="btn btn-primary">更新</button>
 		</form>
 			
 	</th:block>
@@ -117,34 +117,34 @@
 		name="objectDVD"
 		method="post"
 		>
-			<table border = "1" border="1" class="table">
+			<table border = "1" class="table">
 				<tr>
-					<th>ID</th>
+					<th class="table-primary">ID</th>
 					<td>
 						[[*{dvdId}]]
 						<input type="hidden" th:field="*{dvdId}">
 					</td>
 				</tr>
 				<tr>
-					<th>タイトル</th>
+					<th class="table-primary">タイトル</th>
 					<td>
 						<input type="text" th:field="*{title}">
 					</td>
 				</tr>
 				<tr>
-					<th>監督</th>
+					<th class="table-primary">監督</th>
 					<td>
 						<input type="text" th:field="*{author}">
 					</td>
 				</tr>
 				<tr>
-					<th>販売元</th>
+					<th class="table-primary">販売元</th>
 					<td>
 						<input type="text" th:field="*{publisher}">
 					</td>
 				</tr>
 				<tr>
-					<th>ジャンル</th>
+					<th class="table-primary">ジャンル</th>
 					<td>
 						<select th:field="*{genreId}">
 							<option th:each="genre : ${genreList}" th:value="${genre.genreId}">[[${genre.genreName}]]</option>
@@ -154,7 +154,7 @@
 			</table>
 			
 			<input type="hidden" th:value="${libraryId}">
-			<button>更新</button>
+			<button class="btn btn-primary">更新</button>
 		</form>
 	</th:block>
 	
@@ -166,7 +166,7 @@
 		name="objectKamishibai"
 		method="post"
 		>
-			<table border = "1" border="1" class="table">
+			<table border = "1"  class="table">
 				<tr>
 					<th>ID</th>
 					<td>
@@ -203,7 +203,7 @@
 			</table>
 			
 			<input type="hidden" th:value="${libraryId}">
-			<button>更新</button>
+			<button class="btn btn-primary">更新</button>
 		</form>
 	</th:block>
 
@@ -215,7 +215,7 @@
 		name="objectRoom"
 		method="post"
 		>		
-			<table border = "1" border="1" class="table">
+			<table border = "1" class="table">
 				<tr>
 					<th class="table-primary">ID</th>
 					<td>
