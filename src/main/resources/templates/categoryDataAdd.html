@@ -15,27 +15,27 @@
 		<th:block th:if="${categoryId} == 1">
 			<form th:action="@{/librarian/categories/{categoryId}/data(categoryId = ${categoryId})}"
 				th:object="${categoryData}" name="objectData" method="post">
-				<table border="1">
+				<table border="1" class="table">
 					<tr>
-						<th>タイトル</th>
+						<th class="table-primary">タイトル</th>
 						<td>
 							<input type="text" th:field="*{title}">
 						</td>
 					</tr>
 					<tr>
-						<th>著者</th>
+						<th class="table-primary">著者</th>
 						<td>
 							<input type="text" th:field="*{author}">
 						</td>
 					</tr>
 					<tr>
-						<th>出版社</th>
+						<th class="table-primary">出版社</th>
 						<td>
 							<input type="text" th:field="*{publisher}">
 						</td>
 					</tr>
 					<tr>
-						<th>ジャンル</th>
+						<th class="table-primary">ジャンル</th>
 						<td>
 							<select th:field="*{genreId}">
 								<option th:each="genre : ${genreList}" th:value="${genre.genreId}">
@@ -46,34 +46,34 @@
 				</table>
 
 				<input type="hidden" th:value="${libraryId}">
-				<button>新規登録</button>
+				<button class="btn btn-primary">新規登録</button>
 			</form>
 		</th:block>
 
 		<th:block th:if="${categoryId} == 2">
 			<form th:action="@{/librarian/categories/{categoryId}/data(categoryId = ${categoryId})}"
 				th:object="${categoryData}" name="objectData" method="post">
-				<table border="1">
+				<table border="1" class="table">
 					<tr>
-						<th>タイトル</th>
+						<th class="table-primary">タイトル</th>
 						<td>
 							<input type="text" th:field="*{title}">
 						</td>
 					</tr>
 					<tr>
-						<th>アーティスト</th>
+						<th class="table-primary">アーティスト</th>
 						<td>
 							<input type="text" th:field="*{author}">
 						</td>
 					</tr>
 					<tr>
-						<th>レーベル</th>
+						<th class="table-primary">レーベル</th>
 						<td>
 							<input type="text" th:field="*{publisher}">
 						</td>
 					</tr>
 					<tr>
-						<th>ジャンル</th>
+						<th class="table-primary">ジャンル</th>
 						<td>
 							<select th:field="*{genreId}">
 								<option th:each="genre : ${genreList}" th:value="${genre.genreId}">
@@ -91,7 +91,7 @@
 		<th:block th:if="${categoryId} == 3">
 			<form th:action="@{/librarian/categories/{categoryId}/data(categoryId = ${categoryId})}"
 				th:object="${categoryData}" name="objectData" method="post">
-				<table border="1" border="1" class="table">
+				<table border="1" class="table">
 					<tr>
 						<th class="table-primary">タイトル</th>
 						<td>
@@ -129,7 +129,7 @@
 		<th:block th:if="${categoryId} == 4">
 			<form th:action="@{/librarian/categories/{categoryId}/data(categoryId = ${categoryId})}"
 				th:object="${categoryData}" name="objectData" method="post">
-				<table border="1" border="1" class="table">
+				<table border="1" class="table">
 					<tr scope="col" th:each="notice:${notices}">
 						<th class="table-primary">タイトル</th>
 						<td>
@@ -167,8 +167,8 @@
 		<th:block th:if="${categoryId} == 5">
 			<form th:action="@{/librarian/categories/{categoryId}/data(categoryId = ${categoryId})}"
 				th:object="${categoryData}" name="objectData" method="post">
-				<table border="1" border="1" class="table">
-					<tr scope="col" th:each="notice:${notices}">
+				<table border="1" class="table">
+					<tr scope="col">
 						<th class="table-primary">会議室名</th>
 						<td>
 							<input type="text" th:field="*{title}">

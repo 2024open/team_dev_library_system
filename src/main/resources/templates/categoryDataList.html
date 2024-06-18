@@ -39,7 +39,7 @@
 			</div>
 			
 			<div th:if="*{categoryId} == 2">
-				<tr scope="col" th:each="notice:${notices}">
+				<tr scope="col" class="table-primary">
 					<th>ID</th>
 					<th>タイトル</th>
 					<th>アーティスト</th>
@@ -47,7 +47,7 @@
 					<th>ジャンル</th>
 					<th>編集</th>
 				</tr>
-				<tr scope="col" th:each="notice:${notices}" th:each="lendAnyItem : ${lendAnyItemList}">
+				<tr scope="col" th:each="lendAnyItem : ${lendAnyItemList}">
 					<td>[[${lendAnyItem.anyId}]]</td>
 					<td>[[${lendAnyItem.title}]]</td>
 					<td>[[${lendAnyItem.author}]]</td>
@@ -58,14 +58,14 @@
 						th:action="@{/librarian/categories/{categoryId}/data/{id}(categoryId = *{categoryId}, id = ${lendAnyItem.anyId})}"
 						method="get">
 							<input type="hidden" name="libraryId" th:value="${libraryId}">
-							<buttonclass="btn btn-primary">編集</button>
+							<button class="btn btn-primary">編集</button>
 						</form>
 					</td>
 				</tr>
 			</div>
 
 			<div th:if="*{categoryId} == 3">
-				<tr>
+				<tr class="table-primary">
 					<th>ID</th>
 					<th>タイトル</th>
 					<th>監督</th>
@@ -84,14 +84,14 @@
 						th:action="@{/librarian/categories/{categoryId}/data/{id}(categoryId = *{categoryId}, id = ${lendAnyItem.anyId})}"
 						method="get">
 							<input type="hidden" name="libraryId" th:value="${libraryId}">
-							<button>編集</button>
+							<button class="btn btn-primary">編集</button>
 						</form>
 					</td>
 				</tr>
 			</div>
 
 			<div th:if="*{categoryId} == 4">
-				<tr>
+				<tr class="table-primary">
 					<th>ID</th>
 					<th>タイトル</th>
 					<th>作者</th>
@@ -110,14 +110,14 @@
 						th:action="@{/librarian/categories/{categoryId}/data/{id}(categoryId = *{categoryId}, id = ${lendAnyItem.anyId})}"
 						method="get">
 							<input type="hidden" name="libraryId" th:value="${libraryId}">
-							<button>編集</button>
+							<button class="btn btn-primary">編集</button>
 						</form>
 					</td>
 				</tr>
 			</div>
 			
 			<div th:if="*{categoryId} == 5">
-				<tr>
+				<tr class="table-primary">
 					<th>ID</th>
 					<th>会議室名</th>
 					<th>編集</th>
@@ -130,7 +130,7 @@
 						th:action="@{/librarian/categories/{categoryId}/data/{id}(categoryId = *{categoryId}, id = ${lendAnyItem.roomId})}"
 						method="get">
 							<input type="hidden" name="libraryId" th:value="${libraryId}">
-							<button>編集</button>
+							<button class="btn btn-primary">編集</button>
 						</form>
 					</td>
 				</tr>
