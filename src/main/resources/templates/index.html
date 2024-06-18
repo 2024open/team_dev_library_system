@@ -19,29 +19,29 @@
 
 	<form action="/lendItems" method="get">
 
-		<input type="text" name="search">
+		<input type="text" name="search" th:value="${search}">
 
 		<!--		onchange="submit(this.form)"-->
 		<select name="category">
 			<option value="">カテゴリ</option>
-			<option class="category" value="1">本</option>
-			<option class="category" value="2">CD</option>
-			<option class="category" value="3">DVD</option>
-			<option class="category" value="4">紙芝居</option>
-			<option class="category" value="5">貸会議室</option>
+			<option class="category" value="1" th:selected="${category==1}">本</option>
+			<option class="category" value="2" th:selected="${category==2}">CD</option>
+			<option class="category" value="3" th:selected="${category==3}">DVD</option>
+			<option class="category" value="4" th:selected="${category==4}">紙芝居</option>
+			<option class="category" value="5" th:selected="${category==5}">貸会議室</option>
 		</select>
 
 		<select name="Possibility">
 			<option value="0">貸出可否</option>
-			<option value="1">貸出可</option>
-			<option value="2">貸出不可</option>
+			<option value="1" th:selected="${Possibility==1}">貸出可</option>
+			<option value="2" th:selected="${Possibility==2}">貸出不可</option>
 		</select>
 
 		<button>検索</button><br>
 	</form>
 	<h2 th:text="${titleMsg}"></h2>
 	<h2 th:if="${category != 5 && lendItemList.size() == 0}" style="color: red;">検索結果が見つかりませんでした</h2>
-	<table border="1" th:if="${category != 5 && lendItemList.size() >= 0}">
+	<table border="1" th:if="${category != 5 && lendItemList.size() != 0}">
 		<tr>
 			<th>ジャンル</th>
 			<th>タイトル</th>
