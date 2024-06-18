@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <title>名前変更 / [[${category.categoryName}]]</title>
+<link href="/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+	<div class="text-center">
 	<header th:replace ="adminHeader"></header>
 	<sidebar th:replace="librarianSidebar"></sidebar>
 
@@ -14,9 +16,9 @@
 		th:object="${category}"
 		name="renamedCategory"
 		method="post">
-			<table border="1">
+			<table border="1" class="table">
 				<tr>
-					<th>カテゴリー名</th>
+					<th class="table-primary">カテゴリー名</th>
 					<td>
 						<input type="text" name="categoryName" th:value="*{categoryName}">
 					</td>
@@ -25,8 +27,11 @@
 			
 			<input type="hidden" th:field="*{categoryId}">
 			<input type="hidden" name="libraryId" th:value="${libraryId}">
-			<button>変更</button>
+			<button class="btn btn-primary">変更</button>
 		</form>
 	</th:block>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
 </body>
 </html>
