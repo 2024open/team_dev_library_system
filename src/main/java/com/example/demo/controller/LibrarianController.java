@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.entity.LendItem;
 import com.example.demo.entity.LendItemForm;
 import com.example.demo.entity.Notice;
 import com.example.demo.model.SuperUser;
@@ -246,9 +245,9 @@ public class LibrarianController {
 		Integer lendItemId = Integer.parseInt(lendItemIdStr);
 		Integer libraryId = Integer.parseInt(libraryIdStr);
 
-		LendItem lendItem = lendItemRepository.findById(lendItemId).get();
+		//TODO
+		lendItemEditService.forLendItemEdit(lendItemId, model);
 
-		lendItemEditService.forLendItemEdit(lendItem, model);
 		librarianService.forLibraryId(model, libraryId);
 		return "lendItemEdit";
 	}
@@ -258,13 +257,16 @@ public class LibrarianController {
 	@PostMapping("/librarian/lenditems/{id}/edit")
 	public String lendItemUpdate(
 			@PathVariable("id") Integer lendItemId,
-			@RequestParam("statusId") Integer statusId,
-			@RequestParam("anyId") Integer anyId,
+			@RequestParam(name = "statusId", defaultValue = "") Integer statusId,
+			@RequestParam(name = "anyId", defaultValue = "") Integer anyId,
+			@RequestParam(name = "libraryId", defaultValue = "1") Integer libraryId,
 			Model model) {
 
 		lendItemEditService.forEditExecute(lendItemId, statusId, anyId);
 
-		return "redirect:/librarian/lenditems/{id}/edit";
+		lendItemEditService.forLendItemEdit(lendItemId, model);
+		librarianService.forLibraryId(model, libraryId);
+		return "lendItemEdit";
 	}
 
 	//---------------------------------------------------//
