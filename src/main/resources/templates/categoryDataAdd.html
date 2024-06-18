@@ -1,197 +1,189 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
-	<header th:replace ="adminHeader"></header>
-	<sidebar th:replace="librarianSidebar"></sidebar>
-	
-	<th:block th:if="${categoryId} == 1">
-		<form 
-		th:action="@{/librarian/categories/{categoryId}/data(categoryId = ${categoryId})}"
-		th:object="${categoryData}"
-		name="objectData"
-		method="post"
-		>
-			<table border = "1">
-				<tr>
-					<th>タイトル</th>
-					<td>
-						<input type="text" th:field="*{title}">
-					</td>
-				</tr>
-				<tr>
-					<th>著者</th>
-					<td>
-						<input type="text" th:field="*{author}">
-					</td>
-				</tr>
-				<tr>
-					<th>出版社</th>
-					<td>
-						<input type="text" th:field="*{publisher}">
-					</td>
-				</tr>
-				<tr>
-					<th>ジャンル</th>
-					<td>
-						<select th:field="*{genreId}">
-							<option th:each="genre : ${genreList}" th:value="${genre.genreId}">[[${genre.genreName}]]</option>
-						</select>
-					</td>
-				</tr>
-			</table>
-			
-			<input type="hidden" th:value="${libraryId}">
-			<button>新規登録</button>
-		</form>
-	</th:block>
-	
-	<th:block th:if="${categoryId} == 2">
-		<form 
-		th:action="@{/librarian/categories/{categoryId}/data(categoryId = ${categoryId})}"
-		th:object="${categoryData}"
-		name="objectData"
-		method="post"
-		>
-			<table border = "1">
-				<tr>
-					<th>タイトル</th>
-					<td>
-						<input type="text" th:field="*{title}">
-					</td>
-				</tr>
-				<tr>
-					<th>アーティスト</th>
-					<td>
-						<input type="text" th:field="*{author}">
-					</td>
-				</tr>
-				<tr>
-					<th>レーベル</th>
-					<td>
-						<input type="text" th:field="*{publisher}">
-					</td>
-				</tr>
-				<tr>
-					<th>ジャンル</th>
-					<td>
-						<select th:field="*{genreId}">
-							<option th:each="genre : ${genreList}" th:value="${genre.genreId}">[[${genre.genreName}]]</option>
-						</select>
-					</td>
-				</tr>
-			</table>
-			
-			<input type="hidden" th:value="${libraryId}">
-			<button>新規登録</button>
-		</form>
-	</th:block>
-	
-	<th:block th:if="${categoryId} == 3">
-		<form 
-		th:action="@{/librarian/categories/{categoryId}/data(categoryId = ${categoryId})}"
-		th:object="${categoryData}"
-		name="objectData"
-		method="post"
-		>
-			<table border = "1">
-				<tr>
-					<th>タイトル</th>
-					<td>
-						<input type="text" th:field="*{title}">
-					</td>
-				</tr>
-				<tr>
-					<th>監督</th>
-					<td>
-						<input type="text" th:field="*{author}">
-					</td>
-				</tr>
-				<tr>
-					<th>販売元</th>
-					<td>
-						<input type="text" th:field="*{publisher}">
-					</td>
-				</tr>
-				<tr>
-					<th>ジャンル</th>
-					<td>
-						<select th:field="*{genreId}">
-							<option th:each="genre : ${genreList}" th:value="${genre.genreId}">[[${genre.genreName}]]</option>
-						</select>
-					</td>
-				</tr>
-			</table>
-			
-			<input type="hidden" th:value="${libraryId}">
-			<button>新規登録</button>
-		</form>
-	</th:block>
-	
-	<th:block th:if="${categoryId} == 4">
-		<form 
-		th:action="@{/librarian/categories/{categoryId}/data(categoryId = ${categoryId})}"
-		th:object="${categoryData}"
-		name="objectData"
-		method="post"
-		>
-			<table border = "1">
-				<tr>
-					<th>タイトル</th>
-					<td>
-						<input type="text" th:field="*{title}">
-					</td>
-				</tr>
-				<tr>
-					<th>作者</th>
-					<td>
-						<input type="text" th:field="*{author}">
-					</td>
-				</tr>
-				<tr>
-					<th>出版社</th>
-					<td>
-						<input type="text" th:field="*{publisher}">
-					</td>
-				</tr>
-				<tr>
-					<th>ジャンル</th>
-					<td>
-						<select th:field="*{genreId}">
-							<option th:each="genre : ${genreList}" th:value="${genre.genreId}">[[${genre.genreName}]]</option>
-						</select>
-					</td>
-				</tr>
-			</table>
-			
-			<input type="hidden" th:value="${libraryId}">
-			<button>更新</button>
-		</form>
-	</th:block>
-	
-	<th:block th:if="${categoryId} == 5">
-		<form 
-		th:action="@{/librarian/categories/{categoryId}/data(categoryId = ${categoryId})}"
-		th:object="${categoryData}"
-		name="objectData"
-		method="post"
-		>
-			<table border = "1">
-				<tr>
-					<th>会議室名</th>
-					<td>
-						<input type="text" th:field="*{title}">
-					</td>
-				</tr>
-			</table>
-			
-			<input type="hidden" th:value="${libraryId}">
-			<button>新規登録</button>
-		</form>
-	</th:block>
+	<div class="text-center">
+		<header th:replace="adminHeader"></header>
+		<sidebar th:replace="librarianSidebar"></sidebar>
+
+		<th:block th:if="${categoryId} == 1">
+			<form th:action="@{/librarian/categories/{categoryId}/data(categoryId = ${categoryId})}"
+				th:object="${categoryData}" name="objectData" method="post">
+				<table border="1">
+					<tr>
+						<th>タイトル</th>
+						<td>
+							<input type="text" th:field="*{title}">
+						</td>
+					</tr>
+					<tr>
+						<th>著者</th>
+						<td>
+							<input type="text" th:field="*{author}">
+						</td>
+					</tr>
+					<tr>
+						<th>出版社</th>
+						<td>
+							<input type="text" th:field="*{publisher}">
+						</td>
+					</tr>
+					<tr>
+						<th>ジャンル</th>
+						<td>
+							<select th:field="*{genreId}">
+								<option th:each="genre : ${genreList}" th:value="${genre.genreId}">
+									[[${genre.genreName}]]</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+
+				<input type="hidden" th:value="${libraryId}">
+				<button>新規登録</button>
+			</form>
+		</th:block>
+
+		<th:block th:if="${categoryId} == 2">
+			<form th:action="@{/librarian/categories/{categoryId}/data(categoryId = ${categoryId})}"
+				th:object="${categoryData}" name="objectData" method="post">
+				<table border="1">
+					<tr>
+						<th>タイトル</th>
+						<td>
+							<input type="text" th:field="*{title}">
+						</td>
+					</tr>
+					<tr>
+						<th>アーティスト</th>
+						<td>
+							<input type="text" th:field="*{author}">
+						</td>
+					</tr>
+					<tr>
+						<th>レーベル</th>
+						<td>
+							<input type="text" th:field="*{publisher}">
+						</td>
+					</tr>
+					<tr>
+						<th>ジャンル</th>
+						<td>
+							<select th:field="*{genreId}">
+								<option th:each="genre : ${genreList}" th:value="${genre.genreId}">
+									[[${genre.genreName}]]</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+
+				<input type="hidden" th:value="${libraryId}">
+				<button class="btn btn-primary">新規登録</button>
+			</form>
+		</th:block>
+
+		<th:block th:if="${categoryId} == 3">
+			<form th:action="@{/librarian/categories/{categoryId}/data(categoryId = ${categoryId})}"
+				th:object="${categoryData}" name="objectData" method="post">
+				<table border="1" border="1" class="table">
+					<tr>
+						<th class="table-primary">タイトル</th>
+						<td>
+							<input type="text" th:field="*{title}">
+						</td>
+					</tr>
+					<tr>
+						<th class="table-primary">監督</th>
+						<td>
+							<input type="text" th:field="*{author}">
+						</td>
+					</tr>
+					<tr>
+						<th class="table-primary">販売元</th>
+						<td>
+							<input type="text" th:field="*{publisher}">
+						</td>
+					</tr>
+					<tr>
+						<th class="table-primary">ジャンル</th>
+						<td>
+							<select th:field="*{genreId}">
+								<option th:each="genre : ${genreList}" th:value="${genre.genreId}">
+									[[${genre.genreName}]]</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+
+				<input type="hidden" th:value="${libraryId}">
+				<button class="btn btn-primary">新規登録</button>
+			</form>
+		</th:block>
+
+		<th:block th:if="${categoryId} == 4">
+			<form th:action="@{/librarian/categories/{categoryId}/data(categoryId = ${categoryId})}"
+				th:object="${categoryData}" name="objectData" method="post">
+				<table border="1" border="1" class="table">
+					<tr scope="col" th:each="notice:${notices}">
+						<th class="table-primary">タイトル</th>
+						<td>
+							<input type="text" th:field="*{title}">
+						</td>
+					</tr>
+					<tr scope="col" th:each="notice:${notices}">
+						<th class="table-primary">作者</th>
+						<td>
+							<input type="text" th:field="*{author}">
+						</td>
+					</tr>
+					<tr>
+						<th class="table-primary">出版社</th>
+						<td>
+							<input type="text" th:field="*{publisher}">
+						</td>
+					</tr>
+					<tr scope="col" th:each="notice:${notices}">
+						<th class="table-primary">ジャンル</th>
+						<td>
+							<select th:field="*{genreId}">
+								<option th:each="genre : ${genreList}" th:value="${genre.genreId}">
+									[[${genre.genreName}]]</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+
+				<input type="hidden" th:value="${libraryId}">
+				<button class="btn btn-primary">更新</button>
+			</form>
+		</th:block>
+
+		<th:block th:if="${categoryId} == 5">
+			<form th:action="@{/librarian/categories/{categoryId}/data(categoryId = ${categoryId})}"
+				th:object="${categoryData}" name="objectData" method="post">
+				<table border="1" border="1" class="table">
+					<tr scope="col" th:each="notice:${notices}">
+						<th class="table-primary">会議室名</th>
+						<td>
+							<input type="text" th:field="*{title}">
+						</td>
+					</tr>
+				</table>
+
+				<input type="hidden" th:value="${libraryId}">
+				<button class="btn btn-primary">新規登録</button>
+			</form>
+		</th:block>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
 
 </body>
+
 </html>

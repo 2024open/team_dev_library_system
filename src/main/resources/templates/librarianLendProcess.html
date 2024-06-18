@@ -30,31 +30,27 @@
 		<button>キーワード検索</button>
 	</form>
 	
-<!--ID検索-->
 	<th:block th:if="${lendItem}">
 		
-		<form 
-		action="/librarian/lendProcess" 
-		method="post"
-		th:object="${lendItem}">
+		<form action="/librarian/lendProcess" method="post">
 			<table border="1">
 				<tr>
 					<th>貸出物ID</th>
-					<td>[[*{lendItemId}]]</td>
+					<td>[[${lendItem.lendItemId}]]</td>
 				</tr>
 				<tr>
 					<th>図書館ID</th>
-					<td>[[*{libraryId}]]</td>
+					<td>[[${lendItem.libraryId}]]</td>
 				</tr>
 				<tr>
 					<th>貸出物名</th>
-					<td>[[*{title}]]</td>
+					<td>[[${title}]]</td>
 				</tr>
 				<tr>
 					<th>状態</th>
-					<td>[[*{statusName}]]</td>
+					<td>[[${lendItem.statusName}]]</td>
 				</tr>
-				<tr th:if="*{statusId} == 1">
+				<tr th:if="${lendItem.statusId} == 1">
 					<th>email</th>
 					<td>
 						<input type="text" name="email">
@@ -62,22 +58,18 @@
 				</tr>
 			</table>
 			
-			<input type="hidden" th:field="*{lendItemId}">
-			<input type="hidden" th:field="*{title}">
+			<input type="hidden" name="lendItemId" th:value="${lendItem.lendItemId}">
 			<input type="hidden" name="libraryId" th:value="${library.libraryId}">
+			<input type="hidden" name="title" th:value="${title}">
 			<button>
-				<p th:if="*{statusId} == 1" style="display: inline;">貸出</p>
-				<p th:if="*{statusId} == 2" style="display: inline;">返却</p>
+				<p th:if="${lendItem.statusId} == 1" style="display: inline;">貸出</p>
+				<p th:if="${lendItem.statusId} == 2" style="display: inline;">返却</p>
 			</button>
 		</form>
 	</th:block>
 	
-<!--	キーワード検索-->
 	<th:block th:if="${lendItemList}">
-		<form 
-		action="/librarian/lendProcess" 
-		method="get" 
-		th:each="lendItem : ${lendItemList}">
+		<form action="/librarian/lendProcess" method="get" th:each="lendItem : ${lendItemList}">
 			<table border="1" >
 				<tr>
 					<th>貸出物ID</th>

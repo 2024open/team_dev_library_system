@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <title> データ / [[${category.categoryName}]]</title>
+<link href="/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+	<div class="text-center">
 	<header th:replace ="adminHeader"></header>
 	<sidebar th:replace="librarianSidebar"></sidebar>
 	
@@ -16,7 +18,7 @@
 		name="objectBook"
 		method="post"
 		>
-			<table border = "1">
+			<table border = "1" border="1" class="table">
 				<tr>
 					<th>ID</th>
 					<td>
@@ -65,7 +67,7 @@
 		name="objectCD"
 		method="post"
 		>		
-			<table border = "1">
+			<table border = "1" border="1" class="table">
 				<tr>
 					<th>ID</th>
 					<td>
@@ -115,7 +117,7 @@
 		name="objectDVD"
 		method="post"
 		>
-			<table border = "1">
+			<table border = "1" border="1" class="table">
 				<tr>
 					<th>ID</th>
 					<td>
@@ -164,7 +166,7 @@
 		name="objectKamishibai"
 		method="post"
 		>
-			<table border = "1">
+			<table border = "1" border="1" class="table">
 				<tr>
 					<th>ID</th>
 					<td>
@@ -213,16 +215,16 @@
 		name="objectRoom"
 		method="post"
 		>		
-			<table border = "1">
+			<table border = "1" border="1" class="table">
 				<tr>
-					<th>ID</th>
+					<th class="table-primary">ID</th>
 					<td>
 						[[*{roomId}]]
 						<input type="hidden" th:field="*{roomId}">
 					</td>
 				</tr>
 				<tr>
-					<th>会議室名</th>
+					<th class="table-primary">会議室名</th>
 					<td>
 						<input type="text" th:field="*{roomName}">
 					</td>
@@ -230,9 +232,12 @@
 			</table>
 			
 			<input type="hidden" th:value="${libraryId}">
-			<button>更新</button>
+			<button class="btn btn-primary">更新</button>
 		</form>
 	</th:block>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
 
 </body>
 </html>
