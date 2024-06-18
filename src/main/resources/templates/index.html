@@ -4,9 +4,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>名古屋図書館</title>
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 
 <body>
+
 	<header th:replace="header"></header>
 
 	<!--	<script>-->
@@ -42,7 +45,7 @@
 	<h2 th:text="${titleMsg}"></h2>
 	<h2 th:if="${category != 5 && lendItemList.size() == 0}" style="color: red;">検索結果が見つかりませんでした</h2>
 	<table border="1" th:if="${category != 5 && lendItemList.size() != 0}">
-		<tr>
+		<tr class="table-primary">
 			<th>ジャンル</th>
 			<th>タイトル</th>
 			<th>著者</th>
@@ -58,8 +61,8 @@
 		</tr>
 	</table>
 	<h2 th:if="${category == 5 && lendItemRoomList.size() == 0}" style="color: red;">検索結果が見つかりませんでした</h2>
-	<table border="1" th:if="${category == 5 && lendItemRoomList.size() !=0}">
-		<tr>
+	<table border="1" class="table" th:if="${category == 5 && lendItemRoomList.size() !=0}">
+		<tr scope="col" class="table-primary">
 			<th>タイトル</th>
 			<th>貸出可否</th>
 		</tr>
@@ -70,6 +73,9 @@
 			<td th:text="${statusMap[lendItem.statusId]}"></td>
 		</tr>
 	</table>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
 </body>
 
 </html>
