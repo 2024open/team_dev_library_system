@@ -66,7 +66,8 @@ public class LendItemController {
 
 	@Autowired
 	SuperUser user;
-
+	
+	
 	//貸出物一覧表示
 	@GetMapping({ "/lendItems" })
 	public String index(
@@ -320,6 +321,9 @@ public class LendItemController {
 			model.addAttribute("errmsg", errmsg);
 			Integer userId = user.getUserId();
 			model.addAttribute("userId", userId);
+			lendItemList = allUserLendListrepository.sqlALLUserBookLendJoin();
+			model.addAttribute("lendItemList", lendItemList);
+			model.addAttribute("category", category);
 			return "index";
 		}
 

@@ -40,9 +40,8 @@
 		<button>検索</button><br>
 	</form>
 	<h2 th:text="${titleMsg}"></h2>
-
-	<h2 th:if="${category != 5 && lendItemList.size() ==0}" style="color: red;">検索結果が見つかりませんでした</h2>
-	<table border="1" th:if="${category != 5 && lendItemList.size() !=0}">
+	<h2 th:if="${category != 5 && lendItemList.size() == 0}" style="color: red;">検索結果が見つかりませんでした</h2>
+	<table border="1" th:if="${category != 5 && lendItemList.size() >= 0}">
 		<tr>
 			<th>ジャンル</th>
 			<th>タイトル</th>
@@ -58,7 +57,6 @@
 			<td th:text="${statusMap[lendItem.statusId]}"></td>
 		</tr>
 	</table>
-	
 	<h2 th:if="${category == 5 && lendItemRoomList.size() == 0}" style="color: red;">検索結果が見つかりませんでした</h2>
 	<table border="1" th:if="${category == 5 && lendItemRoomList.size() !=0}">
 		<tr>
