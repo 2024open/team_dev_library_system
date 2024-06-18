@@ -26,11 +26,12 @@ public interface ALLUserLendListRepoitory extends JpaRepository<AllUserLendList,
 			+ "FROM lend_item "
 			+ "INNER JOIN book "
 			+ "ON lend_item.any_id = book.book_id "
-			+ "WHERE lend_item.category_id=1 AND lend_item.library_id=1 and book.title LIKE :search"
+			+ "WHERE lend_item.category_id=1 AND lend_item.library_id=1 and book.title LIKE :search "
 			+ "order by lend_item.lend_item_id asc;";
 
 	@Query(value = sqlALLUserLendItemJoinBookSearch, nativeQuery = true)
 	List<AllUserLendList> sqlALLUserBookLendJoinSearch(@Param("search") String search);
+	
 
 	//本一覧表示貸出可
 	static String sqlALLUserLendItemJoinBookP = "SELECT lend_item.lend_item_id,lend_item.library_id, book.genre_id, book.title, book.author, lend_item.status_id,lend_item.category_id "
@@ -64,6 +65,8 @@ public interface ALLUserLendListRepoitory extends JpaRepository<AllUserLendList,
 
 	@Query(value = sqlALLUserLendItemJoinBookPsearch, nativeQuery = true)
 	List<AllUserLendList> sqlALLUserBookLendJoinPsearch(@Param("search") String search);
+	
+	
 
 	//本一覧表示貸出不可 検索
 	static String sqlALLUserLendItemJoinBookIsearch = "SELECT lend_item.lend_item_id,lend_item.library_id, book.genre_id, book.title, book.author, lend_item.status_id,lend_item.category_id "
@@ -125,11 +128,12 @@ public interface ALLUserLendListRepoitory extends JpaRepository<AllUserLendList,
 			+ "FROM lend_item "
 			+ "INNER JOIN cd "
 			+ "ON lend_item.any_id = cd.cd_id "
-			+ "WHERE lend_item.category_id=2 AND lend_item.library_id=1 AND lend_item.status_id=1 and cd.title LIKE :search"
+			+ "WHERE lend_item.category_id=2 AND lend_item.library_id=1 AND lend_item.status_id=1 and cd.title LIKE :search "
 			+ "order by lend_item.lend_item_id asc;";
 
 	@Query(value = sqlALLUserLendItemJoinCDPsearch, nativeQuery = true)
 	List<AllUserLendList> sqlALLUserCDLendJoinPsearch(@Param("search") String search);
+	
 
 	//CD貸出不可・検索
 	static String sqlALLUserLendItemJoinCDIsearch = "SELECT lend_item.lend_item_id, lend_item.library_id,cd.genre_id, cd.title, cd.author, lend_item.status_id "
@@ -158,7 +162,7 @@ public interface ALLUserLendListRepoitory extends JpaRepository<AllUserLendList,
 			+ "FROM lend_item "
 			+ "INNER JOIN dvd "
 			+ "ON lend_item.any_id = dvd.dvd_id "
-			+ "WHERE lend_item.category_id=3 AND lend_item.library_id=1 and dvd.title LIKE :search"
+			+ "WHERE lend_item.category_id=3 AND lend_item.library_id=1 and dvd.title LIKE :search "
 			+ "order by lend_item.lend_item_id asc;";
 
 	@Query(value = sqlALLUserLendItemJoinDVDSearch, nativeQuery = true)
@@ -169,7 +173,7 @@ public interface ALLUserLendListRepoitory extends JpaRepository<AllUserLendList,
 			+ "FROM lend_item "
 			+ "INNER JOIN dvd "
 			+ "ON lend_item.any_id = dvd.dvd_id "
-			+ "WHERE lend_item.category_id=3 AND lend_item.library_id=1 AND lend_item.status_id=1"
+			+ "WHERE lend_item.category_id=3 AND lend_item.library_id=1 AND lend_item.status_id=1 "
 			+ "order by lend_item.lend_item_id asc;";
 
 	@Query(value = sqlALLUserLendItemJoinDVDP, nativeQuery = true)
@@ -180,7 +184,7 @@ public interface ALLUserLendListRepoitory extends JpaRepository<AllUserLendList,
 			+ "FROM lend_item "
 			+ "INNER JOIN dvd "
 			+ "ON lend_item.any_id = dvd.dvd_id "
-			+ "WHERE lend_item.category_id=3 AND lend_item.library_id=1 AND lend_item.status_id=3"
+			+ "WHERE lend_item.category_id=3 AND lend_item.library_id=1 AND lend_item.status_id=3 "
 			+ "order by lend_item.lend_item_id asc;";
 
 	@Query(value = sqlALLUserLendItemJoinDVDI, nativeQuery = true)
@@ -192,7 +196,7 @@ public interface ALLUserLendListRepoitory extends JpaRepository<AllUserLendList,
 			+ "FROM lend_item "
 			+ "INNER JOIN dvd "
 			+ "ON lend_item.any_id = dvd.dvd_id "
-			+ "WHERE lend_item.category_id=3 AND lend_item.library_id=1 AND lend_item.status_id=1 and dvd.title LIKE :search"
+			+ "WHERE lend_item.category_id=3 AND lend_item.library_id=1 AND lend_item.status_id=1 and dvd.title LIKE :search "
 			+ "order by lend_item.lend_item_id asc;";
 
 	@Query(value = sqlALLUserLendItemJoinDVDPSearch, nativeQuery = true)
@@ -204,7 +208,7 @@ public interface ALLUserLendListRepoitory extends JpaRepository<AllUserLendList,
 			+ "FROM lend_item "
 			+ "INNER JOIN dvd "
 			+ "ON lend_item.any_id = dvd.dvd_id "
-			+ "WHERE lend_item.category_id=3 AND lend_item.library_id=1 AND lend_item.status_id=3 and dvd.title LIKE :search"
+			+ "WHERE lend_item.category_id=3 AND lend_item.library_id=1 AND lend_item.status_id=3 and dvd.title LIKE :search "
 			+ "order by lend_item.lend_item_id asc;";
 
 	@Query(value = sqlALLUserLendItemJoinDVDISearch, nativeQuery = true)
@@ -229,7 +233,7 @@ public interface ALLUserLendListRepoitory extends JpaRepository<AllUserLendList,
 			+ "FROM lend_item "
 			+ "INNER JOIN kamishibai "
 			+ "ON lend_item.any_id = kamishibai.kamishibai_id "
-			+ "WHERE lend_item.category_id=4  AND lend_item.library_id=1 and kamishibai.title LIKE :search"
+			+ "WHERE lend_item.category_id=4  AND lend_item.library_id=1 and kamishibai.title LIKE :search "
 			+ "order by lend_item.lend_item_id asc;";
 
 	@Query(value = sqlALLUserLendItemJoinKamishibaiSearch, nativeQuery = true)
@@ -243,7 +247,7 @@ public interface ALLUserLendListRepoitory extends JpaRepository<AllUserLendList,
 			+ "FROM lend_item "
 			+ "INNER JOIN kamishibai "
 			+ "ON lend_item.any_id = kamishibai.kamishibai_id "
-			+ "WHERE lend_item.category_id=4  AND lend_item.library_id=1 AND lend_item.status_id=1"
+			+ "WHERE lend_item.category_id=4  AND lend_item.library_id=1 AND lend_item.status_id=1 "
 			+ "order by lend_item.lend_item_id asc;";
 
 	@Query(value = sqlALLUserLendItemJoinKamishibaiP, nativeQuery = true)
@@ -254,7 +258,7 @@ public interface ALLUserLendListRepoitory extends JpaRepository<AllUserLendList,
 			+ "FROM lend_item "
 			+ "INNER JOIN kamishibai "
 			+ "ON lend_item.any_id = kamishibai.kamishibai_id "
-			+ "WHERE lend_item.category_id=4  AND lend_item.library_id=1 AND lend_item.status_id=3"
+			+ "WHERE lend_item.category_id=4  AND lend_item.library_id=1 AND lend_item.status_id=3 "
 			+ "order by lend_item.lend_item_id asc;";
 
 	@Query(value = sqlALLUserLendItemJoinKamishibaiI, nativeQuery = true)
@@ -266,7 +270,7 @@ public interface ALLUserLendListRepoitory extends JpaRepository<AllUserLendList,
 			+ "FROM lend_item "
 			+ "INNER JOIN kamishibai "
 			+ "ON lend_item.any_id = kamishibai.kamishibai_id "
-			+ "WHERE lend_item.category_id=4  AND lend_item.library_id=1 AND lend_item.status_id=1 and kamishibai.title LIKE :search"
+			+ "WHERE lend_item.category_id=4  AND lend_item.library_id=1 AND lend_item.status_id=1 and kamishibai.title LIKE :search "
 			+ "order by lend_item.lend_item_id asc;";
 
 	@Query(value = sqlALLUserLendItemJoinKamishibaiPsearch, nativeQuery = true)
@@ -277,7 +281,7 @@ public interface ALLUserLendListRepoitory extends JpaRepository<AllUserLendList,
 			+ "FROM lend_item "
 			+ "INNER JOIN kamishibai "
 			+ "ON lend_item.any_id = kamishibai.kamishibai_id "
-			+ "WHERE lend_item.category_id=4  AND lend_item.library_id=1 AND lend_item.status_id=3 and kamishibai.title LIKE :search"
+			+ "WHERE lend_item.category_id=4  AND lend_item.library_id=1 AND lend_item.status_id=3 and kamishibai.title LIKE :search "
 			+ "order by lend_item.lend_item_id asc;";
 
 	@Query(value = sqlALLUserLendItemJoinKamishibaiIsearch, nativeQuery = true)

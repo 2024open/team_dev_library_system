@@ -34,19 +34,31 @@ public class AccountController {
 	SuperUser superUser;
 
 	//ログイン画面表示
-	@GetMapping({ "", "/login", "/logout" })
+	@GetMapping({ "", "/login" })
 	public String index(
 			@RequestParam(name = "error", defaultValue = "") String error,
-			Model model) 
-	{
+			Model model) {
 		//セッション情報を全てクリア
 		session.invalidate();
 		//エラーパラメータのチェック
-		if (error.equals("notloggedIn")) 
-		{
+		if (error.equals("notloggedIn")) {
 			model.addAttribute("message", "ログインしてください");
 		}
 		return "login";
+	}
+	
+	//ログイン画面表示
+	@GetMapping({"/logout" })
+	public String logout(
+			@RequestParam(name = "error", defaultValue = "") String error,
+			Model model) {
+		//セッション情報を全てクリア
+		session.invalidate();
+		//エラーパラメータのチェック
+		if (error.equals("notloggedIn")) {
+			model.addAttribute("message", "ログインしてください");
+		}
+		return "redirect:/lendItems";
 	}
 
 	//ログイン実行
@@ -55,49 +67,42 @@ public class AccountController {
 			@RequestParam("libraryName") int libraryId,
 			@RequestParam("email") String email,
 			@RequestParam("password") String password,
-			Model model) 
-	{
+			Model model) {
 		//エラー処理
 		List<String> errorList = new ArrayList<>();
 		//文字数のチェック
-		if (email.length() > 100) 
-		{
+		if (email.length() > 100){
 			errorList.add("メールアドレスは100字以内で入力してください");
 		}
-		if (email.length() == 0) 
-		{
+		if (email.length() == 0){
 			errorList.add("メールアドレスを入力してください");
 		}
-		if (password.length() > 30) 
-		{
+		if (password.length() > 30){
 			errorList.add("パスワードは30字以内で入力してください");
 		}
-		if (password.length() == 0) 
-		{
+		if (password.length() == 0){
 			errorList.add("パスワードを入力してください");
 		}
-		if (!errorList.isEmpty()) 
-		{
+		if (!errorList.isEmpty()){
 			model.addAttribute("errorLists", errorList);
 			return "login";
 		}
 		
 		//メールとパス検索
 		List<Account> accountList = accountRepository.findByEmailAndPassword(email, password);
-		if (accountList == null || accountList.size() == 0) 
-		{
+		if (accountList == null || accountList.size() == 0){
 			// 存在しなかった場合
 			model.addAttribute("errorLists", "メールアドレスとパスワードが一致しませんでした");
 			return "login";
 		}
 		Account account = accountList.get(0);
-//		セッション管理されたアカウント情報に名前をセット
-//		session.setAttribute("userId", account.getUserId());
-//		session.setAttribute("userName", account.getUserName());
-//		session.setAttribute("nickname", account.getNickname());
-//		session.setAttribute("email", account.getEmail());
-//		session.setAttribute("password", account.getPassword());
-		
+		if(account.getBan()){
+			errorList.add("利用停止されたアカウントです");
+		}
+		if (!errorList.isEmpty()){
+			model.addAttribute("errorLists", errorList);
+			return "login";
+		}
 		//セッション管理されたSuperUserモデルに図書館ID、図書館名、ユーザーID、権限をセット
 		List<Library> libraries = libraryRepository.findByLibraryId(libraryId);
 		Library library = libraries.get(0);
