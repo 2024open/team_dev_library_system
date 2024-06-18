@@ -4,9 +4,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>貸出物詳細</title>
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 
 <body>
+	<div class="text-center">
 	<header th:replace="header"></header>
 	<p th:text="${msg}" style="color: red;"></p>
 	<table border="1" th:each="Detail:${lendItemDetail}" th:if="${Detail.categoryId != 5}">
@@ -57,6 +60,9 @@
 			<button type="hidden" name="reservation" th:value="${Detail.lendItemId}">予約</button>
 		</form>
 	</table>
+	</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
 </body>
 
 </html>
