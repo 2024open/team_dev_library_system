@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Notice;
+import com.example.demo.model.SuperUser;
 import com.example.demo.repository.NoticeRepository;
 
 @Controller
@@ -18,6 +19,9 @@ public class NoticeController
     @Autowired
     NoticeRepository noticeRepository;
 
+    @Autowired
+    SuperUser user;
+    
     //お知らせ一覧表示
     @GetMapping("/notice")
     public String index(
@@ -27,6 +31,10 @@ public class NoticeController
         //お知らせ一覧を取得
     	//TODO LibraryId取りたい
         List<Notice> noticeList = noticeRepository.findByUserIdAndLibraryId(null,1);
+        
+        Integer userId = user.getUserId();
+        
+        model.addAttribute("userId", userId);
         
         model.addAttribute("noticeList", noticeList);
         return "notice";
