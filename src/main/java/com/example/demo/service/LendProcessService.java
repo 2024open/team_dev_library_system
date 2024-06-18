@@ -54,6 +54,7 @@ public class LendProcessService {
 				String errorMsg = "メールアドレスが間違っています";
 				model.addAttribute("errorMsg", errorMsg);
 				forLendProcessIdSearch(lendItemId, libraryId, model);
+				librarianService.forCategoryId(model, 1);
 				librarianService.forCategoryList(model);
 				librarianService.forLibraryId(model, libraryId);
 				return "librarianLendProcess";
