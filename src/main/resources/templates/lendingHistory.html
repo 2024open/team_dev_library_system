@@ -18,17 +18,30 @@
 			<th>返却日</th>
 		</tr>
 		
-		<tr th:each="lendingItem : ${lendingHistoryList}" th:object="${lendingItem}">
-			<td>[[*{categoryName}]]</td>
+<!--		<tr th:each="lendingItem : ${lendingHistoryList}" th:object="${lendingItem}">-->
+<!--			<td>[[*{categoryName}]]</td>-->
 			
-			<td th:if="*{categoryId} == 1">[[*{bookTitle}]]</td>
-			<td th:if="*{categoryId} == 2">[[*{cdTitle}]]</td>
-			<td th:if="*{categoryId} == 3">[[*{dvdTitle}]]</td>
-			<td th:if="*{categoryId} == 4">[[*{kamishibaiTitle}]]</td>
-			<td th:if="*{categoryId} == 5">[[*{roomName}]]</td>
+<!--			<td th:if="*{categoryId} == 1">[[*{bookTitle}]]</td>-->
+<!--			<td th:if="*{categoryId} == 2">[[*{cdTitle}]]</td>-->
+<!--			<td th:if="*{categoryId} == 3">[[*{dvdTitle}]]</td>-->
+<!--			<td th:if="*{categoryId} == 4">[[*{kamishibaiTitle}]]</td>-->
+<!--			<td th:if="*{categoryId} == 5">[[*{roomName}]]</td>-->
 			
-			<td>[[*{borrowedDate}]]</td>
-			<td>[[*{returnDate}]]</td>
+<!--			<td>[[*{borrowedDate}]]</td>-->
+<!--			<td>[[*{returnDate}]]</td>-->
+<!--		</tr>-->
+		
+		<tr th:each="lendingItem : ${lendingHistoryList}">
+			<td>[[${lendingItem.categoryName}]]</td>
+			
+			<td th:if="${lendingItem.categoryId} == 1">[[${lendingItem.bookTitle}]]</td>
+			<td th:if="${lendingItem.categoryId} == 2">[[${lendingItem.cdTitle}]]</td>
+			<td th:if="${lendingItem.categoryId} == 3">[[${lendingItem.dvdTitle}]]</td>
+			<td th:if="${lendingItem.categoryId} == 4">[[${lendingItem.kamishibaiTitle}]]</td>
+			<td th:if="${lendingItem.categoryId} == 5">[[${lendingItem.roomName}]]</td>
+			
+			<td>[[${lendingItem.borrowedDate}]]</td>
+			<td>[[${lendingItem.returnDate}]]</td>
 		</tr>
 	</table>
 </div>

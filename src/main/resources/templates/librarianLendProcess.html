@@ -5,6 +5,8 @@
 <title>貸出処理 返却処理</title>
 <link href="/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
+<!--	input hiddenのlibraryIdを消去-->
 <body>
 	<header th:replace ="adminHeader"></header>
 	<div th:replace="suSideBar"></div>
@@ -14,9 +16,7 @@
 	
 	<p th:if="${errorMsg}">[[${errorMsg}]]</p>
 
-<!--	input hiddenのlibraryIdを消去-->
 <!--	ID検索-->
-	
 	<form action="/librarian/lendProcess" method="get">
 		<div class="form-group">
 		<input type="number" min="1" name="lendItemId" class="form-control" placeholder="ID検索">
@@ -73,12 +73,14 @@
 				</tr>
 			</table>
 			
-			<input type="hidden" th:field="*{lendItemId}">
-			<input type="hidden" th:field="*{title}">
-			<button class="btn btn-primary">
-				<p th:if="*{statusId} == 1" style="display: inline;">貸出</p>
-				<p th:if="*{statusId} == 2" style="display: inline;">返却</p>
-			</button>
+			<div th:if="*{statusId} == 1 or *{statusId} == 2">			
+				<input type="hidden" th:field="*{lendItemId}">
+				<input type="hidden" th:field="*{title}">
+				<button class="btn btn-primary">
+					<p th:if="*{statusId} == 1" style="display: inline;">貸出</p>
+					<p th:if="*{statusId} == 2" style="display: inline;">返却</p>
+				</button>
+			</div>
 		</form>
 	</th:block>
 	
@@ -109,16 +111,21 @@
 			
 			<input type="hidden" name="lendItemId" th:value="${lendItem.lendItemId}">
 			<input type="hidden" name="title" th:value="${lendItem.title}">
-
-			<button class="btn btn-primary" style="margin-bottom: 20px;">
-				<p th:if="${lendItem.statusId} == 1" style="display: inline;">貸出処理へ</p>
-				<p th:if="${lendItem.statusId} == 2" style="display: inline;">返却処理へ</p>
-			</button>
+			
+			<div th:if="${lendItem.statusId} == 1 or ${lendItem.statusId} == 2 or ${lendItem.statusId} == 4">
+				<button class="btn btn-primary" style="margin-bottom: 20px;">
+					<p th:if="${lendItem.statusId} == 1" style="display: inline;">貸出処理へ</p>
+					<p th:if="${lendItem.statusId} == 4" style="display: inline;">貸出処理へ</p>
+					<p th:if="${lendItem.statusId} == 2" style="display: inline;">返却処理へ</p>
+				</button>
+			</div>
       
 		</form>
 		
 	</th:block>
 	</div>
+	
+	
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
 </body>

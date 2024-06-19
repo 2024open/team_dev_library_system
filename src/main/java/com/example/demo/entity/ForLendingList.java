@@ -13,6 +13,10 @@ import lombok.Data;
 public class ForLendingList {
 
 	//LendingItem
+	@Id
+	@Column(name = "lending_item_id")
+	private Integer lendingItemId;
+
 	@Column(name = "return_date")
 	private LocalDate returnDate;
 
@@ -23,7 +27,6 @@ public class ForLendingList {
 	private Integer statusId;
 
 	//LendItem
-	@Id
 	@Column(name = "lend_item_id")
 	private Integer lendItemId;
 

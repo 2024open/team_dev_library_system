@@ -36,7 +36,7 @@ public interface ForLendingListRepository extends JpaRepository<ForLendingList, 
 			+ "ORDER BY borrowed_date DESC ;";
 
 	//貸出履歴
-	static String sqlForLendingHistory = "SELECT lending_item.return_date, lending_item.borrowed_date, lending_item.status_id, "
+	static String sqlForLendingHistory = "SELECT lending_item.lending_item_id, lending_item.return_date, lending_item.borrowed_date, lending_item.status_id, "
 			+ "x.* , "
 			+ "c.category_name "
 			+ "FROM lending_item "
