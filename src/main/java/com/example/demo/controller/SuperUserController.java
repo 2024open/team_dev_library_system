@@ -20,19 +20,19 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class SuperUserController {
-
+	//セッション系
 	@Autowired
 	HttpSession session;
 
+	@Autowired
+	SuperUser superUser;
+
+	//リポジトリ
 	@Autowired
 	AccountRepository accountRepository;
 
 	@Autowired
 	LibraryRepository libraryRepository;
-
-	@Autowired
-	SuperUser superUser;
-
 
 	//	管理者ログイン画面表示
 	@GetMapping({ "/su/login", "/su/logout" })
@@ -85,7 +85,6 @@ public class SuperUserController {
 			return "suLogin";
 		}
 
-
 		//セッション管理されたSuperUserモデルに図書館ID、図書館名、ユーザーID、権限をセット
 		List<Library> libraries = libraryRepository.findByLibraryId(libraryId);
 
@@ -98,10 +97,10 @@ public class SuperUserController {
 		superUser.setUserId(account.getUserId());
 		superUser.setPrivilege(account.getPrivilege());
 
-		if(privilege == 0) {
+		if (privilege == 0) {
 			// 「司書のホーム画面」へのリダイレクト
 			return "redirect:/admin/home";
-		}else {
+		} else {
 			// 「司書のホーム画面」へのリダイレクト
 			return "redirect:/librarian/home";
 		}

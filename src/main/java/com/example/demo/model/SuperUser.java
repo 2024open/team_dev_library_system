@@ -7,12 +7,10 @@ import org.springframework.web.context.annotation.SessionScope;
 @SessionScope
 public class SuperUser {
 
-	
 	private int libraryId;
 	private String libraryName;
 	private int userId = 0;
 	private int privilege;
-	
 
 	public SuperUser() {
 	}
