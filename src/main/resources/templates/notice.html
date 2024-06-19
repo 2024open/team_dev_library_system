@@ -23,7 +23,7 @@
 			<!--"${#temporals.format(～～～,'yyyy/MM/dd')}"　日付を(2024/01/01)の形にする-->
 			<td th:text="${#temporals.format(notice.noticeDate,'yyyy/MM/dd')}"></td>
 			<a th:href="@{/notice/{id}(id=${notice.noticeId})}">
-				<td th:text="${notice.title}"></td><br>
+				<td th:utext="${notice.title}"></td><br>
 			</a>
 		</div>
 	</div>

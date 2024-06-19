@@ -32,8 +32,8 @@
 			<tr scope="col" th:each="notice:${notices}">
 				<td th:text="${notice.noticeId}"></td>
 				<td th:text="${#temporals.format(notice.noticeDate,'yyyy/MM/dd')}"></td>
-				<td th:text="${notice.title}"></td>
-				<td th:text="${notice.content}"></td>
+				<td th:utext="${notice.title}"></td>
+				<td th:utext="${notice.content}"></td>
 				<td>
 					<form th:action="@{/librarian/notice/{noticeId}/edit(noticeId=${notice.noticeId})}" method="get">
 						<button class="btn btn-primary">更新</button>
