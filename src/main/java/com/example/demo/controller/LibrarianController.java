@@ -52,7 +52,7 @@ public class LibrarianController {
 	@Autowired
 	SuperUserService superUserService;
 
-	//セッション刑
+	//セッション系
 	@Autowired
 	HttpSession session;
 
