@@ -7,10 +7,10 @@
 	<!--			<option value="3">金山</option>-->
 	<!--		</select>-->
 	<!--	</form>-->
-<div class="text-center">
-	<h1>名古屋市図書館</h1>
-	</div>
-	<h3>メニュー</h3>
+<div style="background-color: #D6E5DF;">
+	<h2>名古屋市図書館</h2>
+</div>
+	<h4>メニュー</h4>
 	<a href="/lendItems">
 		<p>ホーム</p>
 	</a>
@@ -27,7 +27,7 @@
 	<a href="/lendingHistory" th:if="${userId != 0}">
 		<p th:if="${userId != 0}">貸出履歴</p>
 	</a>
-	<a href="/login"><button>ログイン</button></a>
-	<a href="/logout" th:if="${userId != 0}"><button>ログアウト</button></a>
-	
+	<a href="/login"><button class="btn btn-primary">ログイン</button></a>
+	<a href="/logout" th:if="${userId != 0}"><button class="btn btn-primary">ログアウト</button></a>
+
 </header>

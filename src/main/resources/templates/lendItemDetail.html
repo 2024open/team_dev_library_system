@@ -9,8 +9,9 @@
 </head>
 
 <body>
-	<div class="text-center">
+	
 	<header th:replace="header"></header>
+	<div class="text-center">
 	<p th:text="${msg}" style="color: red;"></p>
 	<table border="1" class="table" th:each="Detail:${lendItemDetail}" th:if="${Detail.categoryId != 5}">
 		<tr>
