@@ -50,7 +50,7 @@ public interface ALLUserLendListRoomRepoitory extends JpaRepository<RoomList, In
 				+ "FROM lend_item "
 				+ "INNER JOIN room "
 				+ "ON lend_item.any_id = room.room_id "
-				+ "WHERE lend_item.category_id=5 AND lend_item.library_id=1 AND lend_item.status_id=3 "
+				+ "WHERE lend_item.category_id=5 AND lend_item.library_id=1 AND lend_item.status_id not in(1) "
 				+ "order by lend_item.lend_item_id asc;";
 
 		@Query(value = sqlALLUserLendItemJoinRoomI, nativeQuery = true)
@@ -74,7 +74,7 @@ public interface ALLUserLendListRoomRepoitory extends JpaRepository<RoomList, In
 				+ "FROM lend_item "
 				+ "INNER JOIN room "
 				+ "ON lend_item.any_id = room.room_id "
-				+ "WHERE lend_item.category_id=5 AND lend_item.library_id=1 and room.room_name LIKE :search AND lend_item.status_id=3 "
+				+ "WHERE lend_item.category_id=5 AND lend_item.library_id=1 and room.room_name LIKE :search AND lend_item.status_id not in(1) "
 				+ "order by lend_item.lend_item_id asc;";
 
 		@Query(value = sqlALLUserLendItemJoinRoomSearchI, nativeQuery = true)
