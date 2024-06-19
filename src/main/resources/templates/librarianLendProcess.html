@@ -21,7 +21,7 @@
 		<div class="form-group">
 		<input type="number" min="1" name="lendItemId" class="form-control" placeholder="ID検索">
 		</div>
-		<br>
+
 		<div class="form-group">
 		<div class="form-group">
 		<button class="btn btn-primary">ID検索</button>
@@ -29,10 +29,11 @@
 	
 <!--	キーワード検索-->
 	<form action="/librarian/lendProcess" th:object="${category}" method="get">
-		
+		<br>カテゴリー選択
 		<select class="form-select" th:field="*{categoryId}">
 			<option th:each="category : ${categoryList}" th:value="${category.categoryId}">[[${category.categoryName}]]</option>
 		</select>
+		<br>
 		
 		<div class="form-group">
 			<input type="text" name="keyword" th:value="${keyword}" class="form-control" placeholder="キーワード検索">

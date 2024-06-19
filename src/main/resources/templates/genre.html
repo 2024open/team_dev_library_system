@@ -8,9 +8,15 @@
 </head>
 
 <body>
+	<!--	ヘッダー-->
+	<div class="bg-primary-subtle">
 	<header th:replace="suHeader"></header>
+	</div>
+	
+	<!--	サイドバー-->
 	<sidebar th:replace="adminSidebar"></sidebar>
 	<div class="text-center">
+		
 	<h1>ジャンル管理</h1>
 
 	<br>
@@ -32,17 +38,19 @@
 	<br>
 
 	<h2>ジャンル一覧</h2>
-	<!--商品一覧の表示-->
+	
+	<!--ジャンル一覧リンク-->
 	<a href="/admin/genre">全ジャンル</a>
 
-	<!--カテゴリーごとの一覧表示-->
+	<!--カテゴリーごとの一覧リンク-->
 	<a th:each="c:${categoryList}" th:href="@{/admin/genre(categoryId=${c.categoryId})}">
     <span th:text="${c.categoryName}"></span>
 </a>
 
-	<!--削除一覧の表示-->
+	<!--削除一覧リンク-->
 	<a href="/admin/genre?deleted=true">削除したジャンル</a>
 	
+	<!--	選択した一覧を表示するテーブル-->
 	<table class="table" style="margin-left: auto; margin-right: auto;">
 		
 		<tr class="table-primary">
@@ -55,13 +63,18 @@
 			<td th:text="${genre.genreName}"></td>
 			
 			<td>
+				
+				<!--ジャンルを削除したり復元したりするボタン-->
 				<form th:action="@{/admin/genre/{genreId}/delete(genreId=${genre.genreId})}" method="post">
 					<button class="btn btn-primary" th:text="${btnView}"></button>
 				</form>
 			</td>
 		</tr>
 	</table>
+	
 </div>
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
 </body>
