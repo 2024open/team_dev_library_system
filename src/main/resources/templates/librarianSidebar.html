@@ -1,5 +1,6 @@
 <sidebar style="float: left;" id = "librarianSidebar">
 	<h3>メニュー</h3>
+	<a href="/su/logout"><p>ログアウト</p></a>
 	<a th:href="@{/librarian/home(libraryId = ${libraryId})}">ホーム</a>
 	<a th:href="@{/librarian/lenditems(libraryId = ${libraryId})}"><p>貸出物管理</p></a>
 	<a th:href="@{/librarian/lendProcess(libraryId = ${libraryId})}">貸出処理</a>
