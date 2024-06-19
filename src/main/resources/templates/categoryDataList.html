@@ -10,6 +10,13 @@
 	<header th:replace ="adminHeader"></header>
 	<div th:replace="suSideBar"></div>
 	
+	<!--	追加0619-->
+		<a th:href="@{/librarian/categories/{categoryId}
+		(categoryId = ${categoryId}, libraryId = ${libraryId})}">
+			<p>カテゴリー管理ホーム</p>
+		</a>
+	<!--	ここまで-->
+	
 	<th:block th:object="${category}">
 		<table border="1" class="table">
 			<div th:if="*{categoryId} == 1">
