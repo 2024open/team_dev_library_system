@@ -6,6 +6,8 @@
 <link href="/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
+
+<!--libraryId消去-->
 <body>
 	<div class="text-center">
 	<header th:replace ="adminHeader"></header>
@@ -66,8 +68,7 @@
 			</tr>
 		</table>
 		
-		<input type="hidden" th:value="${categoryId}" name="categoryId">
-		<input type="hidden" th:value="${libraryId}" name = "libraryId">		
+		<input type="hidden" th:value="${categoryId}" name="categoryId">	
 		<button class="btn btn-primary">新規登録</button>
 	</form>
 	

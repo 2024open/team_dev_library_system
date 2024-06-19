@@ -67,12 +67,13 @@ public class LibrarianController {
 	NoticeRepository noticeRepository;
 
 	//ホーム
+	//図書館変更のプルダウンがある
 	@GetMapping({ "/librarian/home", "/librarian" })
 	public String index(
-			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
+			@RequestParam(name = "libraryId", defaultValue = "") String libraryIdStr,
 			Model model) {
 		if (!Common.isParceInt(libraryIdStr)) {
-			Integer libraryId = 1;
+			Integer libraryId = superUser.getLibraryId();
 			superUserService.setSuLibraryInfo(libraryId);
 
 			librarianService.forLibraryList(model);
@@ -90,47 +91,35 @@ public class LibrarianController {
 	//貸出物新規登録画面
 	@GetMapping("/librarian/lenditems/add")
 	public String lendItemCreate(
-			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
 			@RequestParam(name = "categoryId", defaultValue = "1") String categoryIdStr,
 			Model model) {
-		if (!Common.isParceInt(libraryIdStr)) {
-			return "redirect:/librarian/home";
-		}
 		if (!Common.isParceInt(categoryIdStr)) {
 			return "redirect:/librarian/home";
 		}
-		Integer libraryId = Integer.parseInt(libraryIdStr);
 		Integer categoryId = Integer.parseInt(categoryIdStr);
 
 		lendItemAddService.forLendItemForm(model, categoryId, "lendItemForm");
 
 		librarianService.forLibraryList(model);
 		librarianService.forCategoryList(model);
-		librarianService.forLibraryId(model, libraryId);
 		return "lendItemAdd";
 	}
 
 	//貸出物新規登録処理
 	@PostMapping("/librarian/lenditems/add")
 	public String lendItemStore(
-			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
 			@RequestParam(name = "categoryId", defaultValue = "1") String categoryIdStr,
 			@ModelAttribute("lendItemForm") LendItemForm lendItemForm,
 			Model model) {
-		if (!Common.isParceInt(libraryIdStr)) {
-			return "redirect:/librarian/home";
-		}
 		if (!Common.isParceInt(categoryIdStr)) {
 			return "redirect:/librarian/home";
 		}
-		Integer libraryId = Integer.parseInt(libraryIdStr);
 		Integer categoryId = Integer.parseInt(categoryIdStr);
 
-		lendItemAddService.forLendItemFormStore(categoryId, libraryId, lendItemForm);
+		lendItemAddService.forLendItemFormStore(categoryId, superUser.getLibraryId(), lendItemForm);
 
 		librarianService.forLibraryList(model);
 		librarianService.forCategoryList(model);
-		librarianService.forLibraryId(model, libraryId);
 		librarianService.forCategoryId(model, categoryId);
 		return "librarianLendItems";
 	}
@@ -139,23 +128,17 @@ public class LibrarianController {
 	// TODO ここもModelAttribute使えるネ
 	@GetMapping("/librarian/lenditems")
 	public String lendItem(
-			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
 			@RequestParam(name = "categoryId", defaultValue = "1") String categoryIdStr,
 			Model model) {
-		if (!Common.isParceInt(libraryIdStr)) {
-			return "redirect:/librarian/home";
-		}
 		if (!Common.isParceInt(categoryIdStr)) {
 			return "redirect:/librarian/home";
 		}
-		Integer libraryId = Integer.parseInt(libraryIdStr);
 		Integer categoryId = Integer.parseInt(categoryIdStr);
 
-		librarianLendItemService.forLendItemList(model, categoryId, libraryId);
+		librarianLendItemService.forLendItemList(model, categoryId, superUser.getLibraryId());
 
 		librarianService.forLibraryList(model);
 		librarianService.forCategoryList(model);
-		librarianService.forLibraryId(model, libraryId);
 		librarianService.forCategoryId(model, categoryId);
 		return "librarianLendItems";
 	}
@@ -164,50 +147,40 @@ public class LibrarianController {
 	// TODO ここもModelAttribute使えるネ
 	@GetMapping("/librarian/lendProcess")
 	public String lendProcess(
-			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
 			@RequestParam(name = "lendItemId", defaultValue = "-1") String lendItemIdStr,
 			@RequestParam(name = "categoryId", defaultValue = "0") String categoryIdStr,
 			@RequestParam(name = "keyword", defaultValue = "") String keyword,
 			Model model) {
-		//libraryIdが不正
-		if (!Common.isParceInt(libraryIdStr)) {
-			return "redirect:/librarian/home";
-		}
 		//lendItemIdが不正
 		if (!Common.isParceInt(lendItemIdStr) && !lendItemIdStr.isEmpty()) {
-			Integer libraryId = Integer.parseInt(libraryIdStr);
 			String errorMsg = "不正な値:lendItemId";
 			model.addAttribute("errorMsg", errorMsg);
 			librarianService.forCategoryList(model);
-			librarianService.forLibraryId(model, libraryId);
 			return "librarianLendProcess";
 		}
 		//categoryIdが不正
 		if (!Common.isParceInt(categoryIdStr) && !categoryIdStr.isEmpty()) {
-			Integer libraryId = Integer.parseInt(libraryIdStr);
 			String errorMsg = "不正な値:categoryId";
 			model.addAttribute("errorMsg", errorMsg);
 			librarianService.forCategoryList(model);
-			librarianService.forLibraryId(model, libraryId);
 			return "librarianLendProcess";
 		}
-		Integer libraryId = Integer.parseInt(libraryIdStr);
 
+		//本体
 		if (!lendItemIdStr.isEmpty() && Integer.parseInt(lendItemIdStr) >= 0) {
 			//ID検索
 			Integer lendItemId = Integer.parseInt(lendItemIdStr);
-			lendProcessService.forLendProcessIdSearch(lendItemId, libraryId, model);
+			lendProcessService.forLendProcessIdSearch(lendItemId, superUser.getLibraryId(), model);
 			librarianService.forCategoryId(model, 1);
 		} else if (!categoryIdStr.isEmpty()) {
 			//キーワード検索
 			Integer categoryId = Integer.parseInt(categoryIdStr);
-			lendProcessService.forLendProcessKeyword(categoryId, libraryId, keyword, model);
+			lendProcessService.forLendProcessKeyword(categoryId, superUser.getLibraryId(), keyword, model);
 			librarianService.forCategoryId(model, categoryId);
 			model.addAttribute("keyword", keyword);
 		}
 
 		librarianService.forCategoryList(model);
-		librarianService.forLibraryId(model, libraryId);
 		return "librarianLendProcess";
 	}
 
@@ -215,13 +188,12 @@ public class LibrarianController {
 	// TODO ここもModelAttribute使えるネ
 	@PostMapping("/librarian/lendProcess")
 	public String lendProcessExecute(
-			@RequestParam(name = "libraryId", defaultValue = "1") Integer libraryId,
 			@RequestParam(name = "lendItemId", defaultValue = "") Integer lendItemId,
 			@RequestParam(name = "title", defaultValue = "") String title,
 			@RequestParam(name = "email", defaultValue = "") String email,
 			Model model) {
 
-		String returnURL = lendProcessService.forLendProcess(model, libraryId, lendItemId, title, email);
+		String returnURL = lendProcessService.forLendProcess(model, superUser.getLibraryId(), lendItemId, title, email);
 		return returnURL;
 	}
 
@@ -229,21 +201,15 @@ public class LibrarianController {
 	@GetMapping("/librarian/lenditems/{id}/edit")
 	public String lendItemEdit(
 			@PathVariable("id") String lendItemIdStr,
-			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
 			Model model) {
-		if (!Common.isParceInt(libraryIdStr)) {
-			return "redirect:/librarian/home";
-		}
 		if (!Common.isParceInt(lendItemIdStr)) {
 			return "redirect:/librarian/home";
 		}
 		Integer lendItemId = Integer.parseInt(lendItemIdStr);
-		Integer libraryId = Integer.parseInt(libraryIdStr);
 
 		//TODO
 		lendItemEditService.forLendItemEdit(lendItemId, model);
 
-		librarianService.forLibraryId(model, libraryId);
 		return "lendItemEdit";
 	}
 
@@ -254,13 +220,11 @@ public class LibrarianController {
 			@PathVariable("id") Integer lendItemId,
 			@RequestParam(name = "statusId", defaultValue = "") Integer statusId,
 			@RequestParam(name = "anyId", defaultValue = "") Integer anyId,
-			@RequestParam(name = "libraryId", defaultValue = "1") Integer libraryId,
 			Model model) {
 
 		lendItemEditService.forEditExecute(lendItemId, statusId, anyId);
 
 		lendItemEditService.forLendItemEdit(lendItemId, model);
-		librarianService.forLibraryId(model, libraryId);
 		return "lendItemEdit";
 	}
 
