@@ -1,39 +1,42 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>お知らせ詳細画面だYo!!</title>
+	<meta charset="UTF-8">
+	<title>お知らせ詳細画面だYo!!</title>
 	<link href="/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
-<!--	TODO選択できるだけ-->
-<!--	<select name="example">-->
-<!--    	<option>名古屋</option>-->
-<!--    	<option>栄</option>-->
-<!--    	<option>金山</option>-->
-<!--    </select>-->
+	<!--	TODO選択できるだけ-->
+	<!--	<select name="example">-->
+	<!--    	<option>名古屋</option>-->
+	<!--    	<option>栄</option>-->
+	<!--    	<option>金山</option>-->
+	<!--    </select>-->
 	<header th:replace="header"></header>
-    <div class="noticeDetailCenter">
-		
-			<div class="text-center">
-<div class="mx-auto" style="width: 600px;">
-	<h1>お知らせ詳細</h1>
-		<tr>
-        	<div class="border">
-				
-				<th>日付：</th>
-				<!--"${#temporals.format(～～～,'yyyy/MM/dd')}"日付を(2024/01/01)の形にする-->
-				<td th:text="${#temporals.format(notice.noticeDate,'yyyy/MM/dd')}"></td><br>
-				<th>タイトル：</th>
-				<td th:utext="${notice.title}"></td>
-		</tr>
+	<div class="noticeDetailCenter">
+
+		<div class="text-center">
+			<div class="mx-auto" style="width: 600px;">
+				<h1>お知らせ詳細</h1>
+				<tr>
+					<div class="border">
+
+						<th>日付：</th>
+						<!--"${#temporals.format(～～～,'yyyy/MM/dd')}"日付を(2024/01/01)の形にする-->
+						<td th:text="${#temporals.format(notice.noticeDate,'yyyy/MM/dd')}"></td><br>
+						<th>タイトル：</th>
+						<td th:utext="${notice.title}"></td>
+				</tr>
 				<div class="border">
 					<p th:utext="${notice.content}"></p>
 				</div>
-    		</div>
-				<br><a href="/notice">戻る</a>
-   </div>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="/js/bootstrap.min.js"></script>
-	</body>
+			</div>
+			<br><a href="/notice">戻る</a>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="/js/bootstrap.min.js"></script>
+</body>
+
 </html>

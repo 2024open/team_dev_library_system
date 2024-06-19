@@ -1,6 +1,6 @@
 <div th:if="${@superUser.privilege} == 1">
-	<sidebar th:replace="librarianSidebar"></sidebar>		
+	<sidebar th:replace="librarianSidebar"></sidebar>
 </div>
 <div th:if="${@superUser.privilege} == 0">
-	<sidebar th:replace="AdminSidebar"></sidebar>		
+	<sidebar th:replace="AdminSidebar"></sidebar>
 </div>

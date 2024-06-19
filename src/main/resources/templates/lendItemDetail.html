@@ -9,63 +9,65 @@
 </head>
 
 <body>
-	
+
 	<header th:replace="header"></header>
-	
+
 	<div class="text-center">
-<div class="mx-auto" style="width: 600px;">
-	<p th:text="${msg}" style="color: red;"></p>
-	<table border="1" class="table" th:each="Detail:${lendItemDetail}" th:if="${Detail.categoryId != 5}">
-		<tr>
-			<th class="table-primary">タイトル</th>
-			<td th:text="${Detail.title}"></td>
-		</tr>
-		<tr>
-			<th class="table-primary">著者</th>
-			<td th:text="${Detail.author}"></td>
-		</tr>
-		<tr>
-			<th class="table-primary">出版社</th>
-			<td th:text="${Detail.publisher}"></td>
-		</tr>
-		<tr>
-			<th class="table-primary">カテゴリー</th>
-			<td th:text="${categoryMap[Detail.categoryId]}"></td>
-		</tr>
-		<tr>
-			<th class="table-primary">ジャンル</th>
-			<td th:text="${genreMap[Detail.genreId]}"></td>
-		</tr>
-		<tr>
-			<th class="table-primary">貸出可否</th>
-			<td th:text="${statusMap[Detail.statusId]}"></td>
-		</tr>
-			<form method="post" action="/reservation/add">
-				<button type="hidden" name="reservation" th:value="${Detail.lendItemId}" th:if="${userId!=0}">予約</button>
-			</form>
-	</table>
+		<div class="mx-auto" style="width: 600px;">
+			<p th:text="${msg}" style="color: red;"></p>
+			<table border="1" class="table" th:each="Detail:${lendItemDetail}" th:if="${Detail.categoryId != 5}">
+				<tr>
+					<th class="table-primary">タイトル</th>
+					<td th:text="${Detail.title}"></td>
+				</tr>
+				<tr>
+					<th class="table-primary">著者</th>
+					<td th:text="${Detail.author}"></td>
+				</tr>
+				<tr>
+					<th class="table-primary">出版社</th>
+					<td th:text="${Detail.publisher}"></td>
+				</tr>
+				<tr>
+					<th class="table-primary">カテゴリー</th>
+					<td th:text="${categoryMap[Detail.categoryId]}"></td>
+				</tr>
+				<tr>
+					<th class="table-primary">ジャンル</th>
+					<td th:text="${genreMap[Detail.genreId]}"></td>
+				</tr>
+				<tr>
+					<th class="table-primary">貸出可否</th>
+					<td th:text="${statusMap[Detail.statusId]}"></td>
+				</tr>
+				<form method="post" action="/reservation/add">
+					<button type="hidden" name="reservation" th:value="${Detail.lendItemId}"
+						th:if="${userId!=0}">予約</button>
+				</form>
+			</table>
 
 
-	<table border="1" class="table" th:each="Detail:${lendItemRoomDetail}" th:if="${Detail.categoryId == 5}">
-		<tr>
-			<th class="table-primary">名前</th>
-			<td th:text="${Detail.roomName}"></td>
-		</tr>
-		<tr>
-			<th class="table-primary">カテゴリー</th>
-			<td th:text="${categoryMap[Detail.categoryId]}"></td>
-		</tr>
-		<tr>
-			<th class="table-primary">貸出可否</th>
-			<td th:text="${statusMap[Detail.statusId]}"></td>
-		</tr>
-		<form method="post" action="/reservation/add" th:if="${userId!=0}">
-			<button class="btn btn-primary" type="hidden" name="reservation" th:value="${Detail.lendItemId}">予約</button>
-		</form>
-	</table>
-	</div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="/js/bootstrap.min.js"></script>
+			<table border="1" class="table" th:each="Detail:${lendItemRoomDetail}" th:if="${Detail.categoryId == 5}">
+				<tr>
+					<th class="table-primary">名前</th>
+					<td th:text="${Detail.roomName}"></td>
+				</tr>
+				<tr>
+					<th class="table-primary">カテゴリー</th>
+					<td th:text="${categoryMap[Detail.categoryId]}"></td>
+				</tr>
+				<tr>
+					<th class="table-primary">貸出可否</th>
+					<td th:text="${statusMap[Detail.statusId]}"></td>
+				</tr>
+				<form method="post" action="/reservation/add" th:if="${userId!=0}">
+					<button class="btn btn-primary" type="hidden" name="reservation"
+						th:value="${Detail.lendItemId}">予約</button>
+				</form>
+			</table>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="/js/bootstrap.min.js"></script>
 </body>
 
 </html>

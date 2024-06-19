@@ -5,14 +5,17 @@
 	<meta charset="UTF-8">
 	<title>名古屋図書館</title>
 	<link href="/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 
 <body>
 	<header th:replace="header"></header>
+	
 <div class="text-center">
 <div class="mx-auto" style="width: 600px;">
+	
 	<form action="/reservation" method="get">
-		<select class="form-select" name="category" onchange="submit(this.form)">
+		<select name="category" onchange="submit(this.form)">
 			<option value="">カテゴリ</option>
 			<option class="category" value="1">本</option>
 			<option class="category" value="2">CD</option>
@@ -37,14 +40,14 @@
 			<td>
 				<form th:action="@{/reservation/{Id}/delete(Id=${reserList.reservationId})}" method="post"
 					onsubmit="return confirm('本当に取り消しますか')">
-					<button>取り消し</button>
+					<button class="btn btn-primary">取り消し</button>
 				</form>
 			</td>
 		</tr>
 	</table>
 
 	<table border="1" class="table" th:if="${category == 5 AND reservation.size() !=0}">
-		<tr scope="col" class="table-primary">
+		<tr class="table-primary">
 			<th>カテゴリー</th>
 			<th>タイトル</th>
 			<th>予約日</th>
@@ -62,6 +65,10 @@
 			</td>
 		</tr>
 	</table>
+	</div>
+		</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
 </body>
 
 </html>

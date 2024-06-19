@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>アカウント管理画面だYo!!</title>
-<link rel="stylesheet" type="text/css" href="/css/Measures.css">
+	<meta charset="UTF-8">
+	<title>アカウント管理画面だYo!!</title>
+	<link rel="stylesheet" type="text/css" href="/css/Measures.css">
+		<link href="/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
+
 <body>
 	<sidebar th:replace="AdminSidebar"></sidebar>
 	<div class="accountCenter">
+		<div class="text-center">
+		<div class="mx-auto" style="width: 600px;">
 		<form action="/admin/accountManager" method="get">
 			<input type="text" name="userName" placeholder="利用者名" th:value="${userName}">
 			<button>検索</button><br>
 		</form>
 		<tr th:each="accountManager:${accountList}">
 			<p>
-				<form action="/admin/accountManager" method="post">
+			<form action="/admin/accountManager" method="post">
 				<div class="border">
 					<input type="hidden" name="userId" th:value="${accountManager.userId}">
 					<td>利用者ID：</td>
@@ -29,14 +35,20 @@
 					<div class="center">
 						<!--ボタン切り替え-->
 						<button class="Ban" th:if="${!accountManager.ban}">BAN</button>
-						<button class="NonBan"  th:if="${accountManager.ban}">BAN解除</button>
+						<button class="NonBan" th:if="${accountManager.ban}">BAN解除</button>
 					</div>
 				</div>
-				</form>
+			</form>
 			</p>
 		</tr>
 		<!--TODO 後で消すよ-->
 		<br><a href="/lendItems">戻る</a>
 	</div>
+		</div>
+	</div>
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+			<script src="/js/bootstrap.min.js"></script>
 </body>
+
 </html>

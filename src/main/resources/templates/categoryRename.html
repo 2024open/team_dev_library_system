@@ -1,48 +1,48 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>名前変更 / [[${category.categoryName}]]</title>
-<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<meta charset="UTF-8">
+	<title>名前変更 / [[${category.categoryName}]]</title>
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <!--libraryId削除-->
-<body>
-	
-	<header th:replace ="adminHeader"></header>
-	<div th:replace="suSideBar"></div>
-	
-	<div class="text-center">	
-<div class="mx-auto" style="width: 600px;">
-	
-<!--	追加0619-->
-	<a th:href="@{/librarian/categories/{categoryId}
-	(categoryId = ${categoryId}}">
-		<p>カテゴリー管理ホーム</p>
-	</a>
-<!--	ここまで-->
 
-	<th:block th:if="${category}">
-		<form 
-		th:action="@{/librarian/categories/{id}/rename(id = ${categoryId})}"
-		th:object="${category}"
-		name="renamedCategory"
-		method="post">
-			<table border="1" class="table">
-				<tr>
-					<th class="table-primary">カテゴリー名</th>
-					<td>
-						<input type="text" name="categoryName" th:value="*{categoryName}">
-					</td>
-				</tr>
-			</table>
-			
-			<input type="hidden" th:field="*{categoryId}">
-			<button class="btn btn-primary">変更</button>
-		</form>
-	</th:block>
-	</div>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="/js/bootstrap.min.js"></script>
+<body>
+
+	<header th:replace="adminHeader"></header>
+	<div th:replace="suSideBar"></div>
+
+	<div class="text-center">
+		<div class="mx-auto" style="width: 600px;">
+
+			<!--	追加0619-->
+			<a th:href="@{/librarian/categories/{categoryId}
+	(categoryId = ${categoryId}}">
+				<p>カテゴリー管理ホーム</p>
+			</a>
+			<!--	ここまで-->
+
+			<th:block th:if="${category}">
+				<form th:action="@{/librarian/categories/{id}/rename(id = ${categoryId})}" th:object="${category}"
+					name="renamedCategory" method="post">
+					<table border="1" class="table">
+						<tr>
+							<th class="table-primary">カテゴリー名</th>
+							<td>
+								<input type="text" name="categoryName" th:value="*{categoryName}">
+							</td>
+						</tr>
+					</table>
+
+					<input type="hidden" th:field="*{categoryId}">
+					<button class="btn btn-primary">変更</button>
+				</form>
+			</th:block>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="/js/bootstrap.min.js"></script>
 </body>
+
 </html>

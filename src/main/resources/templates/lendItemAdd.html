@@ -1,83 +1,81 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
 
 <!--libraryId消去-->
+
 <body>
-	
-	<header th:replace ="adminHeader"></header>
+
+	<header th:replace="adminHeader"></header>
 	<div th:replace="suSideBar"></div>
-	
+
 	<div class="text-center">
-<div class="mx-auto" style="width: 600px;">
-	
-	<form
-	th:action="@{/librarian/lenditems/add}"
-	th:object="${lendItemForm}"
-	method="post">
-		<table border="1" class="table"
-		th:if="${categoryId} == 1 or
+		<div class="mx-auto" style="width: 600px;">
+
+			<form th:action="@{/librarian/lenditems/add}" th:object="${lendItemForm}" method="post">
+				<table border="1" class="table" th:if="${categoryId} == 1 or
 			${categoryId} == 2 or
 			${categoryId} == 3 or
 			${categoryId} == 4">
-			<tr>
-				<th class="table-primary">種別</th>
-				<td>
-					<select th:field="*{anyId}">
-						<option th:each="lendAnyItem : ${lendAnyItemList}" th:value="${lendAnyItem.anyId}">
-							[[${lendAnyItem.title}]]
-						</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<th class="table-primary">状態</th>
-				<td>
-					<select th:field="*{statusId}">
-						<option th:each="status : ${statusList}" th:value="${status.statusId}">
-							[[${status.statusName}]]
-						</option>
-					</select>
-				</td>
-			</tr>
-		</table>
-		
-		<table border="1" class="table"
-		th:if="${categoryId} == 5">
-			<tr>
-				<th class="table-primary">種別</th>
-				<td>
-					<select th:field="*{anyId}">
-						<option th:each="lendAnyItem : ${lendAnyItemList}" th:value="${lendAnyItem.roomId}">
-							[[${lendAnyItem.roomName}]]
-						</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<th class="table-primary">状態</th>
-				<td>
-					<select th:field="*{statusId}">
-						<option th:each="status : ${statusList}" th:value="${status.statusId}">
-							[[${status.statusName}]]
-						</option>
-					</select>
-				</td>
-			</tr>
-		</table>
-		
-		<input type="hidden" th:value="${categoryId}" name="categoryId">	
-		<button class="btn btn-primary">新規登録</button>
-	</form>
-	
-	</div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="/js/bootstrap.min.js"></script>
+					<tr>
+						<th class="table-primary">種別</th>
+						<td>
+							<select th:field="*{anyId}">
+								<option th:each="lendAnyItem : ${lendAnyItemList}" th:value="${lendAnyItem.anyId}">
+									[[${lendAnyItem.title}]]
+								</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th class="table-primary">状態</th>
+						<td>
+							<select th:field="*{statusId}">
+								<option th:each="status : ${statusList}" th:value="${status.statusId}">
+									[[${status.statusName}]]
+								</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+
+				<table border="1" class="table" th:if="${categoryId} == 5">
+					<tr>
+						<th class="table-primary">種別</th>
+						<td>
+							<select th:field="*{anyId}">
+								<option th:each="lendAnyItem : ${lendAnyItemList}" th:value="${lendAnyItem.roomId}">
+									[[${lendAnyItem.roomName}]]
+								</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th class="table-primary">状態</th>
+						<td>
+							<select th:field="*{statusId}">
+								<option th:each="status : ${statusList}" th:value="${status.statusId}">
+									[[${status.statusName}]]
+								</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+
+				<input type="hidden" th:value="${categoryId}" name="categoryId">
+				<button class="btn btn-primary">新規登録</button>
+			</form>
+
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="/js/bootstrap.min.js"></script>
 
 </body>
+
 </html>
