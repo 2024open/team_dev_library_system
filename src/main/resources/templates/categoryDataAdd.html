@@ -11,6 +11,13 @@
 	<div class="text-center">
 		<header th:replace="adminHeader"></header>
 		<div th:replace="suSideBar"></div>
+		
+		<!--	追加0619-->
+			<a th:href="@{/librarian/categories/{categoryId}
+			(categoryId = ${categoryId}, libraryId = ${libraryId})}">
+				<p>カテゴリー管理ホーム</p>
+			</a>
+		<!--	ここまで-->
 
 		<th:block th:if="${categoryId} == 1">
 			<form th:action="@{/librarian/categories/{categoryId}/data(categoryId = ${categoryId})}"

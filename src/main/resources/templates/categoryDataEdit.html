@@ -10,6 +10,17 @@
 	<header th:replace ="adminHeader"></header>
 	<div th:replace="suSideBar"></div>
 	
+<!--	追加0619-->
+	<a th:href="@{/librarian/categories/{categoryId}
+	(categoryId = ${categoryId}, libraryId = ${libraryId})}">
+		<p>カテゴリー管理ホーム</p>
+	</a>
+	<a th:href="@{/librarian/categories/{categoryId}/datalist
+	(categoryId = ${categoryId}, libraryId = ${libraryId})}">
+		<p>カテゴリーデータ一覧</p>
+	</a>
+<!--	ここまで-->
+	
 	<th:block th:if="${categoryId} == 1">
 		<form 
 		th:action="@{/librarian/categories/{categoryId}/data/{id}
@@ -235,6 +246,7 @@
 			<button class="btn btn-primary">更新</button>
 		</form>
 	</th:block>
+	
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
