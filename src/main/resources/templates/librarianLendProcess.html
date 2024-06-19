@@ -13,16 +13,16 @@
 	<h1>貸出処理</h1>
 	
 	<p th:if="${errorMsg}">[[${errorMsg}]]</p>
-	
+
+<!--	input hiddenのlibraryIdを消去-->
 <!--	ID検索-->
 	
 	<form action="/librarian/lendProcess" method="get">
 		<div class="form-group">
-		<input type="number"　min="1" name="lendItemId" class="form-control" placeholder="ID検索">
+		<input type="number" min="1" name="lendItemId" class="form-control" placeholder="ID検索">
 		</div>
 		<br>
 		<div class="form-group">
-		<input type="hidden" name = "libraryId" th:value="${libraryId}" class="form-control">
 		<div class="form-group">
 		<button class="btn btn-primary">ID検索</button>
 	</form>
@@ -34,12 +34,10 @@
 			<option th:each="category : ${categoryList}" th:value="${category.categoryId}">[[${category.categoryName}]]</option>
 		</select>
 		
-				<div class="form-group">
+		<div class="form-group">
+			<input type="text" name="keyword" th:value="${keyword}" class="form-control" placeholder="キーワード検索">
+		</div>
 
-		<input type="text" name="keyword" th:value="${keyword}" class="form-control" placeholder="キーワード検索">
-				</div>
-				
-		<input type="hidden" name = "libraryId" th:value="${libraryId}">
 		<button class="btn btn-primary">キーワード検索</button>
 	</form>
 	
@@ -76,7 +74,6 @@
 			
 			<input type="hidden" th:field="*{lendItemId}">
 			<input type="hidden" th:field="*{title}">
-			<input type="hidden" name="libraryId" th:value="${library.libraryId}">
 			<button class="btn btn-primary">
 				<p th:if="*{statusId} == 1" style="display: inline;">貸出</p>
 				<p th:if="*{statusId} == 2" style="display: inline;">返却</p>
@@ -110,7 +107,6 @@
 			</table>
 			
 			<input type="hidden" name="lendItemId" th:value="${lendItem.lendItemId}">
-			<input type="hidden" name="libraryId" th:value="${library.libraryId}">
 			<input type="hidden" name="title" th:value="${lendItem.title}">
 
 			<button class="btn btn-primary" style="margin-bottom: 20px;">

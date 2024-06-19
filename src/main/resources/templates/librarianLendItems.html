@@ -12,12 +12,13 @@
 	
 	<div th:replace="lendItemAddBar"></div>
 	<div class="text-center">
+		
+<!--	formからhiddenのlibraryIdを消した-->
 	<form action="/librarian/lenditems" th:object="${category}" method="get">
 		<select th:field="*{categoryId}">
 			<option th:each="category : ${categoryList}" th:value="${category.categoryId}">[[${category.categoryName}]]</option>
 		</select>
-		
-		<input type="hidden" name = "libraryId" th:value="${libraryId}">
+
 		<button class="btn btn-primary">検索</button>
 	</form>
 	
@@ -37,7 +38,6 @@
 				<td>[[${LendItem.statusName}]]</td>
 				<td>
 					<form th:action="@{/librarian/lenditems/{id}/edit(id = ${LendItem.lendItemId})}" method="get">
-						<input type="hidden" name = "libraryId" th:value="${libraryId}">
 						<button class="btn btn-primary">編集</button>
 					</form>
 				</td>
@@ -59,7 +59,6 @@
 				<td>[[${LendRoom.statusName}]]</td>
 				<td>
 					<form th:action="@{/librarian/lenditems/{id}/edit(id = ${LendRoom.lendItemId})}" method="get">
-						<input type="hidden" name = "libraryId" th:value="${libraryId}">
 						<button class="btn btn-primary">編集</button>
 					</form>
 				</td>
@@ -67,6 +66,7 @@
 		</table>	
 	</th:block>
 	</div>
+	
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
 </body>

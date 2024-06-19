@@ -1,9 +1,10 @@
 <sidebar style="float: left;" id = "librarianSidebar">
 	<h3>メニュー</h3>
+<!--	libraryId消去-->
 	<a href="/su/logout"><p>ログアウト</p></a>
-	<a th:href="@{/librarian/home(libraryId = ${libraryId})}">ホーム</a>
-	<a th:href="@{/librarian/lenditems(libraryId = ${libraryId})}"><p>貸出物管理</p></a>
-	<a th:href="@{/librarian/lendProcess(libraryId = ${libraryId})}">貸出処理</a>
-	<a th:href="@{/librarian/categories(libraryId = ${libraryId})}"><p>カテゴリ管理</p></a>
-	<a th:href="@{/librarian/notice(libraryId = ${libraryId})}"><p>お知らせ管理</p></a>
+	<a th:href="@{/librarian/home}">ホーム</a>
+	<a th:href="@{/librarian/lenditems}"><p>貸出物管理</p></a>
+	<a th:href="@{/librarian/lendProcess}">貸出処理</a>
+	<a th:href="@{/librarian/categories}"><p>カテゴリ管理</p></a>
+	<a th:href="@{/librarian/notice}"><p>お知らせ管理</p></a>
 </sidebar>
