@@ -19,25 +19,25 @@
 	th:object="${lendAnyItem}"
 	>
 		<th:block th:if="${lendItem.categoryId} == 1">
-			<table border="1">
+			<table border="1" class="table">
 				<tr>
-					<th>タイトル</th>
+					<th class="table-primary">タイトル</th>
 					<td>[[*{title}]]</td>
 				</tr>
 				<tr>
-					<th>著者</th>
+					<th class="table-primary">著者</th>
 					<td>[[*{author}]]</td>
 				</tr>
 				<tr>
-					<th>出版社</th>
+					<th class="table-primary">出版社</th>
 					<td>[[*{publisher}]]</td>
 				</tr>
 				<tr>
-					<th>ジャンル</th>
+					<th class="table-primary">ジャンル</th>
 					<td>[[*{genreName}]]</td>
 				</tr>
 				<tr>
-					<th>状態</th>
+					<th class="table-primary">状態</th>
 					<td>
 						<select name="statusId">
 							<option 
@@ -50,7 +50,7 @@
 					</td>
 				</tr>
 				
-				<th>種類</th>
+				<th class="table-primary">種類</th>
 					<td>
 						<select name="anyId">
 							<option 
@@ -66,25 +66,25 @@
 
 <!--	CDの編集-->
 		<th:block th:if="${lendItem.categoryId} == 2">
-			<table border="1">
+			<table border="1" class="table">
 				<tr>
-					<th>タイトル</th>
+					<th class="table-primary">タイトル</th>
 					<td>[[*{title}]]</td>
 				</tr>
 				<tr>
-					<th>アーティスト</th>
+					<th class="table-primary">アーティスト</th>
 					<td>[[*{author}]]</td>
 				</tr>
 				<tr>
-					<th>レーベル</th>
+					<th class="table-primary">レーベル</th>
 					<td>[[*{publisher}]]</td>
 				</tr>
 				<tr>
-					<th>ジャンル</th>
+					<th class="table-primary">ジャンル</th>
 					<td>[[*{genreName}]]</td>
 				</tr>
 				<tr>
-					<th>状態</th>
+					<th class="table-primary">状態</th>
 					<td>
 						<select name="statusId">
 							<option 
@@ -97,7 +97,7 @@
 					</td>
 				</tr>
 				
-				<th>種類</th>
+				<th class="table-primary">種類</th>
 					<td>
 						<select name="anyId">
 							<option 
@@ -115,23 +115,23 @@
 		<th:block th:if="${lendItem.categoryId} == 3">
 			<table border="1">
 				<tr>
-					<th>タイトル</th>
+					<th class="table-primary">タイトル</th>
 					<td>[[*{title}]]</td>
 				</tr>
 				<tr>
-					<th>監督</th>
+					<th class="table-primary">監督</th>
 					<td>[[*{author}]]</td>
 				</tr>
 				<tr>
-					<th>販売元</th>
+					<th class="table-primary">販売元</th>
 					<td>[[*{publisher}]]</td>
 				</tr>
 				<tr>
-					<th>ジャンル</th>
+					<th class="table-primary">ジャンル</th>
 					<td>[[*{genreName}]]</td>
 				</tr>
 				<tr>
-					<th>状態</th>
+					<th class="table-primary">状態</th>
 					<td>
 						<select name="statusId">
 							<option 
@@ -144,7 +144,7 @@
 					</td>
 				</tr>
 				
-				<th>種類</th>
+				<th class="table-primary">種類</th>
 					<td>
 						<select name="anyId">
 							<option 
@@ -160,25 +160,25 @@
 
 <!--	紙芝居の編集-->
 		<th:block th:if="${lendItem.categoryId} == 4">
-			<table border="1">
+			<table border="1" class="table">
 				<tr>
-					<th>タイトル</th>
+					<th class="table-primary">タイトル</th>
 					<td>[[*{title}]]</td>
 				</tr>
 				<tr>
-					<th>作者</th>
+					<th class="table-primary">作者</th>
 					<td>[[*{author}]]</td>
 				</tr>
 				<tr>
-					<th>販売元</th>
+					<th class="table-primary">販売元</th>
 					<td>[[*{publisher}]]</td>
 				</tr>
 				<tr>
-					<th>ジャンル</th>
+					<th class="table-primary">ジャンル</th>
 					<td>[[*{genreName}]]</td>
 				</tr>
 				<tr>
-					<th>状態</th>
+					<th class="table-primary">状態</th>
 					<td>
 						<select name="statusId">
 							<option 
@@ -191,7 +191,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th>種類</th>
+					<th class="table-primary">種類</th>
 					<td>
 						<select name="anyId">
 							<option 
@@ -208,13 +208,13 @@
 	
 	<!--	会議室の編集-->
 		<th:block th:if="${lendItem.categoryId} == 5">
-			<table border="1">
+			<table border="1" class="table">
 				<tr>
-					<th>部屋名</th>
+					<th class="table-primary">部屋名</th>
 					<td>[[*{roomName}]]</td>
 				</tr>
 				<tr>
-					<th>状態</th>
+					<th class="table-primary">状態</th>
 					<td>
 						<select name="statusId">
 							<option 
@@ -227,7 +227,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th>種類</th>
+					<th class="table-primary">種類</th>
 					<td>
 						<select name="anyId">
 							<option 
@@ -243,7 +243,7 @@
 		</th:block>
 		
 		<input type="hidden" name="libraryId" th:value="${libraryId}">
-		<button>更新</button>
+		<button class="btn btn-primary">更新</button>
 	</form>
 	</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

@@ -15,13 +15,13 @@
 	th:action="@{/librarian/lenditems/add}"
 	th:object="${lendItemForm}"
 	method="post">
-		<table border="1"
+		<table border="1" class="table"
 		th:if="${categoryId} == 1 or
 			${categoryId} == 2 or
 			${categoryId} == 3 or
 			${categoryId} == 4">
 			<tr>
-				<th>種別</th>
+				<th class="table-primary">種別</th>
 				<td>
 					<select th:field="*{anyId}">
 						<option th:each="lendAnyItem : ${lendAnyItemList}" th:value="${lendAnyItem.anyId}">
@@ -31,7 +31,7 @@
 				</td>
 			</tr>
 			<tr>
-				<th>状態</th>
+				<th class="table-primary">状態</th>
 				<td>
 					<select th:field="*{statusId}">
 						<option th:each="status : ${statusList}" th:value="${status.statusId}">
@@ -42,10 +42,10 @@
 			</tr>
 		</table>
 		
-		<table border="1"
+		<table border="1" class="table"
 		th:if="${categoryId} == 5">
 			<tr>
-				<th>種別</th>
+				<th class="table-primary">種別</th>
 				<td>
 					<select th:field="*{anyId}">
 						<option th:each="lendAnyItem : ${lendAnyItemList}" th:value="${lendAnyItem.roomId}">
@@ -55,7 +55,7 @@
 				</td>
 			</tr>
 			<tr>
-				<th>状態</th>
+				<th class="table-primary">状態</th>
 				<td>
 					<select th:field="*{statusId}">
 						<option th:each="status : ${statusList}" th:value="${status.statusId}">
@@ -68,7 +68,7 @@
 		
 		<input type="hidden" th:value="${categoryId}" name="categoryId">
 		<input type="hidden" th:value="${libraryId}" name = "libraryId">		
-		<button>新規登録</button>
+		<button class="btn btn-primary">新規登録</button>
 	</form>
 	
 	</div>
