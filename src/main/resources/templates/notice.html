@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>お知らせ画面だYo!!</title>
-<link rel="stylesheet" type="text/css" href="/css/Measures.css">
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 <body>
 <!--	TODO選択できるだけ-->
@@ -14,11 +15,11 @@
 <!--    </select>-->
 		<header th:replace="header"></header>
 	<!--中央ぞろえのcss-->
-    <div class="noticeCenter">
+    <div class="text-center">
     	<h1>お知らせ</h1>
     	<!--ボーダー君囲んでるよ-->
        	<div class="border">
-			<tr th:each="notice:${noticeList}">
+			<tr th:each="notice:${notices}">
 			<!--"${#temporals.format(～～～,'yyyy/MM/dd')}"　日付を(2024/01/01)の形にする-->
 			<td th:text="${#temporals.format(notice.noticeDate,'yyyy/MM/dd')}"></td>
 			<a th:href="@{/notice/{id}(id=${notice.noticeId})}">
@@ -26,5 +27,8 @@
 			</a>
 		</div>
 	</div>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
 </body>
 </html>
