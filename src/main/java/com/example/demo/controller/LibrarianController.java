@@ -24,6 +24,7 @@ import com.example.demo.service.LendItemEditService;
 import com.example.demo.service.LendProcessService;
 import com.example.demo.service.LibrarianLendItemService;
 import com.example.demo.service.LibrarianService;
+import com.example.demo.service.SuperUserService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -48,6 +49,9 @@ public class LibrarianController {
 	@Autowired
 	LendItemAddService lendItemAddService;
 
+	@Autowired
+	SuperUserService superUserService;
+
 	//セッション刑
 	@Autowired
 	HttpSession session;
@@ -69,11 +73,14 @@ public class LibrarianController {
 			Model model) {
 		if (!Common.isParceInt(libraryIdStr)) {
 			Integer libraryId = 1;
+			superUserService.setSuLibraryInfo(libraryId);
+
 			librarianService.forLibraryList(model);
 			librarianService.forLibraryId(model, libraryId);
 			return "librarianHome";
 		}
 		Integer libraryId = Integer.parseInt(libraryIdStr);
+		superUserService.setSuLibraryInfo(libraryId);
 
 		librarianService.forLibraryList(model);
 		librarianService.forLibraryId(model, libraryId);
