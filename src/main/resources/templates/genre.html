@@ -4,12 +4,13 @@
 <head>
 	<meta charset="UTF-8">
 	<title>ジャンル管理</title>
-	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
 	<header th:replace="suHeader"></header>
 	<sidebar th:replace="adminSidebar"></sidebar>
+	<div class="text-center">
 	<h1>ジャンル管理</h1>
 
 	<br>
@@ -22,7 +23,7 @@
 	
 		</select>
 		ジャンル：<input type="text" name="genreName">
-		<button>追加</button>
+		<button class="btn btn-primary">追加</button>
 	</form>
 
 	
@@ -42,8 +43,9 @@
 	<!--削除一覧の表示-->
 	<a href="/admin/genre?deleted=true">削除したジャンル</a>
 	
-	<table style="margin-left: auto; margin-right: auto;">
-		<tr>
+	<table class="table" style="margin-left: auto; margin-right: auto;">
+		
+		<tr class="table-primary">
 			<th>カテゴリー名</th>
 			<th>ジャンル</th>
 			<th></th>
@@ -54,12 +56,14 @@
 			
 			<td>
 				<form th:action="@{/admin/genre/{genreId}/delete(genreId=${genre.genreId})}" method="post">
-					<button th:text="${btnView}"></button>
+					<button class="btn btn-primary" th:text="${btnView}"></button>
 				</form>
 			</td>
 		</tr>
 	</table>
-
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
 </body>
 
 </html>

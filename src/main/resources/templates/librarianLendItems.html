@@ -3,25 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <title>貸出物一覧 / 司書</title>
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 <body>
 	<header th:replace ="adminHeader"></header>
 	<div th:replace="suSideBar"></div>
 	
 	<div th:replace="lendItemAddBar"></div>
-	
+	<div class="text-center">
 	<form action="/librarian/lenditems" th:object="${category}" method="get">
 		<select th:field="*{categoryId}">
 			<option th:each="category : ${categoryList}" th:value="${category.categoryId}">[[${category.categoryName}]]</option>
 		</select>
 		
 		<input type="hidden" name = "libraryId" th:value="${libraryId}">
-		<button>検索</button>
+		<button class="btn btn-primary">検索</button>
 	</form>
 	
 	<th:block th:if="${LendJoinAny}">
-		<table border="1">
-			<tr>
+		<table border="1" class="table">
+			<tr class="table-primary">
 				<th>ID</th>
 				<th>カテゴリ</th>
 				<th>タイトル</th>
@@ -36,7 +38,7 @@
 				<td>
 					<form th:action="@{/librarian/lenditems/{id}/edit(id = ${LendItem.lendItemId})}" method="get">
 						<input type="hidden" name = "libraryId" th:value="${libraryId}">
-						<button>編集</button>
+						<button class="btn btn-primary">編集</button>
 					</form>
 				</td>
 			</tr>
@@ -45,12 +47,12 @@
 	
 	<th:block th:if="${LendJoinRoom}">
 		<table border="1">
-			<tr>
+			<tr class="table-primary">
 				<th>ID</th>
 				<th>会議室名</th>
 				<th>状態</th>
 				<th>編集</th>
-			</tr>
+			</trclass="table-primary">
 			<tr th:each="LendRoom : ${LendJoinRoom}">
 				<td>[[${LendRoom.lendItemId}]]</td>
 				<td>[[${LendRoom.roomName}]]</td>
@@ -58,11 +60,14 @@
 				<td>
 					<form th:action="@{/librarian/lenditems/{id}/edit(id = ${LendRoom.lendItemId})}" method="get">
 						<input type="hidden" name = "libraryId" th:value="${libraryId}">
-						<button>編集</button>
+						<button class="btn btn-primary">編集</button>
 					</form>
 				</td>
 			</tr>
 		</table>	
 	</th:block>
+	</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
 </body>
 </html>

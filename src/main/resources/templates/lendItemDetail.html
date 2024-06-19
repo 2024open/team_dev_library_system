@@ -12,29 +12,29 @@
 	<div class="text-center">
 	<header th:replace="header"></header>
 	<p th:text="${msg}" style="color: red;"></p>
-	<table border="1" th:each="Detail:${lendItemDetail}" th:if="${Detail.categoryId != 5}">
+	<table border="1" class="table" th:each="Detail:${lendItemDetail}" th:if="${Detail.categoryId != 5}">
 		<tr>
-			<th>タイトル</th>
+			<th class="table-primary">タイトル</th>
 			<td th:text="${Detail.title}"></td>
 		</tr>
 		<tr>
-			<th>著者</th>
+			<th class="table-primary">著者</th>
 			<td th:text="${Detail.author}"></td>
 		</tr>
 		<tr>
-			<th>出版社</th>
+			<th class="table-primary">出版社</th>
 			<td th:text="${Detail.publisher}"></td>
 		</tr>
 		<tr>
-			<th>カテゴリー</th>
+			<th class="table-primary">カテゴリー</th>
 			<td th:text="${categoryMap[Detail.categoryId]}"></td>
 		</tr>
 		<tr>
-			<th>ジャンル</th>
+			<th class="table-primary">ジャンル</th>
 			<td th:text="${genreMap[Detail.genreId]}"></td>
 		</tr>
 		<tr>
-			<th>貸出可否</th>
+			<th class="table-primary">貸出可否</th>
 			<td th:text="${statusMap[Detail.statusId]}"></td>
 		</tr>
 			<form method="post" action="/reservation/add">
@@ -43,21 +43,21 @@
 	</table>
 
 
-	<table border="1" th:each="Detail:${lendItemRoomDetail}" th:if="${Detail.categoryId == 5}">
+	<table border="1" class="table" th:each="Detail:${lendItemRoomDetail}" th:if="${Detail.categoryId == 5}">
 		<tr>
-			<th>名前</th>
+			<th class="table-primary">名前</th>
 			<td th:text="${Detail.roomName}"></td>
 		</tr>
 		<tr>
-			<th>カテゴリー</th>
+			<th class="table-primary">カテゴリー</th>
 			<td th:text="${categoryMap[Detail.categoryId]}"></td>
 		</tr>
 		<tr>
-			<th>貸出可否</th>
+			<th class="table-primary">貸出可否</th>
 			<td th:text="${statusMap[Detail.statusId]}"></td>
 		</tr>
 		<form method="post" action="/reservation/add" th:if="${userId!=0}">
-			<button type="hidden" name="reservation" th:value="${Detail.lendItemId}">予約</button>
+			<button class="btn btn-primary" type="hidden" name="reservation" th:value="${Detail.lendItemId}">予約</button>
 		</form>
 	</table>
 	</div>

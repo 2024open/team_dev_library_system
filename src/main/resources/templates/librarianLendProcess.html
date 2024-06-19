@@ -3,33 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <title>貸出処理 返却処理</title>
-<link rel="stylesheet" type="text/css" href="/css/style.css">
+<link href="/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 	<header th:replace ="adminHeader"></header>
 	<div th:replace="suSideBar"></div>
-	
+		<div class="text-center">
+
 	<h1>貸出処理</h1>
 	
 	<p th:if="${errorMsg}">[[${errorMsg}]]</p>
 	
 <!--	ID検索-->
+	
 	<form action="/librarian/lendProcess" method="get">
-		<input type="number" name="lendItemId">
-		
-		<input type="hidden" name = "libraryId" th:value="${libraryId}">
-		<button>ID検索</button>
+		<div class="form-group">
+		<input type="number"　min="1" name="lendItemId" class="form-control" placeholder="ID検索">
+		</div>
+		<br>
+		<div class="form-group">
+		<input type="hidden" name = "libraryId" th:value="${libraryId}" class="form-control">
+		<div class="form-group">
+		<button class="btn btn-primary">ID検索</button>
 	</form>
 	
 <!--	キーワード検索-->
 	<form action="/librarian/lendProcess" th:object="${category}" method="get">
-		<select th:field="*{categoryId}">
+		
+		<select class="form-select" th:field="*{categoryId}">
 			<option th:each="category : ${categoryList}" th:value="${category.categoryId}">[[${category.categoryName}]]</option>
 		</select>
-		<input type="text" name="keyword" th:value="${keyword}">
 		
+				<div class="form-group">
+
+		<input type="text" name="keyword" th:value="${keyword}" class="form-control" placeholder="キーワード検索">
+				</div>
+				
 		<input type="hidden" name = "libraryId" th:value="${libraryId}">
-		<button>キーワード検索</button>
+		<button class="btn btn-primary">キーワード検索</button>
 	</form>
 	
 	<th:block th:if="${lendItem}">
@@ -38,21 +49,21 @@
 		action="/librarian/lendProcess" 
 		method="post"
 		th:object="${lendItem}">
-			<table border="1">
+			<table border="1" class="table">
 				<tr>
-					<th>貸出物ID</th>
+					<th class="table-primary">貸出物ID</th>
 					<td>[[*{lendItemId}]]</td>
 				</tr>
 				<tr>
-					<th>図書館ID</th>
+					<th class="table-primary">図書館ID</th>
 					<td>[[*{libraryId}]]</td>
 				</tr>
 				<tr>
-					<th>貸出物名</th>
+					<th class="table-primary">貸出物名</th>
 					<td>[[*{title}]]</td>
 				</tr>
 				<tr>
-					<th>状態</th>
+					<th class="table-primary">状態</th>
 					<td>[[*{statusName}]]</td>
 				</tr>
 				<tr th:if="*{statusId} == 1">
@@ -66,7 +77,7 @@
 			<input type="hidden" th:field="*{lendItemId}">
 			<input type="hidden" th:field="*{title}">
 			<input type="hidden" name="libraryId" th:value="${library.libraryId}">
-			<button>
+			<button class="btn btn-primary">
 				<p th:if="*{statusId} == 1" style="display: inline;">貸出</p>
 				<p th:if="*{statusId} == 2" style="display: inline;">返却</p>
 			</button>
@@ -78,21 +89,21 @@
 		action="/librarian/lendProcess" 
 		method="get" 
 		th:each="lendItem : ${lendItemList}">
-			<table border="1" >
+			<table border="1" class="table">
 				<tr>
-					<th>貸出物ID</th>
+					<th class="table-primary">貸出物ID</th>
 					<td>[[${lendItem.lendItemId}]]</td>
 				</tr>
 				<tr>
-					<th>図書館ID</th>
+					<th class="table-primary">図書館ID</th>
 					<td>[[${lendItem.libraryId}]]</td>
 				</tr>
 				<tr>
-					<th>貸出物名</th>
+					<th class="table-primary">貸出物名</th>
 					<td>[[${lendItem.title}]]</td>
 				</tr>
 				<tr>
-					<th>状態</th>
+					<th class="table-primary">状態</th>
 					<td>[[${lendItem.statusName}]]</td>
 				</tr>
 				
@@ -102,7 +113,7 @@
 			<input type="hidden" name="libraryId" th:value="${library.libraryId}">
 			<input type="hidden" name="title" th:value="${lendItem.title}">
 
-			<button style="margin-bottom: 20px;">
+			<button class="btn btn-primary" style="margin-bottom: 20px;">
 				<p th:if="${lendItem.statusId} == 1" style="display: inline;">貸出処理へ</p>
 				<p th:if="${lendItem.statusId} == 2" style="display: inline;">返却処理へ</p>
 			</button>
@@ -110,5 +121,8 @@
 		</form>
 		
 	</th:block>
+	</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
 </body>
 </html>
