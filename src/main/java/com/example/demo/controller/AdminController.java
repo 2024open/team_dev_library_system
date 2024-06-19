@@ -20,9 +20,34 @@ import com.example.demo.entity.Genre;
 import com.example.demo.repository.AccountRepository;
 import com.example.demo.repository.CategoryRepository;
 import com.example.demo.repository.GenreRepository;
+import com.example.demo.service.CategoryService;
+import com.example.demo.service.Common;
+import com.example.demo.service.LendItemAddService;
+import com.example.demo.service.LendItemEditService;
+import com.example.demo.service.LendProcessService;
+import com.example.demo.service.LibrarianLendItemService;
+import com.example.demo.service.LibrarianService;
 
 @Controller
 public class AdminController {
+	//サービス
+	@Autowired
+	LibrarianService librarianService;
+
+	@Autowired
+	LibrarianLendItemService librarianLendItemService;
+
+	@Autowired
+	CategoryService categoryService;
+
+	@Autowired
+	LendProcessService lendProcessService;
+
+	@Autowired
+	LendItemEditService lendItemEditService;
+
+	@Autowired
+	LendItemAddService lendItemAddService;
 
 	@Autowired
 	AccountRepository accountRepository;
@@ -34,9 +59,26 @@ public class AdminController {
 	CategoryRepository categoryRepository;
 
 	@GetMapping("/admin/lenditems")
-	public String lendItem() {
-		// 処理は後で書く
-		return "";
+	public String lendItem(
+			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
+			@RequestParam(name = "categoryId", defaultValue = "1") String categoryIdStr,
+			Model model) {
+		if (!Common.isParceInt(libraryIdStr)) {
+			return "redirect:/librarian/home";
+		}
+		if (!Common.isParceInt(categoryIdStr)) {
+			return "redirect:/librarian/home";
+		}
+		Integer libraryId = Integer.parseInt(libraryIdStr);
+		Integer categoryId = Integer.parseInt(categoryIdStr);
+
+		librarianLendItemService.forLendItemList(model, categoryId, libraryId);
+
+		librarianService.forLibraryList(model);
+		librarianService.forCategoryList(model);
+		librarianService.forLibraryId(model, libraryId);
+		librarianService.forCategoryId(model, categoryId);
+		return "librarianLendItems";
 	}
 
 	@GetMapping("/admin/home")
@@ -165,26 +207,25 @@ public class AdminController {
 		return "redirect:/admin/genre?messageId=3";
 	}
 
-//	  ジャンル削除処理
- 	@PostMapping("/admin/genre/{genreId}/delete")
- 	public String noticeDelete(@PathVariable("genreId") Integer genreId,
- 			Model model) {
- 		
- 		Genre updateGenre = genreRepository.findById(genreId).get();
+	//	  ジャンル削除処理
+	@PostMapping("/admin/genre/{genreId}/delete")
+	public String noticeDelete(@PathVariable("genreId") Integer genreId,
+			Model model) {
 
+		Genre updateGenre = genreRepository.findById(genreId).get();
 
 		if (updateGenre.getDeleted() == false) {
-			
-//			//削除フラグ管理
+
+			//			//削除フラグ管理
 			updateGenre.setDeleted(true);
 
-		updateGenre = genreRepository.save(updateGenre);
+			updateGenre = genreRepository.save(updateGenre);
 		} else {
 			updateGenre.setDeleted(false);
 			updateGenre = genreRepository.save(updateGenre);
 		}
- 
+
 		return "redirect:/admin/genre";
 
-		}	
+	}
 }
