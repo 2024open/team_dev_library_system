@@ -5,6 +5,8 @@
 <title> データ / [[${category.categoryName}]]</title>
 <link href="/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
+<!--libraryId削除-->
 <body>
 	<div class="text-center">
 	<header th:replace ="adminHeader"></header>
@@ -12,11 +14,11 @@
 	
 <!--	追加0619-->
 	<a th:href="@{/librarian/categories/{categoryId}
-	(categoryId = ${categoryId}, libraryId = ${libraryId})}">
+	(categoryId = ${categoryId})}">
 		<p>カテゴリー管理ホーム</p>
 	</a>
 	<a th:href="@{/librarian/categories/{categoryId}/datalist
-	(categoryId = ${categoryId}, libraryId = ${libraryId})}">
+	(categoryId = ${categoryId})}">
 		<p>カテゴリーデータ一覧</p>
 	</a>
 <!--	ここまで-->
@@ -64,8 +66,7 @@
 					</td>
 				</tr>
 			</table>
-			
-			<input type="hidden" th:value="${libraryId}">
+
 			<button class="btn btn-primary">更新</button>
 		</form>
 	</th:block>
@@ -113,8 +114,7 @@
 					</td>
 				</tr>
 			</table>
-			
-			<input type="hidden" th:value="${libraryId}">
+
 			<button class="btn btn-primary">更新</button>
 		</form>
 			
@@ -163,8 +163,7 @@
 					</td>
 				</tr>
 			</table>
-			
-			<input type="hidden" th:value="${libraryId}">
+
 			<button class="btn btn-primary">更新</button>
 		</form>
 	</th:block>
@@ -212,8 +211,7 @@
 					</td>
 				</tr>
 			</table>
-			
-			<input type="hidden" th:value="${libraryId}">
+
 			<button class="btn btn-primary">更新</button>
 		</form>
 	</th:block>
@@ -241,8 +239,7 @@
 					</td>
 				</tr>
 			</table>
-			
-			<input type="hidden" th:value="${libraryId}">
+
 			<button class="btn btn-primary">更新</button>
 		</form>
 	</th:block>

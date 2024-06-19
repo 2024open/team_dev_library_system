@@ -5,6 +5,8 @@
 <title>データ一覧 / [[${category.categoryName}]]</title>
 <link href="/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
+<!--libraryId削除-->
 <body>
 	<div class="text-center">
 	<header th:replace ="adminHeader"></header>
@@ -12,7 +14,7 @@
 	
 	<!--	追加0619-->
 		<a th:href="@{/librarian/categories/{categoryId}
-		(categoryId = ${categoryId}, libraryId = ${libraryId})}">
+		(categoryId = ${categoryId})}">
 			<p>カテゴリー管理ホーム</p>
 		</a>
 	<!--	ここまで-->
@@ -38,7 +40,6 @@
 						<form 
 						th:action="@{/librarian/categories/{categoryId}/data/{id}(categoryId = *{categoryId}, id = ${lendAnyItem.anyId})}"
 						method="get">
-							<input type="hidden" name="libraryId" th:value="${libraryId}">
 							<button class="btn btn-primary">編集</button>
 						</form>
 					</td>
@@ -64,7 +65,6 @@
 						<form 
 						th:action="@{/librarian/categories/{categoryId}/data/{id}(categoryId = *{categoryId}, id = ${lendAnyItem.anyId})}"
 						method="get">
-							<input type="hidden" name="libraryId" th:value="${libraryId}">
 							<button class="btn btn-primary">編集</button>
 						</form>
 					</td>
@@ -90,7 +90,6 @@
 						<form 
 						th:action="@{/librarian/categories/{categoryId}/data/{id}(categoryId = *{categoryId}, id = ${lendAnyItem.anyId})}"
 						method="get">
-							<input type="hidden" name="libraryId" th:value="${libraryId}">
 							<button class="btn btn-primary">編集</button>
 						</form>
 					</td>
@@ -116,7 +115,6 @@
 						<form 
 						th:action="@{/librarian/categories/{categoryId}/data/{id}(categoryId = *{categoryId}, id = ${lendAnyItem.anyId})}"
 						method="get">
-							<input type="hidden" name="libraryId" th:value="${libraryId}">
 							<button class="btn btn-primary">編集</button>
 						</form>
 					</td>
@@ -136,7 +134,6 @@
 						<form 
 						th:action="@{/librarian/categories/{categoryId}/data/{id}(categoryId = *{categoryId}, id = ${lendAnyItem.roomId})}"
 						method="get">
-							<input type="hidden" name="libraryId" th:value="${libraryId}">
 							<button class="btn btn-primary">編集</button>
 						</form>
 					</td>

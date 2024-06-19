@@ -5,6 +5,8 @@
 <title>カテゴリ / 管理者</title>
 <link href="/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
+<!--libraryId削除-->
 <body>
 	<div class="text-center">
 	<header th:replace ="adminHeader"></header>
@@ -13,7 +15,7 @@
 	<h1>カテゴリー一覧</h1>
 	<th:block th:if="${categoryList}">
 		<div th:each="category : ${categoryList}">
-			<a th:href="@{/librarian/categories/{id}(id = ${category.categoryId}, libraryId = ${libraryId})}" >
+			<a th:href="@{/librarian/categories/{id}(id = ${category.categoryId})}" >
 				[[${category.categoryId}]].[[${category.categoryName}]]
 			</a>
 		</div>

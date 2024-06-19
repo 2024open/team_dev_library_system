@@ -5,6 +5,8 @@
 <title>名前変更 / [[${category.categoryName}]]</title>
 <link href="/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
+<!--libraryId削除-->
 <body>
 	<div class="text-center">
 	<header th:replace ="adminHeader"></header>
@@ -12,7 +14,7 @@
 	
 <!--	追加0619-->
 	<a th:href="@{/librarian/categories/{categoryId}
-	(categoryId = ${categoryId}, libraryId = ${libraryId})}">
+	(categoryId = ${categoryId}}">
 		<p>カテゴリー管理ホーム</p>
 	</a>
 <!--	ここまで-->
@@ -33,7 +35,6 @@
 			</table>
 			
 			<input type="hidden" th:field="*{categoryId}">
-			<input type="hidden" name="libraryId" th:value="${libraryId}">
 			<button class="btn btn-primary">変更</button>
 		</form>
 	</th:block>
