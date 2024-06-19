@@ -57,7 +57,7 @@
 			<td>
 				<form th:action="@{/reservation/{Id}/delete(Id=${reserList.reservationId})}" method="post"
 					onsubmit="return confirm('本当に取り消しますか')">
-					<button>取り消し</button>
+					<button class="btn btn-primary">取り消し</button>
 				</form>
 			</td>
 		</tr>
