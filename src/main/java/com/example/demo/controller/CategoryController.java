@@ -37,16 +37,10 @@ public class CategoryController {
 	//Book, CD, DVD, 紙芝居, 会議室
 	@GetMapping("/librarian/categories")
 	public String categoryEditHome(
-			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
 			Model model) {
-		if (!Common.isParceInt(libraryIdStr)) {
-			return "redirects/librarian/home";
-		}
-		Integer libraryId = Integer.parseInt(libraryIdStr);
 
 		librarianService.forCategoryList(model);
 		librarianService.forLibraryList(model);
-		librarianService.forLibraryId(model, libraryId);
 		return "categoryEditHome";
 	}
 
@@ -54,21 +48,15 @@ public class CategoryController {
 	@GetMapping("/librarian/categories/{id}")
 	public String categoryEdit(
 			@PathVariable("id") String categoryIdStr,
-			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
 			Model model) {
-		if (!Common.isParceInt(libraryIdStr)) {
-			return "redirects/librarian/home";
-		}
 		if (!Common.isParceInt(categoryIdStr)) {
 			return "redirects/librarian/home";
 		}
-		Integer libraryId = Integer.parseInt(libraryIdStr);
 		Integer categoryId = Integer.parseInt(categoryIdStr);
 
 		librarianService.forCategoryList(model);
 		librarianService.forCategoryId(model, categoryId);
 		librarianService.forLibraryList(model);
-		librarianService.forLibraryId(model, libraryId);
 		return "categoryEdit";
 	}
 
@@ -76,21 +64,15 @@ public class CategoryController {
 	@GetMapping("/librarian/categories/{id}/rename")
 	public String categoryRename(
 			@PathVariable("id") String categoryIdStr,
-			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
 			Model model) {
-		if (!Common.isParceInt(libraryIdStr)) {
-			return "redirects/librarian/home";
-		}
 		if (!Common.isParceInt(categoryIdStr)) {
 			return "redirects/librarian/home";
 		}
-		Integer libraryId = Integer.parseInt(libraryIdStr);
 		Integer categoryId = Integer.parseInt(categoryIdStr);
 
 		librarianService.forCategoryList(model);
 		librarianService.forCategoryId(model, categoryId);
 		librarianService.forLibraryList(model);
-		librarianService.forLibraryId(model, libraryId);
 		return "categoryRename";
 	}
 
@@ -98,16 +80,11 @@ public class CategoryController {
 	@PostMapping("/librarian/categories/{id}/rename")
 	public String categoryRenameExecute(
 			@PathVariable("id") String categoryIdStr,
-			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
 			@ModelAttribute("renamedCategory") Category category,
 			Model model) {
-		if (!Common.isParceInt(libraryIdStr)) {
-			return "redirects/librarian/home";
-		}
 		if (!Common.isParceInt(categoryIdStr)) {
 			return "redirects/librarian/home";
 		}
-		Integer libraryId = Integer.parseInt(libraryIdStr);
 		Integer categoryId = Integer.parseInt(categoryIdStr);
 
 		categoryRepository.save(category);
@@ -115,7 +92,6 @@ public class CategoryController {
 		librarianService.forCategoryList(model);
 		librarianService.forCategoryId(model, categoryId);
 		librarianService.forLibraryList(model);
-		librarianService.forLibraryId(model, libraryId);
 		return "categoryRename";
 	}
 
@@ -123,15 +99,10 @@ public class CategoryController {
 	@GetMapping("/librarian/categories/{id}/data")
 	public String categoryData(
 			@PathVariable("id") String categoryIdStr,
-			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
 			Model model) {
-		if (!Common.isParceInt(libraryIdStr)) {
-			return "redirects:/librarian/home";
-		}
 		if (!Common.isParceInt(categoryIdStr)) {
 			return "redirects:/librarian/home";
 		}
-		Integer libraryId = Integer.parseInt(libraryIdStr);
 		Integer categoryId = Integer.parseInt(categoryIdStr);
 
 		CategoryDataForm categoryDataForm = new CategoryDataForm();
@@ -140,7 +111,6 @@ public class CategoryController {
 
 		librarianService.forCategoryId(model, categoryId);
 		librarianService.forLibraryList(model);
-		librarianService.forLibraryId(model, libraryId);
 		return "categoryDataAdd";
 	}
 
@@ -165,22 +135,17 @@ public class CategoryController {
 		librarianService.forCategoryId(model, categoryId);
 		librarianService.forLibraryList(model);
 		librarianService.forLibraryId(model, libraryId);
-		return "redirect:/librarian/categories/{id}";
+		return "categoryEdit";
 	}
 
 	//カテゴリデータ一覧画面
 	@GetMapping("/librarian/categories/{id}/datalist")
 	public String categoryDataList(
 			@PathVariable("id") String categoryIdStr,
-			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
 			Model model) {
-		if (!Common.isParceInt(libraryIdStr)) {
-			return "redirects:/librarian/home";
-		}
 		if (!Common.isParceInt(categoryIdStr)) {
 			return "redirects:/librarian/home";
 		}
-		Integer libraryId = Integer.parseInt(libraryIdStr);
 		Integer categoryId = Integer.parseInt(categoryIdStr);
 
 		categoryService.forCategoryDataList(model, categoryId);
@@ -188,7 +153,6 @@ public class CategoryController {
 		librarianService.forCategoryList(model);
 		librarianService.forCategoryId(model, categoryId);
 		librarianService.forLibraryList(model);
-		librarianService.forLibraryId(model, libraryId);
 		return "categoryDataList";
 	}
 
@@ -197,19 +161,14 @@ public class CategoryController {
 	public String categoryDataDetail(
 			@PathVariable("categoryId") String categoryIdStr,
 			@PathVariable("id") String anyIdStr,
-			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
 			Model model) {
 
-		if (!Common.isParceInt(libraryIdStr)) {
-			return "redirects:/librarian/home";
-		}
 		if (!Common.isParceInt(anyIdStr)) {
 			return "redirects:/librarian/home";
 		}
 		if (!Common.isParceInt(categoryIdStr)) {
 			return "redirects:/librarian/home";
 		}
-		Integer libraryId = Integer.parseInt(libraryIdStr);
 		Integer anyId = Integer.parseInt(anyIdStr);
 		Integer categoryId = Integer.parseInt(categoryIdStr);
 
@@ -218,7 +177,6 @@ public class CategoryController {
 
 		librarianService.forCategoryId(model, categoryId);
 		librarianService.forLibraryList(model);
-		librarianService.forLibraryId(model, libraryId);
 		return "categoryDataEdit";
 	}
 
@@ -227,7 +185,6 @@ public class CategoryController {
 	public String categoryDataEdit(
 			@PathVariable("categoryId") String categoryIdStr,
 			@PathVariable("id") String anyIdStr,
-			@RequestParam(name = "libraryId", defaultValue = "1") String libraryIdStr,
 			@ModelAttribute("objectBook") Book book,
 			@ModelAttribute("objectCD") CD cd,
 			@ModelAttribute("objectDVD") DVD dvd,
@@ -235,16 +192,12 @@ public class CategoryController {
 			@ModelAttribute("objectRoom") Room room,
 			Model model) {
 
-		if (!Common.isParceInt(libraryIdStr)) {
-			return "redirects:/librarian/home";
-		}
 		if (!Common.isParceInt(anyIdStr)) {
 			return "redirects:/librarian/home";
 		}
 		if (!Common.isParceInt(categoryIdStr)) {
 			return "redirects:/librarian/home";
 		}
-		Integer libraryId = Integer.parseInt(libraryIdStr);
 		Integer anyId = Integer.parseInt(anyIdStr);
 		Integer categoryId = Integer.parseInt(categoryIdStr);
 
@@ -256,7 +209,6 @@ public class CategoryController {
 
 		librarianService.forCategoryId(model, categoryId);
 		librarianService.forLibraryList(model);
-		librarianService.forLibraryId(model, libraryId);
 		return "categoryDataEdit";
 	}
 
