@@ -10,7 +10,7 @@
 <body>
 	<div class="text-center">
 		<header th:replace="adminHeader"></header>
-		<sidebar th:replace="librarianSidebar"></sidebar>
+		<div th:replace="suSideBar"></div>
 
 		<th:block th:if="${categoryId} == 1">
 			<form th:action="@{/librarian/categories/{categoryId}/data(categoryId = ${categoryId})}"
