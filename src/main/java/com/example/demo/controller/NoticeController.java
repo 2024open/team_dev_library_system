@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Notice;
 import com.example.demo.model.SuperUser;
@@ -24,19 +23,9 @@ public class NoticeController
     
     //お知らせ一覧表示
     @GetMapping("/notice")
-    public String index(
-            @RequestParam(value = "noticeId", defaultValue = "") Integer noticeId,
-            Model model) 
-    {
-        //お知らせ一覧を取得
-    	//TODO LibraryId取りたい
-        List<Notice> noticeList = noticeRepository.findByUserIdAndLibraryId(2,1);
-        
-        Integer userId = user.getUserId();
-        
-        model.addAttribute("userId", userId);
-        
-        model.addAttribute("noticeList", noticeList);
+    public String index(Model model) {
+    		List<Notice> noticeList = noticeRepository.findAll();
+    		model.addAttribute("notices", noticeList);
         return "notice";
     }
     //お知らせ詳細表示

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>お知らせ詳細画面だYo!!</title>
-<link rel="stylesheet" type="text/css" href="/css/Measures.css">
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <!--	TODO選択できるだけ-->
@@ -16,18 +16,22 @@
     <div class="noticeDetailCenter">
 		<h1>お知らせ詳細</h1>
 		<tr>
+        	<div class="text-center">
         	<div class="border">
+				
 				<th>日付：</th>
 				<!--"${#temporals.format(～～～,'yyyy/MM/dd')}"日付を(2024/01/01)の形にする-->
 				<td th:text="${#temporals.format(notice.noticeDate,'yyyy/MM/dd')}"></td><br>
 				<th>タイトル：</th>
 				<td th:text="${notice.title}"></td>
 		</tr>
-				<div class="detailBorder">
+				<div class="border">
 					<p th:text="${notice.content}"></p>
 				</div>
     		</div>
 				<br><a href="/notice">戻る</a>
-    </div>
+   </div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
 	</body>
 </html>
