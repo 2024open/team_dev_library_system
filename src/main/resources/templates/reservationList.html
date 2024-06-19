@@ -4,6 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>名古屋図書館</title>
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -11,7 +12,7 @@
 <div class="text-center">
 <div class="mx-auto" style="width: 600px;">
 	<form action="/reservation" method="get">
-		<select name="category" onchange="submit(this.form)">
+		<select class="form-select" name="category" onchange="submit(this.form)">
 			<option value="">カテゴリ</option>
 			<option class="category" value="1">本</option>
 			<option class="category" value="2">CD</option>
@@ -22,8 +23,8 @@
 	</form>
 	<h2 th:text="${titleMsg}"></h2>
 	<h2 th:if="${reservation.size() ==0}" style="color: red;">データが存在しません</h2>
-	<table border="1" th:if="${category != 5 AND reservation.size() !=0}">
-		<tr>
+	<table border="1" class="table" th:if="${category != 5 AND reservation.size() !=0}">
+		<tr class="table-primary">
 			<th>カテゴリー</th>
 			<th>タイトル</th>
 			<th>予約日</th>
@@ -42,8 +43,8 @@
 		</tr>
 	</table>
 
-	<table border="1" th:if="${category == 5 AND reservation.size() !=0}">
-		<tr>
+	<table border="1" class="table" th:if="${category == 5 AND reservation.size() !=0}">
+		<tr scope="col" class="table-primary">
 			<th>カテゴリー</th>
 			<th>タイトル</th>
 			<th>予約日</th>
