@@ -11,11 +11,11 @@
 	<header th:replace ="adminHeader"></header>
 	<div th:replace="suSideBar"></div>
 		<div class="text-center">
-
+<div class="mx-auto" style="width: 400px;">
 	<h1>貸出処理</h1>
 	
 	<p th:if="${errorMsg}">[[${errorMsg}]]</p>
-
+	
 <!--	ID検索-->
 	<form action="/librarian/lendProcess" method="get">
 		<div class="form-group">
@@ -37,11 +37,12 @@
 		
 		<div class="form-group">
 			<input type="text" name="keyword" th:value="${keyword}" class="form-control" placeholder="キーワード検索">
-		</div>
+		
 
 		<button class="btn btn-primary">キーワード検索</button>
 	</form>
-	
+	</div>
+	</div>
 	<th:block th:if="${lendItem}">
 		
 		<form 
