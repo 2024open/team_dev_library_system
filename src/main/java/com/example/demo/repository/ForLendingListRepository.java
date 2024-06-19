@@ -10,7 +10,7 @@ import com.example.demo.entity.ForLendingList;
 
 public interface ForLendingListRepository extends JpaRepository<ForLendingList, Integer> {
 	//貸出中一覧 status_id = 2
-	static String sqlForLendingList = "SELECT lending_item.return_date, lending_item.borrowed_date, lending_item.status_id, "
+	static String sqlForLendingList = "SELECT lending_item.lending_item_id, lending_item.return_date, lending_item.borrowed_date, lending_item.status_id, "
 			+ "x.* , "
 			+ "c.category_name "
 			+ "FROM lending_item "
