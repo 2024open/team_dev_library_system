@@ -49,6 +49,7 @@ public class AdminController {
 	@Autowired
 	LendItemAddService lendItemAddService;
 
+	//リポジトリ
 	@Autowired
 	AccountRepository accountRepository;
 
