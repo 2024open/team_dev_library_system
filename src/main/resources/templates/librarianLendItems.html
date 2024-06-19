@@ -11,8 +11,9 @@
 	<div th:replace="suSideBar"></div>
 	
 	<div th:replace="lendItemAddBar"></div>
-	<div class="text-center">
-		
+
+		<div class="text-center">
+<div class="mx-auto" style="width: 400px;">
 <!--	formからhiddenのlibraryIdを消した-->
 	<form action="/librarian/lenditems" th:object="${category}" method="get">
 		<select th:field="*{categoryId}">

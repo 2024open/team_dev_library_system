@@ -8,9 +8,12 @@
 </head>
 
 <body>
-	<div class="text-center">
+	
 		<header th:replace="suHeader"></header>
 		<sidebar th:replace="librarianSidebar"></sidebar>
+		
+		<div class="text-center">
+<div class="mx-auto" style="width: 600px;">
 		<h1>お知らせ更新</h1>
 		<form th:action="@{/librarian/notice/{noticeId}/edit(noticeId=${notice.noticeId})}" method="post">
 			<table border="1" class="table">
