@@ -10,9 +10,9 @@
 	<header th:replace ="adminHeader"></header>
 	<div th:replace="suSideBar"></div>
 	
-	<div th:replace="lendItemAddBar"></div>
 
 		<div class="text-center">
+	<div th:replace="lendItemAddBar"></div>
 <div class="mx-auto" style="width: 400px;">
 <!--	formからhiddenのlibraryIdを消した-->
 	<form action="/librarian/lenditems" th:object="${category}" method="get">
@@ -24,13 +24,13 @@
 	</form>
 	
 	<th:block th:if="${LendJoinAny}">
-		<table border="1" class="table">
+		<table border="1" class="table" style="width: 525px;">
 			<tr class="table-primary">
 				<th>ID</th>
-				<th>カテゴリ</th>
-				<th>タイトル</th>
-				<th>状態</th>
-				<th>編集</th>
+				<th style="width: 100px;">カテゴリ</th>
+				<th style="width: 250px;">タイトル</th>
+				<th style="width: 75px;">状態</th>
+				<th style="width: 100px;">編集</th>
 			</tr>
 			<tr th:each="LendItem : ${LendJoinAny}">
 				<td>[[${LendItem.lendItemId}]]</td>
